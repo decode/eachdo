@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Eachfund::Application.config.secret_key_base = '63ef18690451c22aa3622d8e4dc75786dc335fef4f7fe0c5dab39263fdf4ea3feec6ec333f5e304ed427cd629f0074df536514d71992b75cebb5ee805883b8bf'
+Eachfund::Application.config.secret_key_base = 'ba7e7502e0faedd10709b616dec2db58f6eea1d5f3335f7592ceb420699409af510c4f77071df440c4cc6ed51e2b8b6fc29194ae11dbd03a8a63ce81d42f3d3f'
