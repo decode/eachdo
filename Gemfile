@@ -19,6 +19,11 @@ gem 'simple_form'
 gem 'slim'
 gem 'therubyracer', :platform=>:ruby
 gem 'zurb-foundation'
+gem 'omniauth-weibo-oauth2'
+gem 'weibo2'
+gem 'oauth'
+gem 'oauth_china'
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]

@@ -27,6 +27,8 @@ Eachfund::Application.configure do
   # number of complex assets.
   config.assets.debug = true
 
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+
   config.action_mailer.smtp_settings = {
     address: "smtp.sendgrid.net",
     port: 25,
@@ -37,5 +39,11 @@ Eachfund::Application.configure do
   }
   # Send email in development mode.
   config.action_mailer.perform_deliveries = true
+
+  # Setting for authentication of sns
+  SERVICES = YAML.load_file(Rails.root.join("config", "service.yml")).fetch(Rails.env)
+  Weibo2::Config.api_key = SERVICES['weibo']['api_key']
+  Weibo2::Config.api_secret = SERVICES['weibo']['api_secret']
+  Weibo2::Config.redirect_uri = SERVICES['weibo']['redirect_uri']
 
 end
