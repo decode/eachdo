@@ -18,11 +18,15 @@ gem 'sendgrid'
 gem 'simple_form'
 gem 'slim'
 gem 'therubyracer', :platform=>:ruby
-gem 'zurb-foundation'
+gem 'foundation-rails'
+
+# For sns login
 gem 'omniauth-weibo-oauth2'
 gem 'weibo2'
 gem 'oauth'
 gem 'oauth_china'
+# For user custom message
+gem 'mailboxer'
 
 group :development do
   gem 'better_errors'

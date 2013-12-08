@@ -22,7 +22,7 @@ class HomeController < ApplicationController
           #puts response.parsed[:created_at]
           set_flash_message(:notice, 'Post success!')
         rescue Exception => e
-          set_flash_message(:alert, e.description)
+          #set_flash_message(:alert, e)
         end
 
       end

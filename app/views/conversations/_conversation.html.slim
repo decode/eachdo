@@ -1,0 +1,20 @@
+/= content_tag_for(:li, conversation) do |conversation|
+  .panel
+
+tr
+  td
+    - sender = conversation.messages.first.sender
+    - if sender == current_user
+      - receiver = conversation.receipts_for(current_user).first.receiver
+      = "To:" + receiver.name + "[#{receiver.email}]"
+    - else
+      = sender.name + "[#{sender.email}]"
+  td
+    = link_to conversation.subject, conversation
+  td
+    - if conversation.is_completely_trashed?(current_user)
+      = link_to 'Untrash', [:untrash, conversation], method: :post
+      |  
+      = link_to 'Delete', [:mark_as_deleted, conversation], method: :post
+    - else
+      = link_to 'Move to trash', [:trash, conversation], method: :post

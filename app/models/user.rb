@@ -7,4 +7,8 @@ class User < ActiveRecord::Base
          :omniauthable, omniauth_providers: [:weibo]
 
   has_many :authentications
+
+  acts_as_messageable
+
+  validates :name, presence: true
 end
