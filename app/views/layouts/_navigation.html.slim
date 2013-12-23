@@ -22,7 +22,8 @@ nav.top-bar(data-options="is_hover:false" data-topbar)
           - else
             = link_to "Messages"
           ul.dropdown
-            li = link_to "View: " + current_user.mailbox.inbox.length.to_s, current_user.mailbox.inbox.first
+            li = link_to "View: " + current_user.mailbox.inbox.length.to_s, conversations_path
+            /current_user.mailbox.inbox.first
             li = link_to "Send to...", :new_conversation
         li.has-dropdown
           - if current_user.name and current_user.authentications.length > 0

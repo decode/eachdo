@@ -12,5 +12,8 @@ Eachfund::Application.routes.draw do
       post :mark_as_deleted
       get  :filter
     end
+    collection do
+      delete 'destroy_multiple'
+    end
   end
 end

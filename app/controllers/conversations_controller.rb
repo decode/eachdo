@@ -11,6 +11,19 @@ class ConversationsController < ApplicationController
     conversation.mark_as_read current_user
   end
 
+  def destroy_multiple
+    #Conversations.destroy(params[:conversations])
+    conversations = mailbox.conversations.find(params[:conversations])
+    conversations.each do |c|
+      c.mark_as_deleted current_user
+    end
+
+    respond_to do |format|
+      format.html { redirect_to conversations_path }
+      format.json { head :no_content }
+    end
+  end
+
   def create
     recipient_emails = conversation_params(:recipients).split(',')
     recipients = User.where(email: recipient_emails).all

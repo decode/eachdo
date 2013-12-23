@@ -9,6 +9,7 @@
     dl.sub-nav
       dt Mailbox:
       - css = session[:filter]=='inbox' ? 'active':''
+      - css = 'active' if session[:filter] == nil
       dd class=css
         = link_to 'Inbox', :action=>:filter, :id=>'inbox'
       - css = session[:filter]=='sent' ? 'active':''
@@ -17,18 +18,19 @@
       - css = session[:filter]=='trash' ? 'active':''
       dd class=css
         = link_to 'Trash', :action=>:filter, :id=>'trash'
-    table
-      tbody
-        - case session[:filter]
-        - when 'inbox' then
-          = render(mailbox.inbox)
-        - when 'sent' then
-          = render(mailbox.sentbox)
-        - when 'trash' then
-          = render(mailbox.trash)
-        - else
-          = render(mailbox.inbox)
+
+    - case session[:filter]
+    - when 'sent' then
+      - if mailbox.sentbox.length == 0
+        p No content
+      = render(mailbox.sentbox)
+    - when 'trash' then
+      - if mailbox.trash.length == 0
+        p No content
+      = render(mailbox.trash)
+    //- when 'inbox' then
+    - else
+      - if mailbox.inbox.length == 0
+        p No content
+      = render(mailbox.inbox)
   .small-3.large-3.columns
-
-
-
