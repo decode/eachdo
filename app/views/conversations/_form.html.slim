@@ -1,9 +1,13 @@
 = simple_form_for :conversation, url: :conversations, :html=>{'data-abide'=>''} do |f|
   = f.error_notification
-  = f.input :recipients, :required => true, :input_html=>{'required'=>''}
-  small.error Recipients is null
+
+  - user = User.find session[:send_to]
+  h2 Send to: #{user.name}
+  = f.hidden_field :recipients, :value => user.email
+
   = f.input :subject, :required => true, :input_html=>{'required'=>''}
   small.error Subject is null
+
   = f.input :body, :required => true, :input_html=>{'required'=>''}
   small.error Message content is null
 

@@ -1,8 +1,15 @@
-h3 User
-p
-  | User: #{@user.name}
-p
-  | Email: #{@user.email if @user.email}
-P
-  | Role: #{@user.roles.each do |r| r.name end}
+.clearfix
+  h2.left User Information
+  = link_to "Send Message to him/her", {:controller=>:conversations, :action => 'new', :id => @user.id}, :class=>'button tiny'
+  .right
+    = link_to "Add friend", :new_conversation, :class=>'button medium'
+.row
+  .small-4.columns
+    p
+      | User: #{@user.name}
+    p
+      | Email: #{@user.email if @user.email}
+  .small-8.columns
+    P
+      | Role: #{@user.roles.each do |r| r.name end}
 

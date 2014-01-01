@@ -24,6 +24,15 @@ class ConversationsController < ApplicationController
     end
   end
 
+  def new
+    unless params[:id].nil? and User.find(params[:id]).nil?
+        session[:send_to] = params[:id]
+    else
+      session[:send_to] = nil
+      redirect_to :back
+    end
+  end
+
   def create
     recipient_emails = conversation_params(:recipients).split(',')
     recipients = User.where(email: recipient_emails).all
@@ -34,7 +43,7 @@ class ConversationsController < ApplicationController
       redirect_to conversation
     else
       flash[:error]= 'Message sent failed'
-      redirect_to :new_conversation
+      redirect_to :back
     end
 
   end
