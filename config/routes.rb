@@ -1,6 +1,13 @@
 Eachfund::Application.routes.draw do
+
+  resources :friendships do
+    member do
+    end
+  end
+
+  get ':controller/:action/:id'
+
   root :to => "home#index"
-  #devise_for :users, :controllers => {:registrations => "registrations"}
   devise_for :users, :controllers => {:registrations => "registrations", :omniauth_callbacks => "authentications"}
   resources :users
   resources :messages

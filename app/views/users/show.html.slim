@@ -2,7 +2,8 @@
   h2.left User Information
   = link_to "Send Message to him/her", {:controller=>:conversations, :action => 'new', :id => @user.id}, :class=>'button tiny'
   .right
-    = link_to "Add friend", :new_conversation, :class=>'button medium'
+    - unless current_user.has_friend? @user
+      = link_to "Add friend", :controller=>:friendships, :action=> 'add_friend', :id=>@user.id, :class=>'button medium'
 .row
   .small-4.columns
     p
