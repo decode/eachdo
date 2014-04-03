@@ -1,9 +1,7 @@
 Eachfund::Application.routes.draw do
 
-  resources :friendships do
-    member do
-    end
-  end
+  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+  resources :friendships 
 
   get ':controller/:action/:id'
 

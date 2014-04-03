@@ -1,9 +1,12 @@
 .clearfix
   h2.left User Information
-  = link_to "Send Message to him/her", {:controller=>:conversations, :action => 'new', :id => @user.id}, :class=>'button tiny'
   .right
-    - unless current_user.has_friend? @user
-      = link_to "Add friend", :controller=>:friendships, :action=> 'add_friend', :id=>@user.id, :class=>'button medium'
+    - if Friendship.is_friend?(current_user, @user)
+      = link_to "Send Message", {:controller=>:conversations, :action => 'new', :id => @user.id}
+      ||
+    - unless Friendship.exists? current_user, @user
+      = link_to "Request friendship", { :controller => "friendships", :action => "request_friend", :id => @user}, data: {confirm: "Send friend request to #{@user.name}?"}
+
 .row
   .small-4.columns
     p
@@ -12,5 +15,9 @@
       | Email: #{@user.email if @user.email}
   .small-8.columns
     P
-      | Role: #{@user.roles.each do |r| r.name end}
+      | Role: 
+      = @user.roles.collect { |r| r.name }.join(' ')
 
+.row
+  .small-12.columns
+    = render :partial => "friendships/friends"

@@ -1,0 +1,26 @@
+.row
+  .small-4.columns
+    = pluralize(@user.friends.count, " friend")
+    hr
+    - @user.friends.each do |friend|
+      = link_to friend.name
+      .right
+        = link_to "Delete", { :controller => "friendships", :action => "delete", :id => friend }, data: {confirm: "Really delete friendship with #{friend.name}?"}
+
+  .small-4.columns
+    = pluralize(@user.pending_friends.count, " pending friend")
+    hr
+    - @user.pending_friends.each do |pending_friend|
+      = link_to pending_friend.name
+      .right
+        = link_to "Cancel", { :controller => "friendships", :action => "cancel", :id => pending_friend}, data: {confirm: "Cancel friendship request?"}
+
+  .small-4.columns
+    = pluralize(@user.requested_friends.count, " requested friend")
+    hr
+    - @user.requested_friends.each do |requester|
+      = link_to requester.name
+      .right
+        = link_to "Accept", {:controller => "friendships", :action => "accept", :id => requester}
+        ||
+        = link_to "Decline", { :controller => "friendships", :action => "decline", :id => requester }, data: {confirm: "Really decline friendship with #{requester.name}?"}

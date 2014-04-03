@@ -13,18 +13,29 @@ class User < ActiveRecord::Base
   validates :name, presence: true
 
   has_many :friendships
-  has_many :friends, :through => :friendships, :source => :user
+  has_many :friends,
+    -> { where(friendships: {status: 'accepted'}).order(:name)},
+    through: :friendships
+  has_many :requested_friends,
+    -> { where(friendships: {status: 'requested'}).order(:created_at)},
+    through: :friendships,
+    source: :friend
+  has_many :pending_friends,
+    -> { where(friendships: {status: 'pending'}).order(:created_at)},
+    through: :friendships,
+    source: :friend
 
-  # Todo
-  def has_friend?(user)
-    friends = Friendship.where("user_id=? and friend_id=?", self.id, user.id)
-    return friends.length > 0
-  end
+  #has_and_belongs_to_many :friends,
+    #after_add: :create_complement_friendship,
+    #after_remove: :remove_complement_friendship
 
-  def add_friend(user)
-    Friendship.find_or_create_by(user_id: self.id, friend_id: user.id)
-  end
+  #private
+  #def create_complement_friendship(friend)
+    #friend.friends << self unless friend.friends.include?(self)
+  #end
 
-  def mutual_friend
-  end
+  #def remove_complement_friendship(friend)
+    #friend.friends.delete(self)
+  #end
+
 end

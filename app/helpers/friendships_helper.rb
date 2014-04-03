@@ -1,2 +1,15 @@
 module FriendshipsHelper
+  # Return an appropriate friendship status message.
+  def friendship_status(user, friend)
+    friendship = Friendship.find_by user_id: user, friend_id: friend
+    return "#{friend.name} is not your friend (yet)." if friendship.nil?
+    case friendship.status
+    when 'requested'
+      "#{friend.name} would like to be your friend."
+    when 'pending'
+      "You have requested friendship from #{friend.name}."
+    when 'accepted'
+      "#{friend.name} is your friend."
+    end
+  end
 end
