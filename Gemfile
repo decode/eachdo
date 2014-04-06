@@ -9,6 +9,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'cancancan', '~> 1.7'
+#gem 'pundit'
 gem 'compass-rails'#, '~> 2.0.alpha.0'
 gem 'devise'
 gem 'devise_invitable'
@@ -27,13 +28,15 @@ gem 'oauth'
 gem 'oauth_china'
 # For user custom message
 gem 'mailboxer'
+# For upload picture
+gem 'carrierwave'
 
 gem 'state_machine'
 
 #gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'rails_admin'
 
-gem 'rmagick', :require=>false
+#gem 'rmagick', :require=>false
 
 group :development do
   gem 'better_errors'

@@ -1,10 +1,10 @@
-class FriendshipsController < InheritedResources::Base
+class FriendshipsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :setup_friends, except: :index
+  before_filter :setup_friends#, except: :index
 
-  def index
-    @friendships = current_user.friendships
-  end
+  #def index
+    #@friendships = current_user.friendships
+  #end
 
   # Send a friend request.
   def request_friend
@@ -62,7 +62,7 @@ class FriendshipsController < InheritedResources::Base
 
   private
   def setup_friends
-    @user = current_user #User.find(session[:user_id])
+    @user = current_user
     @friend = User.find(params[:id])
   end
 

@@ -2,6 +2,7 @@ h3 Home
 - @users.each do |user|
   p
     | User: #{link_to user.name, user}
+    ||
     | #{user.email}
 
 - if user_signed_in?
