@@ -5,7 +5,7 @@ Eachfund::Application.routes.draw do
   devise_for :users, :controllers => {:registrations => "registrations", :omniauth_callbacks => "authentications"}
   resources :users
   resources :messages
-  resources :friendships 
+  #resources :friendships 
   resources :conversations, only: [:index, :show, :new, :create] do
     member do
       post :reply

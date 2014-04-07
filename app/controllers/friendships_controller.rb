@@ -1,6 +1,6 @@
 class FriendshipsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :setup_friends#, except: :index
+  before_filter :setup_friends, except: :index
 
   #def index
     #@friendships = current_user.friendships
