@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140331152123) do
+ActiveRecord::Schema.define(version: 20140406034936) do
 
   create_table "authentications", force: true do |t|
     t.integer  "user_id",      null: false
@@ -107,6 +107,7 @@ ActiveRecord::Schema.define(version: 20140331152123) do
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
+    t.string   "avatar"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

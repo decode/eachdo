@@ -1,7 +1,6 @@
 Eachfund::Application.routes.draw do
 
   root "home#index"
-  get ':controller/:action/:id'
 
   devise_for :users, :controllers => {:registrations => "registrations", :omniauth_callbacks => "authentications"}
   resources :users
@@ -21,4 +20,6 @@ Eachfund::Application.routes.draw do
   end
 
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+
+  get ':controller/:action/:id'
 end

@@ -1,15 +1,50 @@
-h2
-  | Edit #{resource_name.to_s.humanize}
-= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-vertical' }) do |f|
+.row
+  .small-12.columns
+    h2
+      | Edit #{resource_name.to_s.humanize}
+      .right
+        = link_to "Back", :back
+
+= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :multipart => true, :id => "fileupload" }) do |f|
   = f.error_notification
   = display_base_errors resource
-  = f.input :name, :autofocus => true
-  = f.input :email, :required => true
-  = f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false
-  = f.input :password_confirmation, :required => false
-  = f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true
-  = f.button :submit, 'Update', :class => 'btn-primary'
+  .row
+    .small-8.columns
+      = f.input :name
+      = f.input :email, :required => true
+      = f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false
+      = f.input :password_confirmation, :required => false
+      = f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true
+
+    .small-4.columns
+      = image_tag @user.avatar.url, size: "200x200"
+      = f.label :avatar do
+        = f.file_field :avatar
+        = f.hidden_field :avatar_cache
+
+      label
+        = f.check_box :remove_avatar
+        = 'Remove avatar'
+  .row
+    .small-12.columns
+      = f.button :submit, 'Update', :class => 'btn-primary'
+
+hr
 h3 Cancel my account
 p
   | Unhappy? #{link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete}.
-= link_to "Back", :back
+
+
+script src="http://malsup.github.com/jquery.form.js"
+javascript:
+  $('#user_avatar').change(function(){
+    $(this).closest('form').ajaxSubmit({
+      beforeSubmit: function(a,f,o) {
+        o.dataType = 'json';
+      },
+      complete: function(XMLHttpRequest, textStatus) {
+        location.reload();
+      },
+    });
+  });
+

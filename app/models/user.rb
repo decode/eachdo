@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:weibo]
 
+  mount_uploader :avatar, AvatarUploader
+
   has_many :authentications
 
   acts_as_messageable
@@ -24,18 +26,5 @@ class User < ActiveRecord::Base
     -> { where(friendships: {status: 'pending'}).order(:created_at)},
     through: :friendships,
     source: :friend
-
-  #has_and_belongs_to_many :friends,
-    #after_add: :create_complement_friendship,
-    #after_remove: :remove_complement_friendship
-
-  #private
-  #def create_complement_friendship(friend)
-    #friend.friends << self unless friend.friends.include?(self)
-  #end
-
-  #def remove_complement_friendship(friend)
-    #friend.friends.delete(self)
-  #end
 
 end
