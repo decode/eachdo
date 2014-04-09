@@ -27,4 +27,6 @@ class User < ActiveRecord::Base
     through: :friendships,
     source: :friend
 
+  has_many :albums
+
 end

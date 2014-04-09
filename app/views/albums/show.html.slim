@@ -1,0 +1,19 @@
+p#notice= notice
+
+p
+  b Title:
+  = @album.title
+  b User:
+  = @album.user.name
+p
+  b Description:
+  = @album.description
+p
+  ul.small-block-grid-3.medium-block-grid-4.large-block-grid-6
+    - @album.photos.each do |photo|
+      li
+        = link_to(image_tag(photo.image.url), photo_path(photo), class:'th')
+
+= link_to 'Edit', edit_album_path(@album)
+||
+= link_to 'Back', albums_path

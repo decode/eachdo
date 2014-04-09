@@ -9,8 +9,16 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require jquery.fileupload-ui
  //= require foundation_and_overrides
 
  *= require_tree .
  */
 /*= require foundation */
+
+
+// upload process bar
+.bar {
+    height: 18px;
+    background: green;
+}

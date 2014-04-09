@@ -13,7 +13,7 @@ gem 'compass-rails'#, '~> 2.0.alpha.0'
 gem 'figaro'
 gem 'sendgrid'
 gem 'simple_form'
-gem 'slim'
+gem 'slim-rails'
 gem 'therubyracer', :platform=>:ruby
 gem 'foundation-rails'
 
@@ -36,6 +36,7 @@ gem 'mailboxer'
 gem 'carrierwave'
 #gem 'remotipart', '~> 1.2'
 gem 'jquery.fileupload-rails'
+gem 'mini_magick'
 
 gem 'state_machine'
 

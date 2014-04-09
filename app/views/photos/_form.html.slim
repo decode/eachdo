@@ -1,0 +1,28 @@
+= simple_form_for(@photo, html: {multipart: true, id:'photoupload'}) do |f|
+  = f.error_notification
+
+  .row
+    .small-8.large-8.columns
+      = f.file_field :image, required: true
+      #file-upload-progress
+        #progress
+          .bar[style="width: 0%;"]
+      = image_tag @photo.image.url, id:'origin_photo'
+      label
+        = f.check_box :remove_image
+        = 'Remove image'
+
+      /
+        #preview.row
+          .media.hide
+            a class="pull-left" href="#"
+              img class="media-object" data-src="holder.js/64x64" src="" alt=""
+            .media-body
+              h4.media-heading
+              a href="#" class="btn btn-danger delete" role="button" Delete
+
+    .small-4.large-4.columns
+      = f.association :album, include_blank: false, required: true
+      = f.input :title
+      = f.input :description
+      = f.button :submit

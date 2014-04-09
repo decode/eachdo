@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140406034936) do
+ActiveRecord::Schema.define(version: 20140407090922) do
+
+  create_table "albums", force: true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "albums", ["user_id"], name: "index_albums_on_user_id"
 
   create_table "authentications", force: true do |t|
     t.integer  "user_id",      null: false
@@ -56,6 +66,17 @@ ActiveRecord::Schema.define(version: 20140406034936) do
   end
 
   add_index "notifications", ["conversation_id"], name: "index_notifications_on_conversation_id"
+
+  create_table "photos", force: true do |t|
+    t.integer  "album_id"
+    t.string   "title"
+    t.string   "image"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "photos", ["album_id"], name: "index_photos_on_album_id"
 
   create_table "receipts", force: true do |t|
     t.integer  "receiver_id"
