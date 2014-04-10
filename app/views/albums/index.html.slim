@@ -6,8 +6,8 @@ h3
 table
   tr
     th Title
+    th Photos
     th Description
-    th User
     th
     th
     th
@@ -15,8 +15,8 @@ table
   - @albums.each do |album|
     tr
       td= album.title
+      td= album.photos.count
       td= album.description
-      td= album.user.name
       td= link_to 'Show', album
       td= link_to 'Edit', edit_album_path(album)
       td= link_to 'Destroy', album, method: :delete, data: {confirm: 'Are you sure?'}

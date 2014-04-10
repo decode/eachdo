@@ -1,4 +1,4 @@
-= simple_form_for(@album, html: {multipart: true, id: 'photoupload'}) do |f|
+= simple_form_for(@album, remote: true, authenticity_token: true, html: {multipart: true, id: 'photoupload'}) do |f|
   = f.error_notification
 
   .row

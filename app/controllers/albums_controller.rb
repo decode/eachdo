@@ -35,7 +35,7 @@ class AlbumsController < ApplicationController
             @album.photos.create(image: image)
           end
         end
-        format.html { redirect_to @album, notice: 'Album was successfully created.' }
+        format.html { redirect_to edit_album_path(@album), notice: 'Album was successfully created.' }
         format.json { render action: 'show', status: :created, location: @album }
       else
         format.html { render action: 'new' }
@@ -55,7 +55,8 @@ class AlbumsController < ApplicationController
           end
         end
         format.html { redirect_to edit_album_path(@album), notice: 'Album was successfully updated.' }
-        format.json { head :no_content }
+        #format.json { head :no_content }
+        format.json { render action: 'edit', status: :created, location: @album }
       else
         format.html { render action: 'edit' }
         format.json { render json: @album.errors, status: :unprocessable_entity }
