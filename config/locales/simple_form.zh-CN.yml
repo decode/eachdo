@@ -1,0 +1,56 @@
+'zh-CN':
+  simple_form:
+    "yes": '是'
+    "no": '否'
+    required:
+      text: '必填'
+      mark: '*'
+      # You can uncomment the line below if you need to overwrite the whole required html.
+      # When using html, text and mark won't be used.
+      # html: '<abbr title="required">*</abbr>'
+    error_notification:
+      default_message: "请检查以下问题:"
+    # Labels and hints examples
+    labels:
+      defaults:
+        password: '密码'
+        title: '标题'
+        description: '描述'
+        subject: '主题'
+        body: '内容'
+      user:
+        new:
+          name: '用户名'
+          email: '登录邮箱'
+          password_confirmation: '确认密码'
+        edit:
+          name: '用户名'
+          email: '电子邮箱'
+          password_confirmation: '确认密码'
+          current_password: '当前密码'
+        remember_me: '记住登录信息'
+      album:
+        new:
+          title: '标题'
+          description: '描述'
+        edit:
+          title: '标题'
+          description: '描述'
+      photo:
+        new:
+          album: '相册'
+          title: '标题'
+          description: '描述'
+        edit:
+          album: '相册'
+          title: '标题'
+          description: '描述'
+
+    hints:
+      defaults:
+        username: '登录用户名.'
+        password: '不能含有特殊字符.'
+    placeholders:
+      defaults:
+        email: 'your_email@gmail.com'
+        password: '********'

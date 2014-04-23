@@ -1,23 +1,71 @@
-.clearfix
-  h2.left User Information
+h3
+  =t :user_information
   .right
+    = link_to t('edit_account'), edit_user_registration_path if current_user == @user
     - if Friendship.is_friend?(current_user, @user)
-      = link_to "Send Message", {:controller=>:conversations, :action => 'new', :id => @user.id}
       ||
+      = link_to t("send_message"), {:controller=>:conversations, :action => 'new', :id => @user.id}
     - unless Friendship.exists? current_user, @user
-      = link_to "Request friendship", { :controller => "friendships", :action => "request_friend", :id => @user}, data: {confirm: "Send friend request to #{@user.name}?"}
+      ||
+      = link_to t("request_friendship"), { :controller => "friendships", :action => "request_friend", :id => @user}, data: {confirm: t('send_friend_request', user: @user.name) }
 
 .row
   .small-4.columns
-    p
-      | User: #{@user.name}
-    p
-      | Email: #{@user.email if @user.email}
+    .panel
+      p
+        = t(:user_name) + ": #{@user.name}"
+      p
+        = t(:email) + ": #{@user.email if @user.email}"
+    .panel
+      P
+        = t(:role) + ": "
+        = @user.roles.collect { |r| r.name }.join(' ')
   .small-8.columns
-    P
-      | Role: 
-      = @user.roles.collect { |r| r.name }.join(' ')
+    - if current_user == @user
+      - mailbox = current_user.mailbox
+      .panel
+        = t(:inbox) + ": "
+        = link_to mailbox.inbox.length.to_s, mailbox.inbox.first
+        ||
+        = t(:sentbox) + ": "
+        = link_to mailbox.sentbox.length.to_s, mailbox.sentbox.first
+        ||
+        = t(:trash) + ": "
+        = link_to mailbox.trash.length.to_s, mailbox.trash.first
+      .panel
+        = t(:album) + ": "
+        = link_to current_user.albums.length.to_s, albums_path
 
-.row
-  .small-12.columns
-    = render :partial => "friendships/friends"
+
+- if current_user == @user
+  h3=t :friends
+  .row
+    .small-12.columns
+      = render :partial => "friendships/friends"
+
+
+  /
+    .small-12.columns
+      dl[class="tabs" data-tab]
+        dd.active
+          a[href='#tab1']=t(:basic_information)
+        dd
+          a[href='#tab2']=t(:friends)
+        dd
+          a[href='#tab3']=t(:role)
+
+      .tabs-content
+        #tab1.content.active
+          p
+            = t(:user_name) + ": #{@user.name}"
+          p
+            = t(:email) + ": #{@user.email if @user.email}"
+          P
+            = t(:role) + ": "
+            = @user.roles.collect { |r| r.name }.join(' ')
+
+        #tab2.content
+          = render :partial => "friendships/friends"
+
+        #tab3.content
+          = @user.roles.collect { |r| r.name }.join(' ')

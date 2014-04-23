@@ -2,18 +2,25 @@ class RegistrationsController < Devise::RegistrationsController
   before_filter :update_sanitized_params, if: :devise_controller?
 
   def update
-    @user = current_user
-    if params[:user][:password].blank? && params[:user][:password_confirmation].blank? && params[:user][:current_password].blank?
-      params[:user].delete(:password)
-      params[:user].delete(:password_confirmation)
-      params[:user].delete(:current_password)
-    end
+    @user = User.find(current_user.id)
 
-    if @user.update_attributes(user_params)
-      #if @user.update_attributes(params[:user])
-      redirect_to '/users/edit', :notice => "User updated."
+    successfully_updated = if needs_password?(@user, params)
+                             @user.update_with_password(devise_parameter_sanitizer.sanitize(:account_update))
+                           else
+                             # remove the virtual current_password attribute
+                             # update_without_password doesn't know how to ignore it
+                             params[:user].delete(:current_password)
+                             @user.update_without_password(devise_parameter_sanitizer.sanitize(:account_update))
+                           end
+
+    if successfully_updated
+      set_flash_message :notice, :updated
+      # Sign in the user bypassing validation in case his password changed
+      sign_in @user, :bypass => true
+      #redirect_to after_update_path_for(@user)
+      render "edit"
     else
-      redirect_to '/users/edit', :alert => "Unable to update user."
+      render "edit"
     end
   end
 
@@ -24,7 +31,8 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   private  
-  def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :current_password, :avatar, :avatar_cache, :remove_avatar)
+  def needs_password?(user, params)
+    user.email != params[:user][:email] ||
+      params[:user][:password].present?
   end
 end

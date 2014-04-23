@@ -11,7 +11,11 @@
           - @album.photos.each do |photo|
             li
               = link_to(image_tag(photo.image.url), photo_path(photo), class:'th')
-              = link_to 'Remove', photo, method: :delete, data: {conirm: 'Are you sure?'}
+              = link_to t('delete'), photo, method: :delete, data: {conirm: t('confirm')}
 
       .form-actions
         = f.button :submit
+
+
+javascript:
+  $("#photoupload").validate();

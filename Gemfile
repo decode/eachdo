@@ -17,6 +17,15 @@ gem 'slim-rails'
 gem 'therubyracer', :platform=>:ruby
 gem 'foundation-rails'
 
+# Client side validation
+gem 'jquery-validation-rails'
+
+# i18n
+gem 'rails-i18n', '~> 4.0.0'
+gem 'devise-i18n'
+gem 'devise-i18n-views'
+
+
 # Authorization and Authority
 gem 'devise'
 gem 'devise_invitable'

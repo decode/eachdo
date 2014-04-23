@@ -10,7 +10,7 @@
       = image_tag @photo.image.url, id:'origin_photo'
       label
         = f.check_box :remove_image
-        = 'Remove image'
+        = t :remove_image
 
       /
         #preview.row
@@ -26,3 +26,6 @@
       = f.input :title
       = f.input :description
       = f.button :submit
+
+javascript:
+  $("#photoupload").validate();

@@ -1,17 +1,17 @@
 p#notice= notice
 
 p
-  b Album:
+  = t :album
   = @photo.album.title
 p
-  b Title:
+  = t :title
   = @photo.title
 p
-  b Description:
+  = t :description
   = @photo.description
 p
   = image_tag @photo.image.url
 
-= link_to 'Edit', edit_photo_path(@photo)
+= link_to t('edit'), edit_photo_path(@photo)
 ||
-= link_to 'Back', :back
+= link_to t('back'), :back

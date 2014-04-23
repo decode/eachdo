@@ -2,7 +2,7 @@ nav.top-bar(data-options="is_hover:false" data-topbar)
   ul.title-area
     li.name
       h1 
-        a href='/' EachFund
+        a href='/' Eachdo
   div.top-bar-section
     ul.right
       li.has-form
@@ -11,16 +11,18 @@ nav.top-bar(data-options="is_hover:false" data-topbar)
             div.small-8.columns
               input type="text"
             div.small-4.columns
-              a.button href="#" Search
+              a.button href="#"=t(:search)
 
       li.divider
       - if user_signed_in?
         li
-          - if current_user.mailbox.inbox.length > 0
-            = link_to "Messages: " + current_user.mailbox.inbox(:unread => true).count(:id, :distinct => true).to_s, conversations_path
+          = link_to conversations_path do
+            - if current_user.mailbox.inbox.length > 0
+              = image_tag('mail.png') + current_user.mailbox.inbox(:unread => true).count(:id, :distinct => true).to_s
+            - else
+              = image_tag('mail.png')
+
             /current_user.mailbox.inbox.first
-          - else
-            = link_to "Messages", conversations_path
         li.has-dropdown
           - if current_user.name and current_user.authentications.length > 0
             a =current_user.name + "[#{current_user.authentications.first.provider}]"
@@ -28,20 +30,20 @@ nav.top-bar(data-options="is_hover:false" data-topbar)
             a =current_user.name.empty? ? current_user.email : current_user.name
           ul.dropdown
             li
-              = link_to 'Edit account', edit_user_registration_path
+              = link_to t('show_account'), user_path(current_user)
             - if current_user.has_role? :admin
               li
-                = link_to 'Admin', users_path
+                = link_to t('system_admin'), '/admin'
             li
-              = link_to 'Logout', destroy_user_session_path, :method=>'delete'
+              = link_to t('logout'), destroy_user_session_path, :method=>'delete'
       - else
         li.has-dropdown
-          a Login
+          a =t('login')
           ul.dropdown
             li
-              = link_to 'Normal', new_user_session_path
+              = link_to t('normal'), new_user_session_path
             li
-              = link_to 'Weibo', '/users/auth/weibo', class: 'weibo'
+              = link_to t('weibo'), '/users/auth/weibo', class: 'weibo'
         li
-          = link_to 'Sign up', new_user_registration_path
+          = link_to t('signup'), new_user_registration_path
 

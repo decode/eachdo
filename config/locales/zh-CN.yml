@@ -1,0 +1,128 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+'zh-CN':
+  title: 'Base'
+  search: "搜索"
+  login: '登录'
+  normal: '普通登录'
+  weibo: '微博登录'
+  logout: '注销'
+  signup: '注册'
+  forgot_password: '忘记密码?'
+  show_account: "查看帐户"
+  edit_account: '修改帐户'
+  sign_in_with: "使用%{provider}登录"
+  cancel_account: "删除帐户"
+  cancel_my_account: "今后不想再访问网站了?"
+  confirm: "确定要进行此操作?"
+  remove_avatar: "删除头像"
+  system_admin: '系统管理'
+  show: '查看'
+  create: '创建'
+  update: '更新'
+  edit: '编辑'
+  delete: '删除'
+  back: '返回'
+  post: '提交'
+  reply: '回复'
+  reset: "清空"
+  messages: "消息"
+  no_content: "没有内容"
+  send_message: '发消息'
+  untrash: "恢复"
+  move_to_trash: "移动到垃圾箱"
+  mailbox: "信箱:"
+  inbox: "收件箱"
+  sentbox: "已发消息"
+  trash: "垃圾箱"
+  request_friendship: '请求加好友'
+  friends: '好友'
+  friends_request: '好友请求'
+  friends_pending: '待批准好友请求'
+  accept: "接受"
+  breakup: "解除"
+  refuse: "拒绝"
+  decline: "拒绝"
+  revoke: "撤消"
+  send_friend_request: "确定发送和用户%{user}的好友请求吗?"
+  delete_user_friendship: "确定解除和用户%{user}的好友关系?"
+  decline_user_request: "确定拒绝用户%{user}的好友申请吗?"
+  cancel_friend_request: "撤消好友申请?"
+
+  conversation: "会话"
+  start_conversation: "开始会话"
+  send_to: "发送给"
+  send: "发送"
+  subject_not_null: "主题不应为空"
+  content_not_null: "内容必须填写"
+
+  user: '用户'
+  user_information: '用户信息'
+  basic_information: "基本信息"
+  user_name: '用户名'
+  email: '电子邮箱'
+  role: '用户权限'
+  new_album: '新建相册'
+  list_albums: '相册列表'
+  edit_album: '编辑相册'
+  title: '标题'
+  description: '描述'
+
+  album: '相册'
+  new_photo: '上传照片'
+  remove_image: '删除照片'
+  edit_photo: '编辑照片'
+  photos_count: '共%{count}张照片'
+
+  activerecord:
+    errors:
+      messages:
+        record_invalid: '无效的记录'
+      template:
+        header:
+          one:   "%{model}保存时发生一个错误"
+          other: "%{model}保存时发生%{count}个错误"
+        body:    "以下字段有问题:"
+    models:
+      user: "用户信息"
+      album: "相册"
+      photo: "照片"
+      conversaion: "会话"
+      message: "消息"
+      role: "角色"
+      friendship: "好友关系"
+    attributes:
+      name: "用户名"
+      password: "密码"
+      email: "邮箱"
+      sign_in_count: "登录次数"
+      current_sign_in_at: "当前登录时间"
+      last_sign_in_at: "最后登录时间"
+      current_sign_in_ip: "当前登录IP"
+      last_sign_in_ip: "上次登录IP"
+      
+      title: "标题"
+      photos: "照片"
+      description: "描述"
+
+      subject: "主题"
+      body: "内容"

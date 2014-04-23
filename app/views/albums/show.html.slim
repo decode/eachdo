@@ -1,12 +1,13 @@
 p#notice= notice
 
 p
-  b Title:
-  = @album.title
-  b User:
+  = t :user
   = @album.user.name
 p
-  b Description:
+  = t :title
+  = @album.title
+p
+  = t :description
   = @album.description
 p
   /ul.small-block-grid-3.medium-block-grid-4.large-block-grid-6.clearing-thumbs[data-clearing]
@@ -15,6 +16,6 @@ p
       li
         = link_to(image_tag(photo.image.thumb.url), photo.image.url, class:'th')
 
-= link_to 'Edit', edit_album_path(@album)
+= link_to t('edit'), edit_album_path(@album)
 ||
-= link_to 'Back', albums_path
+= link_to t('back'), albums_path

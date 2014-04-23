@@ -1,5 +1,7 @@
-h1 New album
+h3
+  =t :new_album
+  .right
+    = link_to t('back'), albums_path
 
 = render 'form'
 
-= link_to 'Back', albums_path

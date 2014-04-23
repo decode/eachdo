@@ -1,19 +1,21 @@
 .row
-  .small-10.large-10.columns
-    h2 Conversation: #{conversation.subject}
-    - first_msg = conversation.receipts_for(current_user).first.message
-  .small-2.large-2.columns
-    = link_to 'Back', conversations_path, class: 'button', :style=>"float:right;"
+  .small-12.large-12.columns
+    h3
+      = t(:conversation) + ": #{conversation.subject}"
+      .right
+        = link_to t(:back), conversations_path
+        /#, class: 'button', :style=>"float:right;"
 
+- first_msg = conversation.receipts_for(current_user).first.message
 ul
   = content_tag_for(:li, conversation.receipts_for(current_user)) do |receipt|
     - message = receipt.message
     - receiver = message.receipts.first.receiver
 
     - if receiver == current_user
-      h5= message.sender.name + "[#{message.sender.email}]" + ": " + message.subject
+      h5= message.sender.name + ": " + message.subject
     - else
-      h5= "To: " + receiver.name + "[#{receiver.email}]: " + message.subject
+      h5= "Me: " + message.subject
 
     .panel
       = message.body

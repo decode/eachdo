@@ -15,6 +15,11 @@
 //= require jquery.fileupload
 //= require turbolinks
 //= require foundation
+//
+//= require jquery.validate
+//= require jquery.validate.additional-methods
+//= require jquery.validate.localization/messages_zh
+//
 //= require_tree .
 
 $(function(){ $(document).foundation(); });

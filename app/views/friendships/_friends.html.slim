@@ -1,26 +1,26 @@
 .row
   .small-4.columns
-    = pluralize(@user.friends.count, " friend")
+    = "#{@user.friends.count} " + t(:friends)
     hr
     - @user.friends.each do |friend|
-      = link_to friend.name
+      = link_to friend.name, user_path(friend)
       .right
-        = link_to "Delete", { :controller => "friendships", :action => "delete", :id => friend }, data: {confirm: "Really delete friendship with #{friend.name}?"}
+        = link_to t(:breakup), { :controller => "friendships", :action => "delete", :id => friend }, data: {confirm: t('delete_user_friendship', :user=>friend.name) }
 
   .small-4.columns
-    = pluralize(@user.pending_friends.count, " pending friend")
+    = "#{@user.pending_friends.count} " + t(:friends_pending)
     hr
     - @user.pending_friends.each do |pending_friend|
       = link_to pending_friend.name
       .right
-        = link_to "Cancel", { :controller => "friendships", :action => "cancel", :id => pending_friend}, data: {confirm: "Cancel friendship request?"}
+        = link_to t(:revoke), { :controller => "friendships", :action => "cancel", :id => pending_friend}, data: {confirm: t("cancel_friend_request") }
 
   .small-4.columns
-    = pluralize(@user.requested_friends.count, " requested friend")
+    = "#{@user.requested_friends.count} " + t(:friends_request)
     hr
     - @user.requested_friends.each do |requester|
       = link_to requester.name
       .right
-        = link_to "Accept", {:controller => "friendships", :action => "accept", :id => requester}
+        = link_to t(:accept), {:controller => "friendships", :action => "accept", :id => requester}
         ||
-        = link_to "Decline", { :controller => "friendships", :action => "decline", :id => requester }, data: {confirm: "Really decline friendship with #{requester.name}?"}
+        = link_to t(:decline), { :controller => "friendships", :action => "decline", :id => requester }, data: {confirm: t("decline_user_request", :user=>requester.name) }

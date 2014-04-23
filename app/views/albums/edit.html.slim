@@ -1,7 +1,9 @@
-h1 Editing album
+h3
+  =t :edit_album
+  .right
+    = link_to t('show'), @album
+    ||
+    = link_to t('back'), albums_path
 
 = render 'form'
 
-= link_to 'Show', @album
-||
-= link_to 'Back', albums_path
