@@ -38,14 +38,15 @@ p
 
 script src="http://malsup.github.com/jquery.form.js"
 javascript:
-  $('#user_avatar').change(function(){
-    $(this).closest('form').ajaxSubmit({
-      beforeSubmit: function(a,f,o) {
-        o.dataType = 'json';
-      },
-      complete: function(XMLHttpRequest, textStatus) {
-        location.reload();
-      },
+  $( document ).ready(function() {
+    $('#user_avatar').change(function(){
+      $(this).closest('form').ajaxSubmit({
+        beforeSubmit: function(a,f,o) {
+          o.dataType = 'json';
+        },
+        complete: function(XMLHttpRequest, textStatus) {
+          location.reload();
+        },
+      });
     });
   });
-

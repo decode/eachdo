@@ -8,7 +8,7 @@
       = link_to t(:back), :back
   = f.hidden_field :recipients, :value => user.email
 
-  = f.input :subject, required: false
+  = f.input :subject, required: false, autofocus: true
 
   = f.input :body, required: true
 

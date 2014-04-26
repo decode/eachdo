@@ -78,8 +78,9 @@
   message_send_failed: "消息发送错误"
   no_subject: "无主题"
   select_all: "全选"
-  select_none: "全不选"
+  select_none: "不选"
   select_inverse: "反选"
+  permanently_delete: "彻底删除"
 
   user: '用户'
   user_information: '用户信息'

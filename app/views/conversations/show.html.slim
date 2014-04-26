@@ -4,7 +4,6 @@
       = t(:conversation) + ": #{conversation.subject}"
       .right
         = link_to t(:back), conversations_path
-        /#, class: 'button', :style=>"float:right;"
 
 - first_msg = conversation.receipts_for(current_user).first.message
 ul

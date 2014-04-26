@@ -22,9 +22,13 @@
     = head
 
   .small-6.columns
-    - content = conversation.subject + '- ' + conversation.messages.last.body[0..20]
+    - receipt = conversation.receipts_for(current_user).last
+    - if receipt.is_unread? and session[:filter] != 'sent'
+      - content = "<strong>#{conversation.subject}- #{conversation.messages.last.body[0..20]}</strong>"
+    -else
+      - content = conversation.subject + '- ' + conversation.messages.last.body[0..20]
     /- content = conversation.subject + '- ' + conversation.receipts_for(current_user).last.message.body
-    = link_to content, conversation
+    = link_to raw(content), conversation
 
   .small-3.columns
     = conversation.updated_at.to_formatted_s(:short) 
@@ -32,8 +36,6 @@
       - if conversation.is_completely_trashed?(current_user)
         = link_to t(:untrash), [:untrash, conversation], method: :post
         ||
-        = link_to t(:delete), [:mark_as_deleted, conversation], method: :post
+        = link_to t(:permanently_delete), [:mark_as_deleted, conversation], method: :post
       - else
-        = link_to t(:show), conversation
-        ||
         = link_to t(:delete), [:trash, conversation], method: :post
