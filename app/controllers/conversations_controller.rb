@@ -26,7 +26,7 @@ class ConversationsController < ApplicationController
 
   def new
     unless params[:id].nil? and User.find(params[:id]).nil?
-        session[:send_to] = params[:id]
+      session[:send_to] = params[:id]
     else
       session[:send_to] = nil
       redirect_to :back
@@ -42,7 +42,7 @@ class ConversationsController < ApplicationController
         send_message(recipients, *conversation_params(:body, :subject)).conversation
       redirect_to conversation
     else
-      flash[:error]= 'Message sent failed'
+      flash[:error]= t(:message_sent_failed)
       redirect_to :back
     end
 
@@ -87,6 +87,7 @@ class ConversationsController < ApplicationController
   end
 
   def fetch_params(key, *subkeys)
+    params[key][:subject] = t(:no_subject) if params[key][:subject].blank?
     params[key].instance_eval do
       case subkeys.size
       when 0 then self

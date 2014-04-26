@@ -74,6 +74,12 @@
   send: "发送"
   subject_not_null: "主题不应为空"
   content_not_null: "内容必须填写"
+  me: "我"
+  message_send_failed: "消息发送错误"
+  no_subject: "无主题"
+  select_all: "全选"
+  select_none: "全不选"
+  select_inverse: "反选"
 
   user: '用户'
   user_information: '用户信息'

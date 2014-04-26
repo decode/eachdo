@@ -1,19 +1,39 @@
-tr
-  td[width='5%']
+.row
+  .small-1.columns
     = check_box_tag "conversations[]", conversation.id
-  td[width='20%']
+  .small-2.columns
     - sender = conversation.messages.first.sender
+
     - if sender == current_user
-      - receiver = conversation.receipts_for(current_user).first.receiver
-      = "To:" + receiver.name
+      - receiver = conversation.messages.first.receipts.first.receiver
+      - title = "#{t(:me)}, #{receiver.name}"
+      - to = receiver.name
     - else
-      = sender.name
-  td[width='50%']
-    = link_to conversation.subject, conversation
-  td[width='25%']
-    - if conversation.is_completely_trashed?(current_user)
-      = link_to t(:untrash), [:untrash, conversation], method: :post
-      |  
-      = link_to t(:delete), [:mark_as_deleted, conversation], method: :post
-    - else
-      = link_to t(:move_to_trash), [:trash, conversation], method: :post
+      - title = sender.name
+      - title = "#{title}, #{t(:me)}" if conversation.receipts_for(current_user).where(mailbox_type: 'sentbox').length > 0
+      - to = sender.name
+
+    - if session[:filter] == 'sent'
+      - head = "To: " + to
+    - else 
+      - head = title
+
+    - head = head + " (#{conversation.messages.length})" if conversation.messages.length > 1
+    = head
+
+  .small-6.columns
+    - content = conversation.subject + '- ' + conversation.messages.last.body[0..20]
+    /- content = conversation.subject + '- ' + conversation.receipts_for(current_user).last.message.body
+    = link_to content, conversation
+
+  .small-3.columns
+    = conversation.updated_at.to_formatted_s(:short) 
+    .right
+      - if conversation.is_completely_trashed?(current_user)
+        = link_to t(:untrash), [:untrash, conversation], method: :post
+        ||
+        = link_to t(:delete), [:mark_as_deleted, conversation], method: :post
+      - else
+        = link_to t(:show), conversation
+        ||
+        = link_to t(:delete), [:trash, conversation], method: :post
