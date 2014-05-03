@@ -8,9 +8,9 @@ nav.top-bar(data-options="is_hover:false" data-topbar)
       li.has-form
         form
           div.row.collapse
-            div.small-8.columns
+            div.small-7.columns
               input type="text"
-            div.small-4.columns
+            div.small-5.columns
               a.button href="#"=t(:search)
 
       li.divider
@@ -22,7 +22,8 @@ nav.top-bar(data-options="is_hover:false" data-topbar)
             - else
               = image_tag('mail.png')
 
-            /current_user.mailbox.inbox.first
+        li.divider
+
         li.has-dropdown
           - if current_user.name and current_user.authentications.length > 0
             a =current_user.name + "[#{current_user.authentications.first.provider}]"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140407090922) do
+ActiveRecord::Schema.define(version: 20140502015305) do
 
   create_table "albums", force: true do |t|
     t.string   "title"
@@ -19,8 +19,10 @@ ActiveRecord::Schema.define(version: 20140407090922) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "house_id"
   end
 
+  add_index "albums", ["house_id"], name: "index_albums_on_house_id"
   add_index "albums", ["user_id"], name: "index_albums_on_user_id"
 
   create_table "authentications", force: true do |t|
@@ -46,6 +48,43 @@ ActiveRecord::Schema.define(version: 20140407090922) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "houses", force: true do |t|
+    t.string   "identifier"
+    t.string   "name"
+    t.string   "region"
+    t.string   "address"
+    t.string   "house_type"
+    t.string   "rent_type"
+    t.decimal  "area"
+    t.integer  "floor"
+    t.string   "floor_type"
+    t.string   "capacity"
+    t.string   "bed"
+    t.string   "direction"
+    t.text     "facility"
+    t.text     "environment"
+    t.text     "service"
+    t.text     "surrounding"
+    t.text     "other"
+    t.string   "status"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "houses", ["user_id"], name: "index_houses_on_user_id"
+
+  create_table "information", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "login_count"
+    t.string   "rank"
+    t.decimal  "credit"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "information", ["user_id"], name: "index_information_on_user_id"
 
   create_table "notifications", force: true do |t|
     t.string   "type"

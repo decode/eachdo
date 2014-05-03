@@ -1,0 +1,63 @@
+.row
+  .small-12.columns
+  = simple_form_for(@house) do |f|
+    = f.error_notification
+
+    .form-inputs
+      = f.input :identifier
+      = f.input :name
+      = label_tag :region do
+        abbr * 
+        = t('activerecord.attributes.house.region')
+        .right
+          = "#{t(:current_region)}: #{ChinaCity.get(@house.region)}" if @house.region
+      .city-group
+        select.city-select.small-4.columns
+          option --省份--
+          = options_for_select(ChinaCity.list)
+        select.city-select.small-4.columns
+          option --城市--
+          = options_for_select(ChinaCity.list)
+        select.city-select.small-4.columns
+          option --地区--
+          = options_for_select(ChinaCity.list)
+      = f.input :region, as: :hidden
+      = f.input :address
+      = f.input :house_type, collection: House::HOUSE_TYPE, include_blank: false
+      = f.input :area
+      = f.input :floor
+      = f.input :floor_type
+      = f.input :capacity
+      = f.input :bed
+      = f.input :direction
+      = f.label :facility
+      span
+        = check_box_tag 'select_all_facility'
+        label.collection_check_boxes=t(:select_all)
+      - House::FACILITY.each do |f|
+        span
+          = check_box_tag "house[facility][]", f, @house.facility.include?(f)
+          label.collection_check_boxes=f
+      /= f.collection_check_boxes :facility, House::FACILITY, :to_s, :humanize
+
+      = f.input :status
+      = f.association :user
+
+    .form-actions
+      = f.button :submit
+
+javascript:
+  $("select").change(function() {
+    var optionSelected = $(this).find("option:selected");
+    var valueSelected  = optionSelected.val();
+    $('input[name="house[region]"]').val(valueSelected);
+    alert(valueSelected);
+  });
+
+  $("#select_all_facility").change(function() {
+    if(this.checked) {
+      $('[name="house[facility][]"]').prop('checked', true);
+    } else {
+      $('[name="house[facility][]"]').prop('checked', false);
+    };
+  });

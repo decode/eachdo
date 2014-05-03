@@ -25,7 +25,6 @@ gem 'rails-i18n', '~> 4.0.0'
 gem 'devise-i18n'
 gem 'devise-i18n-views'
 
-
 # Authorization and Authority
 gem 'devise'
 gem 'devise_invitable'
@@ -51,6 +50,11 @@ gem 'state_machine'
 
 # Admin panel
 gem 'rails_admin'
+
+# city selection
+gem 'china_city'
+# map selection
+gem "geocoder"
 
 #gem 'rmagick', :require=>false
 

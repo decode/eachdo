@@ -100,6 +100,10 @@
   edit_photo: '编辑照片'
   photos_count: '共%{count}张照片'
 
+  new_house: "新增房源"
+  edit_house: "修改房屋信息"
+  current_region: "当前所在区域"
+
   activerecord:
     errors:
       messages:
@@ -117,19 +121,47 @@
       message: "消息"
       role: "角色"
       friendship: "好友关系"
+      house: "房源"
     attributes:
-      name: "用户名"
-      password: "密码"
-      email: "邮箱"
-      sign_in_count: "登录次数"
-      current_sign_in_at: "当前登录时间"
-      last_sign_in_at: "最后登录时间"
-      current_sign_in_ip: "当前登录IP"
-      last_sign_in_ip: "上次登录IP"
+      user:
+        name: "用户名"
+        password: "密码"
+        email: "邮箱"
+        sign_in_count: "登录次数"
+        current_sign_in_at: "当前登录时间"
+        last_sign_in_at: "最后登录时间"
+        current_sign_in_ip: "当前登录IP"
+        last_sign_in_ip: "上次登录IP"
       
-      title: "标题"
-      photos: "照片"
-      description: "描述"
+      album:
+        title: "标题"
+        photos: "照片"
+        description: "描述"
 
-      subject: "主题"
-      body: "内容"
+      photo:
+        album: "相册"
+        title: "标题"
+        description: "描述"
+
+      conversation:
+        subject: "主题"
+        body: "内容"
+
+      house:
+        name: "房屋名"
+        address: "地址"
+        identifier: "房屋标识"
+        name: "房屋名称"
+        region: "所在城市地区"
+        address: "详细地址"
+        house_type: "房屋类型"
+        area: "房屋面积"
+        floor: "楼层"
+        floor_type: "层型"
+        capacity: "容量"
+        bed: "床位"
+        direction: "朝向"
+        status: "房屋状态"
+        user: "房主"
+        albums: "房屋照片"
+        facility: "配套设施"

@@ -28,5 +28,7 @@ class User < ActiveRecord::Base
     source: :friend
 
   has_many :albums
+  has_one :information
+  has_many :houses
 
 end

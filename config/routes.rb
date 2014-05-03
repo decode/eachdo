@@ -1,5 +1,7 @@
 Eachfund::Application.routes.draw do
 
+  resources :houses
+
   resources :photos
 
   resources :albums do
@@ -26,6 +28,7 @@ Eachfund::Application.routes.draw do
   end
 
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+  mount ChinaCity::Engine => '/china_city'
 
   get ':controller/:action/:id'
 end

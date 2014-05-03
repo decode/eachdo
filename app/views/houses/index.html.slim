@@ -1,0 +1,41 @@
+h1 Listing houses
+
+table
+  tr
+    th Identifier
+    th Name
+    th Address
+    th House type
+    th Area
+    th Floor
+    th Floor type
+    th Capacity
+    th Bed
+    th Direction
+    th Status
+    th User
+    th
+    th
+    th
+
+  - @houses.each do |house|
+    tr
+      td= house.identifier
+      td= house.name
+      td= house.address
+      td= house.house_type
+      td= house.area
+      td= house.floor
+      td= house.floor_type
+      td= house.capacity
+      td= house.bed
+      td= house.direction
+      td= house.status
+      td= house.user
+      td= link_to 'Show', house
+      td= link_to 'Edit', edit_house_path(house)
+      td= link_to 'Destroy', house, :method => :delete, :data =>   confirm=('Are you sure?' ) 
+
+br
+
+= link_to 'New House', new_house_path

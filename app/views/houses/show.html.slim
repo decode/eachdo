@@ -1,0 +1,49 @@
+p#notice= notice
+
+.right
+  = link_to t('edit'), edit_house_path(@house)
+  ||
+  = link_to t('back'), houses_path
+
+p
+  b Identifier:
+  = @house.identifier
+p
+  b Name:
+  = @house.name
+p
+  b Address:
+  = ChinaCity.get(@house.region)
+  = @house.address
+p
+  b House type:
+  = @house.house_type
+p
+  b Area:
+  = @house.area
+p
+  b Floor:
+  = @house.floor
+p
+  b Floor type:
+  = @house.floor_type
+p
+  b Capacity:
+  = @house.capacity
+p
+  b Bed:
+  = @house.bed
+p
+  b Direction:
+  = @house.direction
+p
+  b Facility:
+  = @house.facility
+p
+  b Status:
+  = @house.status
+p
+  b User:
+  = @house.user
+
+
