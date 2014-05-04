@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140502015305) do
+ActiveRecord::Schema.define(version: 20140504023257) do
 
   create_table "albums", force: true do |t|
     t.string   "title"
@@ -71,6 +71,9 @@ ActiveRecord::Schema.define(version: 20140502015305) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "geo_address"
   end
 
   add_index "houses", ["user_id"], name: "index_houses_on_user_id"

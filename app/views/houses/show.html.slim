@@ -5,45 +5,64 @@ p#notice= notice
   ||
   = link_to t('back'), houses_path
 
-p
-  b Identifier:
-  = @house.identifier
-p
-  b Name:
-  = @house.name
-p
-  b Address:
-  = ChinaCity.get(@house.region)
-  = @house.address
-p
-  b House type:
-  = @house.house_type
-p
-  b Area:
-  = @house.area
-p
-  b Floor:
-  = @house.floor
-p
-  b Floor type:
-  = @house.floor_type
-p
-  b Capacity:
-  = @house.capacity
-p
-  b Bed:
-  = @house.bed
-p
-  b Direction:
-  = @house.direction
-p
-  b Facility:
-  = @house.facility
-p
-  b Status:
-  = @house.status
-p
-  b User:
-  = @house.user
+.row
+  .small-8.columns
+    h3
+      b Name:
+      = @house.name
+    p
+      b Identifier:
+      = @house.identifier
 
+      b Address:
+      = ChinaCity.get(@house.region)
+      = @house.address
 
+    dl.tabs(data-tab)
+      dd.active
+        a href="#panel-1" Tab 1
+      dd
+        a href="#panel-2" Tab 2
+
+    .tabs-content
+      #panel-1.content.active
+        test
+      #panel-2.content
+        = link_to "http://api.map.baidu.com/marker?location=#{@house.latitude},#{@house.longitude}&title=我的位置&content=#{@house.name}&output=html&src=u|u"
+          = image_tag "http://api.map.baidu.com/staticimage?center=#{@house.longitude},#{@house.latitude}&width=400&height=400&zoom=14&markers=#{@house.longitude},#{@house.latitude}&markerStyles=l"
+
+    p
+      b House type:
+      = @house.house_type
+
+      b Area:
+      = @house.area
+
+      b Floor:
+      = @house.floor
+
+      b Floor type:
+      = @house.floor_type
+
+      b Capacity:
+      = @house.capacity
+
+      b Bed:
+      = @house.bed
+
+      b Direction:
+      = @house.direction
+
+    p
+      b Facility:
+      = @house.facility
+    p
+      b Status:
+      = @house.status
+    p
+      b User:
+      = @house.user
+
+  .small-4.columns
+
+script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=SXqdoxetuRhnVDgqmDnAFcbO"

@@ -23,6 +23,27 @@
           = options_for_select(ChinaCity.list)
       = f.input :region, as: :hidden
       = f.input :address
+
+      label[id='geo_address']
+      a.button href="#" data-reveal-id="map_container" 
+        = t :map_address
+
+      #map_container.reveal-modal(data-reveal)
+        h3= t :map_address
+        .row
+          .small-8.columns
+            #allmap(style='width:400px;height:400px;border:1px solid gray')
+            label[id='geo_label']
+          .small-4.columns
+            = f.input :longitude
+            = f.input :latitude
+            a.button(id='open_map')=t(:ok)
+            |&nbsp;
+            a.button(id='close_map')=t(:cancel)
+
+        a class="close-reveal-modal" 
+          |&#215;
+
       = f.input :house_type, collection: House::HOUSE_TYPE, include_blank: false
       = f.input :area
       = f.input :floor
@@ -36,24 +57,31 @@
         label.collection_check_boxes=t(:select_all)
       - House::FACILITY.each do |f|
         span
-          = check_box_tag "house[facility][]", f, @house.facility.include?(f)
+          = check_box_tag "house[facility][]", f, @house.facility.nil? ? false : @house.facility.include?(f)
           label.collection_check_boxes=f
       /= f.collection_check_boxes :facility, House::FACILITY, :to_s, :humanize
+
+      = f.association :albums
 
       = f.input :status
       = f.association :user
 
+
     .form-actions
       = f.button :submit
 
+
+script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=SXqdoxetuRhnVDgqmDnAFcbO"
+
 javascript:
+  // 区域三级联动选择控件
   $("select").change(function() {
     var optionSelected = $(this).find("option:selected");
     var valueSelected  = optionSelected.val();
     $('input[name="house[region]"]').val(valueSelected);
-    alert(valueSelected);
   });
 
+  // 选择所有配套设施
   $("#select_all_facility").change(function() {
     if(this.checked) {
       $('[name="house[facility][]"]').prop('checked', true);
@@ -61,3 +89,45 @@ javascript:
       $('[name="house[facility][]"]').prop('checked', false);
     };
   });
+
+  // 关闭地图控件
+  $("#open_map").click(function() {
+    $('#map_container').foundation('reveal', 'close');
+  });
+  $("#close_map").click(function() {
+    $('#map_container').foundation('reveal', 'close');
+    $('input[name="house[longitude]"]').val('');
+    $('input[name="house[latitude]"]').val('');
+  });
+
+  // 百度地图API功能
+  var map = new BMap.Map("allmap");                        // 创建Map实例
+  map.centerAndZoom(new BMap.Point(116.404, 39.915), 14);
+  map.addControl(new BMap.NavigationControl());
+  map.addControl(new BMap.ScaleControl());
+  map.addControl(new BMap.OverviewMapControl());
+  map.enableScrollWheelZoom();
+  //map.setCurrentCity("北京");
+
+  map.addEventListener("click",function(e) {
+    map.clearOverlays();
+    var marker = new BMap.Marker(e.point);
+    map.addOverlay(marker); 
+    $('input[name="house[longitude]"]').val(e.point.lng);
+    $('input[name="house[latitude]"]').val(e.point.lat);
+    var pt = e.point;
+    var gc = new BMap.Geocoder();  
+    gc.getLocation(pt, function(rs){
+      var addComp = rs.addressComponents;
+      $("#geo_address").text(addComp.province+addComp.city+addComp.street+addComp.streetNumber);
+      $("#geo_label").text(addComp.province+addComp.city+addComp.street+addComp.streetNumber);
+    });     
+  });
+
+  // 根据IP获取当前城市
+  function myFun(result) {
+    var cityName = result.name;
+    map.setCenter(cityName);
+  }
+  var myCity = new BMap.LocalCity();
+  myCity.get(myFun);

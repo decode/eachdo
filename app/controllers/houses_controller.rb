@@ -71,6 +71,6 @@ class HousesController < ApplicationController
     def house_params
       facility = params[:house][:facility]
       params[:house][:facility] = facility.nil? ? "" : facility.join(" ")
-      params.require(:house).permit(:identifier, :name, :region, :address, :house_type, :area, :floor, :floor_type, :capacity, :bed, :direction, :status, :user_id, :facility)
+      params.require(:house).permit(:identifier, :name, :region, :address, :house_type, :area, :floor, :floor_type, :capacity, :bed, :direction, :status, :user_id, :facility, :longitude, :latitude, :album_ids => [])
     end
 end

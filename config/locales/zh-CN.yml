@@ -58,6 +58,8 @@
   friends: '好友'
   friends_request: '好友请求'
   friends_pending: '待批准好友请求'
+  ok: "确定"
+  cancel: "取消"
   accept: "接受"
   breakup: "解除"
   refuse: "拒绝"
@@ -103,6 +105,7 @@
   new_house: "新增房源"
   edit_house: "修改房屋信息"
   current_region: "当前所在区域"
+  map_address: "地图位置"
 
   activerecord:
     errors:
