@@ -13,4 +13,16 @@ class House < ActiveRecord::Base
     self.facility.nil? ? [] : self.facility.strip.split(" ")
   end
 
+  def district
+    name = ChinaCity.get(region)
+    if region
+      name = ChinaCity.get(region)
+      city = ChinaCity.city(region)
+      name = ChinaCity.get(city) + name unless city == region
+      province = ChinaCity.province(region)
+      name = ChinaCity.get(province) + name unless province == region
+    end
+    return name
+  end
+
 end

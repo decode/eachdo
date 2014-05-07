@@ -10,7 +10,7 @@
         abbr * 
         = t('activerecord.attributes.house.region')
         .right
-          = "#{t(:current_region)}: #{ChinaCity.get(@house.region)}" if @house.region
+          = "#{t(:current_region)}: #{@house.district}" if @house.region
       .city-group
         select.city-select.small-4.columns
           option --省份--

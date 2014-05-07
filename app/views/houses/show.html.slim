@@ -8,29 +8,13 @@ p#notice= notice
 .row
   .small-8.columns
     h3
-      b Name:
       = @house.name
     p
       b Identifier:
       = @house.identifier
 
-      b Address:
-      = ChinaCity.get(@house.region)
+      = @house.district
       = @house.address
-
-    dl.tabs(data-tab)
-      dd.active
-        a href="#panel-1" Tab 1
-      dd
-        a href="#panel-2" Tab 2
-
-    .tabs-content
-      #panel-1.content.active
-        test
-      #panel-2.content
-        = link_to "http://api.map.baidu.com/marker?location=#{@house.latitude},#{@house.longitude}&title=我的位置&content=#{@house.name}&output=html&src=u|u"
-          = image_tag "http://api.map.baidu.com/staticimage?center=#{@house.longitude},#{@house.latitude}&width=400&height=400&zoom=14&markers=#{@house.longitude},#{@house.latitude}&markerStyles=l"
-
     p
       b House type:
       = @house.house_type
@@ -53,9 +37,36 @@ p#notice= notice
       b Direction:
       = @house.direction
 
-    p
-      b Facility:
-      = @house.facility
+    dl.tabs(data-tab)
+      dd.active
+        a href="#panel-1"=t :house_photo
+      dd
+        a href="#panel-2"=t :geo_map
+
+    .tabs-content
+      #panel-1.content.active
+        ul(data-orbit)
+          - @house.albums.first.photos.each do |p|
+            li
+              = image_tag p.image.url
+              .orbit-caption= p.title
+      #panel-2.content
+        = link_to "http://api.map.baidu.com/marker?location=#{@house.latitude},#{@house.longitude}&title=我的位置&content=#{@house.name}&output=html&src=u|u"
+          = image_tag "http://api.map.baidu.com/staticimage?center=#{@house.longitude},#{@house.latitude}&width=400&height=400&zoom=14&markers=#{@house.longitude},#{@house.latitude}&markerStyles=l"
+
+    dl.tabs(data-tab)
+      dd.active
+        a href="#panel-3"=t :facility
+      dd
+        a href="#panel-4"=t :other
+    .tabs-content
+      #panel-3.content.active
+        p
+          b Facility:
+          = @house.facility
+      #panel-4.content
+
+
     p
       b Status:
       = @house.status
