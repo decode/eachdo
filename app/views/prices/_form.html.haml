@@ -1,0 +1,13 @@
+= simple_form_for(@price) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.association :house
+    = f.input :day
+    = f.input :week
+    = f.input :month
+    = f.input :weekend
+    = f.input :weekend_type
+
+  .form-actions
+    = f.button :submit

@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b House:
+  = @price.house
+%p
+  %b Day:
+  = @price.day
+%p
+  %b Week:
+  = @price.week
+%p
+  %b Month:
+  = @price.month
+%p
+  %b Weekend:
+  = @price.weekend
+%p
+  %b Weekend type:
+  = @price.weekend_type
+
+= link_to 'Edit', edit_price_path(@price)
+\|
+= link_to 'Back', prices_path

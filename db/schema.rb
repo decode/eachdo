@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140504023257) do
+ActiveRecord::Schema.define(version: 20140515150929) do
 
   create_table "albums", force: true do |t|
     t.string   "title"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20140504023257) do
     t.string   "house_type"
     t.string   "rent_type"
     t.decimal  "area"
+    t.integer  "house_count"
     t.integer  "floor"
     t.string   "floor_type"
     t.string   "capacity"
@@ -66,6 +67,12 @@ ActiveRecord::Schema.define(version: 20140504023257) do
     t.text     "environment"
     t.text     "service"
     t.text     "surrounding"
+    t.string   "checkin"
+    t.string   "checkout"
+    t.string   "open"
+    t.string   "close"
+    t.integer  "max_day"
+    t.integer  "min_day"
     t.text     "other"
     t.string   "status"
     t.integer  "user_id"
@@ -119,6 +126,19 @@ ActiveRecord::Schema.define(version: 20140504023257) do
   end
 
   add_index "photos", ["album_id"], name: "index_photos_on_album_id"
+
+  create_table "prices", force: true do |t|
+    t.integer  "house_id"
+    t.decimal  "day"
+    t.decimal  "week"
+    t.decimal  "month"
+    t.decimal  "weekend"
+    t.string   "weekend_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "prices", ["house_id"], name: "index_prices_on_house_id"
 
   create_table "receipts", force: true do |t|
     t.integer  "receiver_id"

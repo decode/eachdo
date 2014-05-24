@@ -34,6 +34,17 @@ class CreateHouses < ActiveRecord::Migration
       t.text :service
       # 周边
       t.text :surrounding
+      # 入住时间
+      t.string :checkin
+      # 退房时间
+      t.string :checkout
+      # 营业时间
+      t.string :open
+      t.string :close
+      # 最多天数
+      t.integer :max_day
+      # 最少天数
+      t.integer :min_day
       # 其它
       t.text :other
 
