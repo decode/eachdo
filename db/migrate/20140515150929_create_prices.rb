@@ -3,10 +3,15 @@ class CreatePrices < ActiveRecord::Migration
     create_table :prices do |t|
       t.references :house, index: true
       t.decimal :day
-      t.decimal :week
-      t.decimal :month
-      t.decimal :weekend
-      t.string :weekend_type
+      t.date :start
+      t.date :end
+      t.decimal :mon
+      t.decimal :tue
+      t.decimal :wed
+      t.decimal :thu
+      t.decimal :fri
+      t.decimal :sat
+      t.decimal :sun
 
       t.timestamps
     end

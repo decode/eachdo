@@ -1,0 +1,28 @@
+.small-12.large-12.columns
+  = simple_form_for(@price) do |f|
+    = f.error_notification
+
+    .form-inputs
+      /= f.association :house
+      = f.input :day
+      = f.input :start
+      = f.input :end
+      ul.small-block-grid-2.medium-block-grid-3.large-block-grid-4
+        li
+          = f.input :mon
+        li
+          = f.input :tue
+        li
+          = f.input :wed
+        li
+          = f.input :thu
+        li
+          = f.input :fri
+        li
+          = f.input :sat
+        li
+          = f.input :sun
+
+
+    .form-actions
+      = f.button :submit

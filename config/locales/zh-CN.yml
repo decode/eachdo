@@ -111,6 +111,10 @@
   facility: "配套设施"
   other: "其它信息"
 
+  list_price: "价格信息"
+  new_price: "制定价格"
+
+
   activerecord:
     errors:
       messages:
@@ -129,6 +133,7 @@
       role: "角色"
       friendship: "好友关系"
       house: "房源"
+      price: "价格"
     attributes:
       user:
         name: "用户名"
@@ -172,3 +177,11 @@
         user: "房主"
         albums: "房屋照片"
         facility: "配套设施"
+
+      price:
+        house: "关联房屋"
+        day: "每天价格"
+        week: "周价格"
+        month: "月价格"
+        weekend: "周末价"
+        weekend_type: "周末类型"

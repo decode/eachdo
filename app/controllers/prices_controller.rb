@@ -15,6 +15,7 @@ class PricesController < ApplicationController
   # GET /prices/new
   def new
     @price = Price.new
+    session[:house_id] = params[:house_id] if params[:house_id]
   end
 
   # GET /prices/1/edit
@@ -24,7 +25,8 @@ class PricesController < ApplicationController
   # POST /prices
   # POST /prices.json
   def create
-    @price = Price.new(price_params)
+    @house = House.find session[:house_id]
+    @price = @house.prices.new(price_params)
 
     respond_to do |format|
       if @price.save
@@ -69,6 +71,6 @@ class PricesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def price_params
-      params.require(:price).permit(:house_id, :day, :week, :month, :weekend, :weekend_type)
+      params.require(:price).permit(:house_id, :day, :start, :end, :mon, :tue, :wed, :thu, :fri, :sat, :sun)
     end
 end

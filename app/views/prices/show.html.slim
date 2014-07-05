@@ -1,0 +1,39 @@
+p#notice= notice
+
+p
+  b House:
+  = @price.house
+p
+  b Day:
+  = @price.day
+p
+  b Start:
+  = @price.start
+p
+  b End:
+  = @price.end
+p
+  b mon:
+  = @price.mon
+p
+  b tue:
+  = @price.tue
+p
+  b wed:
+  = @price.wed
+p
+  b thu:
+  = @price.thu
+p
+  b fri:
+  = @price.fri
+p
+  b sat:
+  = @price.sat
+p
+  b sun:
+  = @price.sun
+
+= link_to 'Edit', edit_price_path(@price)
+| \|
+= link_to 'Back', prices_path

@@ -46,10 +46,11 @@ p#notice= notice
     .tabs-content
       #panel-1.content.active
         ul(data-orbit)
-          - @house.albums.first.photos.each do |p|
-            li
-              = image_tag p.image.url
-              .orbit-caption= p.title
+          - if @house.albums.length > 0
+            - @house.albums.first.photos.each do |p|
+              li
+                = image_tag p.image.url
+                .orbit-caption= p.title
       #panel-2.content
         = link_to "http://api.map.baidu.com/marker?location=#{@house.latitude},#{@house.longitude}&title=我的位置&content=#{@house.name}&output=html&src=u|u"
           = image_tag "http://api.map.baidu.com/staticimage?center=#{@house.longitude},#{@house.latitude}&width=400&height=400&zoom=14&markers=#{@house.longitude},#{@house.latitude}&markerStyles=l"
@@ -73,6 +74,12 @@ p#notice= notice
     p
       b User:
       = @house.user
+
+    p
+      b Price:
+      = @house.prices.last.day if @house.prices.length > 0
+      br
+      = link_to 'set price', new_house_price_url(@house.id)
 
   .small-4.columns
 

@@ -1,6 +1,7 @@
 class House < ActiveRecord::Base
   belongs_to :user
   has_many :albums
+  has_many :prices
   
   validates :name, :region, :address, :house_type, :area, :floor, :bed, presence: true
 
