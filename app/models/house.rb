@@ -26,4 +26,26 @@ class House < ActiveRecord::Base
     return name
   end
 
+  state_machine :status, :initial => :draft do
+    event :publish do
+      transition :draft => :open
+    end
+
+    event :order do
+      transition :open => :reserve
+    end
+    
+    event :checkin do
+      transition [:open, :reserve] => :rent
+    end
+
+    event :checkout do
+      transition :rent => :open
+    end
+
+    event :close do
+      transition :open => :close
+    end
+  end
+
 end
