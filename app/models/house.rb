@@ -15,20 +15,24 @@ class House < ActiveRecord::Base
   end
 
   def district
-    name = ChinaCity.get(region)
+    #name = ChinaCity.get(region)
     if region
-      name = ChinaCity.get(region)
-      city = ChinaCity.city(region)
-      name = ChinaCity.get(city) + name unless city == region
-      province = ChinaCity.province(region)
-      name = ChinaCity.get(province) + name unless province == region
+      begin
+        name = ChinaCity.get(region)
+        city = ChinaCity.city(region)
+        name = ChinaCity.get(city) + name unless city == region
+        province = ChinaCity.province(region)
+        name = ChinaCity.get(province) + name unless province == region
+      rescue
+        name = ""
+      end
     end
     return name
   end
 
   state_machine :status, :initial => :draft do
     event :publish do
-      transition :draft => :open
+      transition [:draft, :close] => :open
     end
 
     event :order do
@@ -40,7 +44,7 @@ class House < ActiveRecord::Base
     end
 
     event :checkout do
-      transition :rent => :open
+      transition [:reserve, :rent] => :open
     end
 
     event :close do

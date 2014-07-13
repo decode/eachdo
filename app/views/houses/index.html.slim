@@ -1,41 +1,32 @@
-h1 Listing houses
+.right
+  = link_to 'New House', new_house_path, class: 'button'
 
-table
-  tr
-    th Identifier
-    th Name
-    th Address
-    th House type
-    th Area
-    th Floor
-    th Floor type
-    th Capacity
-    th Bed
-    th Direction
-    th Status
-    th User
-    th
-    th
-    th
+- @houses.each do |house|
+  .row
+    #house-photo.small-3.columns
+      = image_tag(house.albums.first.photos.first.image.thumb.url) if house.albums.length > 0
+      br
+    #house-info.small-6.columns
+      h4
+        = house.name
+      ul
+        li
+          = house.house_type
+          ||
+          = house.address
+        li
+          - if house.albums.length > 0
+            = t 'house_picture_count', count: house.albums.first.photos.length 
+            ||
+          = t 'house_bed_count', count: house.bed
+        li
+          = house.status
+    #house-price.small-3.columns
+      = link_to t('edit'), edit_house_path(house)
+      ||
+      = link_to t('delete'), house, method: :delete, data: {confirm: t('confirm')}
+      br
+      = link_to t('house_detail'), house, class: 'button'
+    hr
 
-  - @houses.each do |house|
-    tr
-      td= house.identifier
-      td= house.name
-      td= house.address
-      td= house.house_type
-      td= house.area
-      td= house.floor
-      td= house.floor_type
-      td= house.capacity
-      td= house.bed
-      td= house.direction
-      td= house.status
-      td= house.user
-      td= link_to 'Show', house
-      td= link_to 'Edit', edit_house_path(house)
-      td= link_to 'Destroy', house, :method => :delete, :data =>   confirm=('Are you sure?' ) 
 
-br
-
-= link_to 'New House', new_house_path

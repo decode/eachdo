@@ -21,7 +21,7 @@
         select.city-select.small-4.columns
           option --地区--
           = options_for_select(ChinaCity.list)
-      = f.input :region, as: :hidden
+      = f.input :region, as: :hidden, value: @house.region
       = f.input :address
 
       label[id='geo_address']
@@ -61,9 +61,13 @@
           label.collection_check_boxes=f
       /= f.collection_check_boxes :facility, House::FACILITY, :to_s, :humanize
 
+      /= f.label :album
+      /= f.select :album, current_user.albums.collect{|a| [a.title, a.id]} 
+
       = f.association :albums
 
-      = f.association :user
+      - if current_user.has_role? 'admin'
+        = f.association :user
 
 
     .form-actions
@@ -74,8 +78,8 @@ script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=SXqdoxe
 
 javascript:
   // 区域三级联动选择控件
-  $("select").change(function() {
-    var optionSelected = $(this).find("option:selected");
+  $(".city-select").change(function() {
+    var optionSelected = $('.city-select').find("option:selected");
     var valueSelected  = optionSelected.val();
     $('input[name="house[region]"]').val(valueSelected);
   });

@@ -25,6 +25,7 @@ class HousesController < ApplicationController
   # POST /houses.json
   def create
     @house = House.new(house_params)
+    @house.user = current_user
 
     respond_to do |format|
       if @house.save
@@ -58,6 +59,56 @@ class HousesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to houses_url }
       format.json { head :no_content }
+    end
+  end
+
+  def open
+    @house = House.find params[:id]
+    @house.publish
+    if @house.save
+      redirect_to :back, notice: 'success'
+    else
+      redirect_to :back, notice: 'failed'
+    end
+  end
+
+  def close
+    @house = House.find params[:id]
+    @house.close
+    if @house.save
+      redirect_to :back, notice: 'success'
+    else
+      redirect_to :back, notice: 'failed'
+    end
+  end
+
+  def order
+    @house = House.find params[:id]
+    @house.order
+    if @house.save
+      redirect_to :back, notice: 'success'
+    else
+      redirect_to :back, notice: 'failed'
+    end
+  end
+
+  def checkin
+    @house = House.find params[:id]
+    @house.checkin
+    if @house.save
+      redirect_to :back, notice: 'success'
+    else
+      redirect_to :back, notice: 'failed'
+    end
+  end
+
+  def checkout
+    @house = House.find params[:id]
+    @house.checkout
+    if @house.save
+      redirect_to :back, notice: 'success'
+    else
+      redirect_to :back, notice: 'failed'
     end
   end
 

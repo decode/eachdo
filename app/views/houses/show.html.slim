@@ -71,16 +71,27 @@ p#notice= notice
     p
       b Status:
       = @house.status
-    p
-      b User:
-      = @house.user
 
-    p
-      b Price:
-      = @house.prices.last.day if @house.prices.length > 0
-      br
-      = link_to 'set price', new_house_price_url(@house.id)
 
   .small-4.columns
+    p
+      - if current_user
+        = link_to t('house_open'), {controller: 'houses', action: 'open', id: @house}, class: 'button' if @house.status == 'draft' or @house.status == 'close'
+        = link_to t('house_close'), {controller: 'houses', action: 'close', id: @house}, class: 'button' if @house.status == 'open'
+        = link_to t('new_price'), new_house_price_url(@house.id), class: 'button' 
+        = link_to t('house_checkin'), {controller: 'houses', action: 'checkin', id: @house}, class: 'button' if ['reserve', 'open'].include?(@house.status)
+
+        = link_to t('house_checkout'), {controller: 'houses', action: 'checkout', id: @house}, class: 'button' if ['reserve', 'rent'].include?(@house.status)
+      br
+      b=t('now_price')
+      = @house.prices.last.day if @house.prices.length > 0
+
+    p
+      / 需要增加判断语句，非房主才能预定
+      = link_to t('house_order'), {controller: 'houses', action: 'order', id: @house}, class: 'button'
+
+    | House host:
+    hr
+    = @house.user.name if @house.user
 
 script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=SXqdoxetuRhnVDgqmDnAFcbO"

@@ -113,6 +113,17 @@
 
   list_price: "价格信息"
   new_price: "制定价格"
+  now_price: "当日价"
+
+  house_open: "公开房源"
+  house_close: "取消公开"
+  house_order: "预定房间"
+  house_checkin: "入住"
+  house_checkout: "退房"
+  house_detail: "房屋详情"
+
+  house_picture_count: "%{count}张图片"
+  house_bed_count: "可住%{count}人"
 
 
   activerecord:
@@ -175,7 +186,7 @@
         direction: "朝向"
         status: "房屋状态"
         user: "房主"
-        albums: "房屋照片"
+        album: "房屋照片"
         facility: "配套设施"
 
       price:
