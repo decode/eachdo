@@ -1,4 +1,4 @@
-p#notice= notice
+/p#notice= notice
 
 p
   b House:
@@ -34,6 +34,6 @@ p
   b sun:
   = @price.sun
 
-= link_to 'Edit', edit_price_path(@price)
-| \|
-= link_to 'Back', prices_path
+= link_to t('edit'), edit_price_path(@price)
+||
+= link_to t('back'), :back

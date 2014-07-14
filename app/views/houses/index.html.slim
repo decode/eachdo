@@ -22,6 +22,8 @@
         li
           = house.status
     #house-price.small-3.columns
+      h4
+        = t 'house_day_price', price: house.prices.first.day if house.prices.length > 0
       = link_to t('edit'), edit_house_path(house)
       ||
       = link_to t('delete'), house, method: :delete, data: {confirm: t('confirm')}

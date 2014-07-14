@@ -18,7 +18,7 @@ table
 
   - @prices.each do |price|
     tr
-      td= price.house
+      td= price.house.name
       td= price.day
       td= price.start
       td= price.end
@@ -31,8 +31,8 @@ table
       td= price.sun
       td= link_to t('show'), price
       td= link_to t('edit'), edit_price_path(price)
-      td= link_to t('destroy'), price, :method => :delete, :data => confirm=(t('confirm'))
+      td= link_to t('delete'), price, :method => :delete, :data => confirm=(t('confirm'))
 
 br
 
-= link_to t('create'), new_price_path
+/= link_to t('create'), new_price_path

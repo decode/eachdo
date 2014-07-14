@@ -4,10 +4,11 @@
 
     .form-inputs
       /= f.association :house
-      = f.input :day
       = f.input :start
       = f.input :end
-      ul.small-block-grid-2.medium-block-grid-3.large-block-grid-4
+
+      = f.input :day
+      ul.small-block-grid-2.medium-block-grid-3.large-block-grid-3
         li
           = f.input :mon
         li
@@ -26,3 +27,16 @@
 
     .form-actions
       = f.button :submit
+
+javascript:
+  $("#price_day").on('input', function() {
+    var price = $("#price_day").val();
+    $("#price_mon").val(price);
+    $("#price_tue").val(price);
+    $("#price_wed").val(price);
+    $("#price_thu").val(price);
+    $("#price_fri").val(price);
+    $("#price_sat").val(price);
+    $("#price_sat").val(price);
+    $("#price_sun").val(price);
+  });

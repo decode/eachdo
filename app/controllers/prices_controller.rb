@@ -30,8 +30,8 @@ class PricesController < ApplicationController
 
     respond_to do |format|
       if @price.save
-        format.html { redirect_to @price, notice: 'Price was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @price }
+        format.html { redirect_to @house, notice: 'Price was successfully created.' }
+        format.json { redirect_to @house, status: :created, location: @price }
       else
         format.html { render action: 'new' }
         format.json { render json: @price.errors, status: :unprocessable_entity }

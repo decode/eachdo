@@ -124,6 +124,7 @@
 
   house_picture_count: "%{count}张图片"
   house_bed_count: "可住%{count}人"
+  house_day_price: "¥%{price}/晚"
 
 
   activerecord:

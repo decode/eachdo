@@ -1,4 +1,4 @@
-p#notice= notice
+/p#notice= notice
 
 .right
   = link_to t('edit'), edit_house_path(@house)
@@ -10,39 +10,24 @@ p#notice= notice
     h3
       = @house.name
     p
-      b Identifier:
+      b=t('activerecord.attributes.house.identifier')+ ': '
       = @house.identifier
 
+      =t('activerecord.attributes.house.address')+ ': '
       = @house.district
       = @house.address
     p
-      b House type:
-      = @house.house_type
-
-      b Area:
-      = @house.area
-
-      b Floor:
+      b=t('activerecord.attributes.house.bed')+ ': '
+      = @house.bed
+      b=t('activerecord.attributes.house.floor')+ ': '
       = @house.floor
 
-      b Floor type:
-      = @house.floor_type
-
-      b Capacity:
-      = @house.capacity
-
-      b Bed:
-      = @house.bed
-
-      b Direction:
-      = @house.direction
 
     dl.tabs(data-tab)
       dd.active
         a href="#panel-1"=t :house_photo
       dd
         a href="#panel-2"=t :geo_map
-
     .tabs-content
       #panel-1.content.active
         ul(data-orbit)
@@ -62,29 +47,45 @@ p#notice= notice
         a href="#panel-4"=t :other
     .tabs-content
       #panel-3.content.active
-        p
-          b Facility:
-          = @house.facility
+        ul
+          li
+            b=t('activerecord.attributes.house.facility')+ ': '
+            = @house.facility
+          li
+            b=t('activerecord.attributes.house.house_type')+ ': '
+            = @house.house_type
+          li
+            b=t('activerecord.attributes.house.area')+ ': '
+            = @house.area
+          li
+            b=t('activerecord.attributes.house.floor_type')+ ': '
+            = @house.floor_type
+          li
+            b=t('activerecord.attributes.house.capacity')+ ': '
+            = @house.capacity
+          li
+            b=t('activerecord.attributes.house.direction')+ ': '
+            = @house.direction
       #panel-4.content
-
-
-    p
-      b Status:
-      = @house.status
+        ul
+          li
+            b=t('activerecord.attributes.house.status')+ ': '
+            = @house.status
 
 
   .small-4.columns
     p
-      - if current_user
+      - if current_user and @house.prices.length > 0
         = link_to t('house_open'), {controller: 'houses', action: 'open', id: @house}, class: 'button' if @house.status == 'draft' or @house.status == 'close'
         = link_to t('house_close'), {controller: 'houses', action: 'close', id: @house}, class: 'button' if @house.status == 'open'
-        = link_to t('new_price'), new_house_price_url(@house.id), class: 'button' 
         = link_to t('house_checkin'), {controller: 'houses', action: 'checkin', id: @house}, class: 'button' if ['reserve', 'open'].include?(@house.status)
 
         = link_to t('house_checkout'), {controller: 'houses', action: 'checkout', id: @house}, class: 'button' if ['reserve', 'rent'].include?(@house.status)
       br
       b=t('now_price')
       = @house.prices.last.day if @house.prices.length > 0
+      = link_to t('new_price'), new_house_price_url(@house.id), class: 'button' 
+      br
 
     p
       / 需要增加判断语句，非房主才能预定
@@ -92,6 +93,9 @@ p#notice= notice
 
     | House host:
     hr
-    = @house.user.name if @house.user
+    - if @house.user
+      a(class='th')
+        = image_tag @house.user.avatar.thumb.url
+      = @house.user.name
 
 script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=SXqdoxetuRhnVDgqmDnAFcbO"
