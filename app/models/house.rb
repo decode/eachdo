@@ -2,6 +2,7 @@ class House < ActiveRecord::Base
   belongs_to :user
   has_many :albums
   has_many :prices
+  has_many :orders
   
   validates :name, :region, :address, :house_type, :area, :floor, :bed, presence: true
 
@@ -28,6 +29,10 @@ class House < ActiveRecord::Base
       end
     end
     return name
+  end
+
+  def can_order?(from, to)
+    return true if orders.length == 0
   end
 
   state_machine :status, :initial => :draft do

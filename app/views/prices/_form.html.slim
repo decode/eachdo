@@ -4,8 +4,8 @@
 
     .form-inputs
       /= f.association :house
-      = f.input :start
-      = f.input :end
+      = f.input :start, as: :datepicker, input_html: { value: DateTime.current().strftime("%Y-%m-%d") }
+      = f.input :end, as: :datepicker, input_html: { value: DateTime.current().strftime("%Y-%m-%d") }
 
       = f.input :day
       ul.small-block-grid-2.medium-block-grid-3.large-block-grid-3
@@ -24,7 +24,6 @@
         li
           = f.input :sun
 
-
     .form-actions
       = f.button :submit
 
@@ -40,3 +39,4 @@ javascript:
     $("#price_sat").val(price);
     $("#price_sun").val(price);
   });
+

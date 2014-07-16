@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140515150929) do
+ActiveRecord::Schema.define(version: 20140716054727) do
 
   create_table "albums", force: true do |t|
     t.string   "title"
@@ -115,6 +115,24 @@ ActiveRecord::Schema.define(version: 20140515150929) do
   end
 
   add_index "notifications", ["conversation_id"], name: "index_notifications_on_conversation_id"
+
+  create_table "orders", force: true do |t|
+    t.integer  "house_id"
+    t.integer  "user_id"
+    t.date     "from"
+    t.date     "to"
+    t.decimal  "price"
+    t.decimal  "deposit"
+    t.decimal  "payment"
+    t.string   "name"
+    t.string   "phone"
+    t.boolean  "is_oneself"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "orders", ["house_id"], name: "index_orders_on_house_id"
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id"
 
   create_table "photos", force: true do |t|
     t.integer  "album_id"

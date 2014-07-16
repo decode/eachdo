@@ -1,0 +1,22 @@
+.right
+  = link_to t('back'), orders_path
+
+
+h1
+  = @house.name
+ul
+  li
+    = @house.address
+  li
+    = @house.prices.last.day
+  li
+    = @house.prices.last.mon
+    = @house.prices.last.tue
+    = @house.prices.last.wed
+    = @house.prices.last.thu
+    = @house.prices.last.fri
+    = @house.prices.last.sat
+    = @house.prices.last.sun
+
+= render 'form'
+

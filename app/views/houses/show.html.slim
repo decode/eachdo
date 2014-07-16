@@ -90,6 +90,7 @@
     p
       / 需要增加判断语句，非房主才能预定
       = link_to t('house_order'), {controller: 'houses', action: 'order', id: @house}, class: 'button'
+      = link_to t('house_order'), new_house_order_url(@house), class: 'button'
 
     | House host:
     hr

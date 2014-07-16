@@ -8,12 +8,13 @@ nav.top-bar(data-options="is_hover:false" data-topbar)
       li.has-form
         form
           div.row.collapse
-            div.small-7.columns
+            div.small-7.large-7.columns
               input type="text"
-            div.small-5.columns
+            div.small-5.large-5.columns
               a.button href="#"=t(:search)
-
+      
       li.divider
+
       - if user_signed_in?
         li
           = link_to conversations_path do
@@ -48,3 +49,35 @@ nav.top-bar(data-options="is_hover:false" data-topbar)
         li
           = link_to t('signup'), new_user_registration_path
 
+/
+  div(class="off-canvas-wrap" data-offcanvas)
+    div.inner-wrap
+      a.left-off-canvas-toggle href="#" Eachdo
+      aside.left-off-canvas-menu
+        ul
+          - if user_signed_in?
+            li
+              = link_to conversations_path do
+                - if current_user.mailbox.inbox.length > 0
+                  = image_tag('mail.png') + current_user.mailbox.inbox(:unread => true).count(:id, :distinct => true).to_s
+                - else
+                  = image_tag('mail.png')
+            li
+              = link_to t('show_account'), user_path(current_user)
+            - if current_user.has_role? :admin
+              li
+                = link_to t('system_admin'), '/admin'
+            li
+              = link_to t('logout'), destroy_user_session_path, :method=>'delete'
+          - else
+            li
+              = link_to t('normal'), new_user_session_path
+            li
+              = link_to t('weibo'), '/users/auth/weibo', class: 'weibo'
+            li
+              = link_to t('signup'), new_user_registration_path
+
+      p
+        test
+
+    a.exit-off-canvas

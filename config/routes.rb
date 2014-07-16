@@ -1,9 +1,12 @@
 Eachfund::Application.routes.draw do
 
+  resources :orders
+
   resources :prices
 
   resources :houses do
     resources :prices
+    resources :orders
   end
 
   resources :photos

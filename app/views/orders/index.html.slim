@@ -1,0 +1,37 @@
+h1 Listing orders
+
+table
+  tr
+    th House
+    th User
+    th From
+    th To
+    th Price
+    th Deposit
+    th Payment
+    th Name
+    th Phone
+    th Is oneself
+    th
+    th
+    th
+
+  - @orders.each do |order|
+    tr
+      td= order.house
+      td= order.user
+      td= order.from
+      td= order.to
+      td= order.price
+      td= order.deposit
+      td= order.payment
+      td= order.name
+      td= order.phone
+      td= order.is_oneself
+      td= link_to 'Show', order
+      td= link_to 'Edit', edit_order_path(order)
+      td= link_to 'Destroy', order, :method => :delete, :data =>   confirm=('Are you sure?' ) 
+
+br
+
+= link_to 'New Order', new_order_path

@@ -1,0 +1,17 @@
+= simple_form_for(@order) do |f|
+  = f.error_notification
+
+  .form-inputs
+    /= f.association :house
+    /= f.association :user
+    = f.input :from, as: :datepicker, input_html: { value: DateTime.current().strftime("%Y-%m-%d") }
+    = f.input :to, as: :datepicker, input_html: { value: DateTime.current().strftime("%Y-%m-%d") }
+    = f.input :price
+    = f.input :deposit
+    = f.input :payment
+    = f.input :name
+    = f.input :phone
+    = f.input :is_oneself
+
+  .form-actions
+    = f.button :submit

@@ -1,0 +1,36 @@
+p#notice= notice
+
+p
+  b House:
+  = @order.house
+p
+  b User:
+  = @order.user
+p
+  b From:
+  = @order.from
+p
+  b To:
+  = @order.to
+p
+  b Price:
+  = @order.price
+p
+  b Deposit:
+  = @order.deposit
+p
+  b Payment:
+  = @order.payment
+p
+  b Name:
+  = @order.name
+p
+  b Phone:
+  = @order.phone
+p
+  b Is oneself:
+  = @order.is_oneself
+
+= link_to 'Edit', edit_order_path(@order)
+| \|
+= link_to 'Back', orders_path
