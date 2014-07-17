@@ -35,6 +35,35 @@ class House < ActiveRecord::Base
     return true if orders.length == 0
   end
 
+  def date_price(date)
+    if prices.length > 0
+      p = prices.last 
+      return p.day if date > p.end or date < p.start
+
+      case date.wday
+      when 1
+        price = p.mon || p.day
+      when 2
+        price = p.tue || p.day
+      when 3
+        price = p.wed || p.day
+      when 4
+        price = p.thu || p.day
+      when 5
+        price = p.fri || p.day
+      when 6
+        price = p.sat || p.day
+      when 0
+        price = p.sun || p.day
+      else
+        price = p.day
+      end
+      return price
+    else
+      return 0
+    end
+  end
+
   state_machine :status, :initial => :draft do
     event :publish do
       transition [:draft, :close] => :open

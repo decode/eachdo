@@ -4,14 +4,19 @@
   .form-inputs
     /= f.association :house
     /= f.association :user
-    = f.input :from, as: :datepicker, input_html: { value: DateTime.current().strftime("%Y-%m-%d") }
-    = f.input :to, as: :datepicker, input_html: { value: DateTime.current().strftime("%Y-%m-%d") }
-    = f.input :price
-    = f.input :deposit
-    = f.input :payment
-    = f.input :name
-    = f.input :phone
-    = f.input :is_oneself
+    .row
+      .small-6.large-6.columns
+        = f.input :from, as: :datepicker, input_html: { value: DateTime.current().strftime("%Y-%m-%d") }
+      .small-6.large-6.columns
+        = f.input :to, as: :datepicker, input_html: { value: DateTime.current().strftime("%Y-%m-%d") }
+    .row
+      .small-12.large-12.columns
+        = f.input :price
+        = f.input :deposit
+        = f.input :payment
+        = f.input :name
+        = f.input :phone
+        = f.input :is_oneself
 
-  .form-actions
-    = f.button :submit
+        .form-actions
+          = f.button :submit

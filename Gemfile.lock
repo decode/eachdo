@@ -231,6 +231,8 @@ GEM
       json
       json
     sexp_processor (4.4.3)
+    simple_calendar (1.1.5)
+      rails (>= 3.0)
     simple_form (3.0.1)
       actionpack (>= 4.0.0, < 4.1)
       activemodel (>= 4.0.0, < 4.1)
@@ -320,6 +322,7 @@ DEPENDENCIES
   rolify
   sass-rails (~> 4.0.2)
   sendgrid
+  simple_calendar
   simple_form
   slim-rails
   sqlite3
