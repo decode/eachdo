@@ -14,7 +14,10 @@
 
 
     = month_calendar do |date|
-      = @house.date_price date
+      - if date >= DateTime.now.to_date
+        = date.mday
+        br
+        = @house.date_price date
 
 = render 'form'
 

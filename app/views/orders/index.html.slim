@@ -1,5 +1,7 @@
-h1 Listing orders
+.right
+  = link_to 'New Order', new_order_path
 
+h1 Listing orders
 table
   tr
     th House
@@ -12,14 +14,17 @@ table
     th Name
     th Phone
     th Is oneself
+    th Status
+    th
+    th
     th
     th
     th
 
   - @orders.each do |order|
     tr
-      td= order.house
-      td= order.user
+      td= order.house.name
+      td= order.user.name
       td= order.from
       td= order.to
       td= order.price
@@ -28,10 +33,11 @@ table
       td= order.name
       td= order.phone
       td= order.is_oneself
-      td= link_to 'Show', order
-      td= link_to 'Edit', edit_order_path(order)
-      td= link_to 'Destroy', order, :method => :delete, :data =>   confirm=('Are you sure?' ) 
-
-br
-
-= link_to 'New Order', new_order_path
+      td= order.status
+      td= link_to t('show'), order
+      td= link_to t('edit'), edit_order_path(order)
+      td= link_to t('delete'), order, method: :delete, data: confirm=('Are you sure?' ) 
+      - if current_user.has_role? 'admin'
+        td= link_to 'Comfirm', {controller: 'orders', action: 'confirm', id: order}
+        td= link_to 'Pay', {controller: 'orders', action: 'pay', id: order}
+        td= link_to 'Cancel', {controller: 'orders', action: 'cancel', id: order}

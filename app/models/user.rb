@@ -30,5 +30,6 @@ class User < ActiveRecord::Base
   has_many :albums
   has_one :information
   has_many :houses
+  has_many :orders
 
 end

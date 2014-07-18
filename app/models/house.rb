@@ -31,8 +31,18 @@ class House < ActiveRecord::Base
     return name
   end
 
-  def can_order?(from, to)
-    return true if orders.length == 0
+  def can_order?(*range)
+    return false unless status == 'open'
+    if range.length > 0
+      from = range[0][:from]
+      to = range[0][:to]
+      exe_orders = orders.where status: 'execution'
+      exe_orders.each do |o|
+        return false if from < DateTime.now.to_date
+        return false if (from < o.to and to > o.to) or (from < o.from and to > o.from)
+      end
+    end
+    return true
   end
 
   def date_price(date)
@@ -62,6 +72,15 @@ class House < ActiveRecord::Base
     else
       return 0
     end
+  end
+
+  def total_price(from, to)
+    return 0 if from > to
+    price = 0
+    (from..to).each do |t|
+      price += date_price(t)
+    end
+    return price
   end
 
   state_machine :status, :initial => :draft do

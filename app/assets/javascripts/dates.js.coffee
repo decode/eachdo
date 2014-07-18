@@ -3,4 +3,4 @@ $ ->
     $(this).datepicker
       altFormat: "yy-mm-dd"
       dateFormat: "yy-mm-dd"
-      altField: $(this).next()
+      altFie: $(this).next()

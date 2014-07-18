@@ -11,9 +11,10 @@
         = f.input :to, as: :datepicker, input_html: { value: DateTime.current().strftime("%Y-%m-%d") }
     .row
       .small-12.large-12.columns
-        = f.input :price
-        = f.input :deposit
-        = f.input :payment
+        /
+          = f.input :price
+          = f.input :deposit
+          = f.input :payment
         = f.input :name
         = f.input :phone
         = f.input :is_oneself

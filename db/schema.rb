@@ -119,14 +119,15 @@ ActiveRecord::Schema.define(version: 20140716054727) do
   create_table "orders", force: true do |t|
     t.integer  "house_id"
     t.integer  "user_id"
-    t.date     "from"
-    t.date     "to"
+    t.date     "from",                      null: false
+    t.date     "to",                        null: false
     t.decimal  "price"
     t.decimal  "deposit"
     t.decimal  "payment"
     t.string   "name"
     t.string   "phone"
-    t.boolean  "is_oneself"
+    t.boolean  "is_oneself", default: true
+    t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

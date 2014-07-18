@@ -10,9 +10,11 @@ class CreateOrders < ActiveRecord::Migration
       t.decimal :payment
       t.string :name
       t.string :phone
-      t.boolean :is_oneself, null: false
+      t.boolean :is_oneself, default: true
+      t.string :status
 
       t.timestamps
     end
   end
+
 end

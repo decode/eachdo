@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
+    @orders = current_user.orders
   end
 
   # GET /orders/1
@@ -14,9 +14,13 @@ class OrdersController < ApplicationController
 
   # GET /orders/new
   def new
-    @order = Order.new
     session[:house_id] = params[:house_id] if params[:house_id]
     @house = House.find params[:house_id]
+    if @house.can_order?
+      @order = Order.new
+    else
+      redirect_to :back, alert: t('house_not_open')
+    end
   end
 
   # GET /orders/1/edit
@@ -27,15 +31,17 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     #@order = Order.new(order_params)
+    @house = House.find session[:house_id]
     @order = @house.orders.new(order_params)
     @order.user = current_user
+    @order.price = @house.total_price(@order.from, @order.to)
 
     respond_to do |format|
-      if @order.save
+      if @house.can_order?(from: @order.from, to: @order.to) and @order.book and @order.save
         format.html { redirect_to @order, notice: 'Order was successfully created.' }
         format.json { render action: 'show', status: :created, location: @order }
       else
-        format.html { render action: 'new' }
+        format.html { redirect_to new_house_order_url(@house), alert: 'Can not create order' }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
     end
@@ -44,6 +50,7 @@ class OrdersController < ApplicationController
   # PATCH/PUT /orders/1
   # PATCH/PUT /orders/1.json
   def update
+    @order.price = @order.house.total_price(@order.from, @order.to)
     respond_to do |format|
       if @order.update(order_params)
         format.html { redirect_to @order, notice: 'Order was successfully updated.' }
@@ -62,6 +69,33 @@ class OrdersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to orders_url }
       format.json { head :no_content }
+    end
+  end
+
+  def confirm
+    @order = Order.find params[:id]
+    if @order.confirm
+      redirect_to :back, notice: 'success'
+    else
+      redirect_to :back, notice: 'failed'
+    end
+  end
+
+  def pay
+    @order = Order.find params[:id]
+    if @order.pay
+      redirect_to :back, notice: 'success'
+    else
+      redirect_to :back, notice: 'failed'
+    end
+  end
+
+  def cancel
+    @order = Order.find params[:id]
+    if @order.cancel
+      redirect_to :back, notice: 'success'
+    else
+      redirect_to :back, notice: 'failed'
     end
   end
 
