@@ -46,7 +46,10 @@
         - if date >= DateTime.now.to_date
           = date.mday
           br
-          = @house.date_price date
+          - if @house.is_order? date
+            = t 'house_is_ordered'
+          - else
+            = @house.date_price date
 
     dl.tabs(data-tab)
       dd.active
@@ -100,11 +103,16 @@
       = link_to t('house_order'), {controller: 'houses', action: 'order', id: @house}, class: 'button'
       = link_to t('house_order'), new_house_order_url(@house), class: 'button'
 
-    | House host:
     hr
     - if @house.user
+      h5= t 'house_host'
       a(class='th')
         = image_tag @house.user.avatar.thumb.url
       = @house.user.name
+
+      hr
+      h5= t 'other_houses'
+      - @house.user.houses.each do |h|
+        = h.name if h != @house
 
 script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=SXqdoxetuRhnVDgqmDnAFcbO"

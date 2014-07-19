@@ -59,12 +59,8 @@
         span
           = check_box_tag "house[facility][]", f, @house.facility.nil? ? false : @house.facility.include?(f)
           label.collection_check_boxes=f
-      /= f.collection_check_boxes :facility, House::FACILITY, :to_s, :humanize
 
-      /= f.label :album
-      /= f.select :album, current_user.albums.collect{|a| [a.title, a.id]} 
-
-      = f.association :albums
+      = f.association :albums, collection: current_user.albums.where('house_id is null')
 
       - if current_user.has_role? 'admin'
         = f.association :user

@@ -17,7 +17,10 @@
       - if date >= DateTime.now.to_date
         = date.mday
         br
-        = @house.date_price date
+        - if @house.is_order? date
+          = t 'house_is_ordered'
+        - else
+          = @house.date_price date
 
 = render 'form'
 

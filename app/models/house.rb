@@ -45,6 +45,14 @@ class House < ActiveRecord::Base
     return true
   end
 
+  def is_order?(date)
+    return false unless orders.length > 0
+    orders.where(status: 'execution').each do |order|
+      return true if (order.from..order.to).include?(date)
+    end
+    return false
+  end
+
   def date_price(date)
     if prices.length > 0
       p = prices.last 

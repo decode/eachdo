@@ -41,7 +41,7 @@ class OrdersController < ApplicationController
         format.html { redirect_to @order, notice: 'Order was successfully created.' }
         format.json { render action: 'show', status: :created, location: @order }
       else
-        format.html { redirect_to new_house_order_url(@house), alert: 'Can not create order' }
+        format.html { redirect_to new_house_order_url(@house), alert: t('house_order_conflict') }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
     end

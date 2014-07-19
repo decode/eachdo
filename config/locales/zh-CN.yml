@@ -126,6 +126,10 @@
   house_bed_count: "可住%{count}人"
   house_day_price: "¥%{price}/晚"
   house_not_open: "房屋暂时无法预定"
+  house_order_conflict: "无法创建订单,请检查订单日期中房屋是否已被预定"
+  house_is_ordered: "无房"
+  other_houses: "其他房源"
+  house_host: "房东信息"
 
 
   activerecord:
