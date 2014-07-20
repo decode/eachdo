@@ -34,7 +34,8 @@ class OrdersController < ApplicationController
     @house = House.find session[:house_id]
     @order = @house.orders.new(order_params)
     @order.user = current_user
-    @order.price = @house.total_price(@order.from, @order.to)
+    @order.price = @house.prices.last
+    @order.total_price = @house.total_price(@order.from, @order.to)
 
     respond_to do |format|
       if @house.can_order?(from: @order.from, to: @order.to) and @order.book and @order.save
@@ -50,7 +51,8 @@ class OrdersController < ApplicationController
   # PATCH/PUT /orders/1
   # PATCH/PUT /orders/1.json
   def update
-    @order.price = @order.house.total_price(@order.from, @order.to)
+    @order.price = @house.prices.last
+    @order.total_price = @order.house.total_price(@order.from, @order.to)
     respond_to do |format|
       if @order.update(order_params)
         format.html { redirect_to @order, notice: 'Order was successfully updated.' }
@@ -77,7 +79,7 @@ class OrdersController < ApplicationController
     if @order.confirm
       redirect_to :back, notice: 'success'
     else
-      redirect_to :back, notice: 'failed'
+      redirect_to :back, alert: 'failed'
     end
   end
 
@@ -86,7 +88,7 @@ class OrdersController < ApplicationController
     if @order.pay
       redirect_to :back, notice: 'success'
     else
-      redirect_to :back, notice: 'failed'
+      redirect_to :back, alert: 'failed'
     end
   end
 
@@ -95,7 +97,7 @@ class OrdersController < ApplicationController
     if @order.cancel
       redirect_to :back, notice: 'success'
     else
-      redirect_to :back, notice: 'failed'
+      redirect_to :back, alert: 'failed'
     end
   end
 
@@ -107,6 +109,6 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:house_id, :user_id, :from, :to, :price, :deposit, :payment, :name, :phone, :is_oneself)
+      params.require(:order).permit(:house_id, :user_id, :from, :to, :total_price, :deposit, :payment, :name, :phone, :is_oneself)
     end
 end

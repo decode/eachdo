@@ -131,6 +131,13 @@
   other_houses: "其他房源"
   house_host: "房东信息"
 
+  order_confirm: "确认订单"
+  order_pay: "订单支付"
+  order_cancel: "订单取消"
+  order_detail: "订单详情"
+  order_price_detail: "订单明细"
+  edit_order: "修改订单"
+
 
   activerecord:
     errors:
@@ -151,6 +158,7 @@
       friendship: "好友关系"
       house: "房源"
       price: "价格"
+      order: "订单"
     attributes:
       user:
         name: "用户名"
@@ -202,3 +210,14 @@
         month: "月价格"
         weekend: "周末价"
         weekend_type: "周末类型"
+
+      order:
+        from: "入住时间"
+        to: "退房时间"
+        total_price: "房价总额"
+        deposit: "订金"
+        payment: "预支付金额"
+        name: "姓名"
+        phone: "电话号码"
+        is_oneself: "本人入住"
+        status: "订单状态"

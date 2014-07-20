@@ -1,36 +1,63 @@
-p#notice= notice
+.row
+  .small-12.large-12.columns
+    h3
+      = t 'order_detail'
 
-p
-  b House:
-  = @order.house
-p
-  b User:
-  = @order.user
-p
-  b From:
-  = @order.from
-p
-  b To:
-  = @order.to
-p
-  b Price:
-  = @order.price
-p
-  b Deposit:
-  = @order.deposit
-p
-  b Payment:
-  = @order.payment
-p
-  b Name:
-  = @order.name
-p
-  b Phone:
-  = @order.phone
-p
-  b Is oneself:
-  = @order.is_oneself
+/p#notice= notice
 
-= link_to 'Edit', edit_order_path(@order)
-| \|
-= link_to 'Back', orders_path
+.row
+  .small-9.large-9.columns
+    table{width='100%'}
+      tr
+        td{width='30%'}
+          = t 'activerecord.attributes.order.status'
+        td{width='70%'}
+          = @order.status
+      tr
+        td= t 'activerecord.attributes.house.house_type'
+        td= @order.house.house_type
+      tr
+        td= t 'activerecord.attributes.house.name'
+        td= @order.house.name
+      tr
+        td= t 'activerecord.attributes.house.user'
+        td= @order.user.name
+      tr
+        td= t 'activerecord.attributes.order.from'
+        td= @order.from
+      tr
+        td= t 'activerecord.attributes.order.to'
+        td= @order.to
+      tr
+        td= t 'activerecord.attributes.order.total_price'
+        td= @order.total_price
+      /
+        tr
+          td= "deposit"
+          td= @order.deposit
+        p
+          b Payment:
+          = @order.payment
+      tr
+        td= t 'activerecord.attributes.order.name'
+        td= @order.name
+      tr
+        td= t 'activerecord.attributes.order.phone'
+        td= @order.phone
+      tr
+        td= t 'activerecord.attributes.order.is_oneself'
+        td= @order.is_oneself
+
+    .right
+      - if @order.status == 'wait'
+        = link_to t('edit_order'), edit_order_path(@order)
+        ||
+      = link_to t('back'), orders_path
+  .small-3.large-3.columns
+    h5= t 'order_price_detail'
+    ul
+      - (@order.from..@order.to).each do |date|
+        li
+          = date.to_s + ": "
+          = @order.house.date_price(date, @order.price)
+

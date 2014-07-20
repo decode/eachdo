@@ -27,7 +27,7 @@ table
       td= order.user.name
       td= order.from
       td= order.to
-      td= order.price
+      td= order.total_price
       td= order.deposit
       td= order.payment
       td= order.name
@@ -38,6 +38,6 @@ table
       td= link_to t('edit'), edit_order_path(order)
       td= link_to t('delete'), order, method: :delete, data: confirm=('Are you sure?' ) 
       - if current_user.has_role? 'admin'
-        td= link_to 'Comfirm', {controller: 'orders', action: 'confirm', id: order}
-        td= link_to 'Pay', {controller: 'orders', action: 'pay', id: order}
-        td= link_to 'Cancel', {controller: 'orders', action: 'cancel', id: order}
+        td= link_to t('order_confirm'), {controller: 'orders', action: 'confirm', id: order}
+        td= link_to t('order_pay'), {controller: 'orders', action: 'pay', id: order}
+        td= link_to t('order_cancel'), {controller: 'orders', action: 'cancel', id: order}

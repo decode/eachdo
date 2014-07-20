@@ -53,33 +53,36 @@ class House < ActiveRecord::Base
     return false
   end
 
-  def date_price(date)
-    if prices.length > 0
+  def date_price(date, *price)
+    if price.length > 0 and !price[0].nil?
+      p = price[0]
+    elsif prices.length > 0
       p = prices.last 
-      return p.day if date > p.end or date < p.start
-
-      case date.wday
-      when 1
-        price = p.mon || p.day
-      when 2
-        price = p.tue || p.day
-      when 3
-        price = p.wed || p.day
-      when 4
-        price = p.thu || p.day
-      when 5
-        price = p.fri || p.day
-      when 6
-        price = p.sat || p.day
-      when 0
-        price = p.sun || p.day
-      else
-        price = p.day
-      end
-      return price
     else
       return 0
     end
+
+    return p.day if date > p.end or date < p.start
+
+    case date.wday
+    when 1
+      amount = p.mon || p.day
+    when 2
+      amount = p.tue || p.day
+    when 3
+      amount = p.wed || p.day
+    when 4
+      amount = p.thu || p.day
+    when 5
+      amount = p.fri || p.day
+    when 6
+      amount = p.sat || p.day
+    when 0
+      amount = p.sun || p.day
+    else
+      amount = p.day
+    end
+    return amount
   end
 
   def total_price(from, to)

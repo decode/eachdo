@@ -3,9 +3,11 @@ class CreateOrders < ActiveRecord::Migration
     create_table :orders do |t|
       t.references :house, index: true
       t.references :user, index: true
+      t.references :price, index: true
+
       t.date :from, null: false
       t.date :to, null: false
-      t.decimal :price
+      t.decimal :total_price
       t.decimal :deposit
       t.decimal :payment
       t.string :name

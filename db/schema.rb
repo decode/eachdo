@@ -119,20 +119,22 @@ ActiveRecord::Schema.define(version: 20140716054727) do
   create_table "orders", force: true do |t|
     t.integer  "house_id"
     t.integer  "user_id"
-    t.date     "from",                      null: false
-    t.date     "to",                        null: false
-    t.decimal  "price"
+    t.integer  "price_id"
+    t.date     "from",                       null: false
+    t.date     "to",                         null: false
+    t.decimal  "total_price"
     t.decimal  "deposit"
     t.decimal  "payment"
     t.string   "name"
     t.string   "phone"
-    t.boolean  "is_oneself", default: true
+    t.boolean  "is_oneself",  default: true
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "orders", ["house_id"], name: "index_orders_on_house_id"
+  add_index "orders", ["price_id"], name: "index_orders_on_price_id"
   add_index "orders", ["user_id"], name: "index_orders_on_user_id"
 
   create_table "photos", force: true do |t|

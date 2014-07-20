@@ -83,16 +83,6 @@ class HousesController < ApplicationController
     end
   end
 
-  def order
-    @house = House.find params[:id]
-    @house.order
-    if @house.save
-      redirect_to :back, notice: 'success'
-    else
-      redirect_to :back, notice: 'failed'
-    end
-  end
-
   def checkin
     @house = House.find params[:id]
     @house.checkin
