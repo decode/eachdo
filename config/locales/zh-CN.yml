@@ -70,6 +70,9 @@
   decline_user_request: "确定拒绝用户%{user}的好友申请吗?"
   cancel_friend_request: "撤消好友申请?"
 
+  boolean_true: "是"
+  boolean_false: "否"
+
   conversation: "会话"
   start_conversation: "开始会话"
   send_to: "发送给"
@@ -102,7 +105,7 @@
   edit_photo: '编辑照片'
   photos_count: '共%{count}张照片'
 
-  new_house: "新增房源"
+  new_house: "登记房源"
   edit_house: "修改房屋信息"
   current_region: "当前所在区域"
   map_address: "地图位置"
@@ -131,12 +134,17 @@
   other_houses: "其他房源"
   house_host: "房东信息"
 
+  list_orders: "订单信息"
   order_confirm: "确认订单"
   order_pay: "订单支付"
   order_cancel: "订单取消"
   order_detail: "订单详情"
   order_price_detail: "订单明细"
   edit_order: "修改订单"
+  order_status_wait: "等待确认"
+  order_status_execution: "执行中"
+  order_status_finish: "完成订单"
+  order_status_cancel: "取消订单"
 
 
   activerecord:
@@ -202,6 +210,7 @@
         user: "房主"
         album: "房屋照片"
         facility: "配套设施"
+        amount: "房屋套数"
 
       price:
         house: "关联房屋"
@@ -214,6 +223,7 @@
       order:
         from: "入住时间"
         to: "退房时间"
+        amount: "房间套数"
         total_price: "房价总额"
         deposit: "订金"
         payment: "预支付金额"

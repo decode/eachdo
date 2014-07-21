@@ -6,10 +6,10 @@ class Order < ActiveRecord::Base
   validates :from, :to, presence: true
 
   def local_status
-    status = %W(wait execution finish cancel)
-    local = %W(t('order_status_wait') t('order_status_execution') t('finish') t('cancel'))
-    h = Array.new(4)
-    status.each {|s| h << s.intern}
+    status_list = %W(wait execution finish cancel)
+    local = [I18n.t('order_status_wait'), I18n.t('order_status_execution'), I18n.t('order_status_finish'), I18n.t('order_status_cancel')]
+    h = Hash[*status_list.zip(local).flatten]
+    return h[status]
   end
 
   # 订单四种状态:

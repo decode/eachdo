@@ -1,43 +1,48 @@
-.right
-  = link_to 'New Order', new_order_path
+.row
+  .small-12.large-12.columns
+    h3=t 'list_orders'
+    table
+      tr
+        th= t 'activerecord.attributes.house.name'
+        /th= t 'activerecord.attributes.house.user'
+        th= t 'activerecord.attributes.order.from'
+        th= t 'activerecord.attributes.order.to'
+        th= t 'activerecord.attributes.order.amount'
+        th= t 'activerecord.attributes.order.total_price'
+        /th= t 'activerecord.attributes.order.deposit'
+        /th= t 'activerecord.attributes.order.payment'
+        th= t 'activerecord.attributes.order.name'
+        th= t 'activerecord.attributes.order.phone'
+        /th= t 'activerecord.attributes.order.is_oneself'
+        th= t 'activerecord.attributes.order.status'
+        th
+        th
+        th
 
-h1 Listing orders
-table
-  tr
-    th House
-    th User
-    th From
-    th To
-    th Price
-    th Deposit
-    th Payment
-    th Name
-    th Phone
-    th Is oneself
-    th Status
-    th
-    th
-    th
-    th
-    th
-
-  - @orders.each do |order|
-    tr
-      td= order.house.name
-      td= order.user.name
-      td= order.from
-      td= order.to
-      td= order.total_price
-      td= order.deposit
-      td= order.payment
-      td= order.name
-      td= order.phone
-      td= order.is_oneself
-      td= order.status
-      td= link_to t('show'), order
-      td= link_to t('edit'), edit_order_path(order)
-      td= link_to t('delete'), order, method: :delete, data: confirm=('Are you sure?' ) 
-      - if current_user.has_role? 'admin'
-        td= link_to t('order_confirm'), {controller: 'orders', action: 'confirm', id: order}
-        td= link_to t('order_pay'), {controller: 'orders', action: 'pay', id: order}
-        td= link_to t('order_cancel'), {controller: 'orders', action: 'cancel', id: order}
+      - @orders.each do |order|
+        tr
+          td= order.house.name
+          /td= order.user.name
+          td= order.from
+          td= order.to
+          td= order.amount
+          td= order.total_price
+          /td= order.deposit
+          /td= order.payment
+          td= order.name
+          td= order.phone
+          /td= local_boolean(order.is_oneself.to_s)
+          td= order.local_status
+          td
+            = link_to t('show'), order
+            ||
+            = link_to t('edit'), edit_order_path(order)
+            ||
+            = link_to t('delete'), order, method: :delete, data: confirm=t('confirm') 
+            br
+            - if current_user.has_role? 'admin'
+              = link_to t('order_confirm'), {controller: 'orders', action: 'confirm', id: order}
+              ||
+              = link_to t('order_pay'), {controller: 'orders', action: 'pay', id: order}
+              ||
+              = link_to t('order_cancel'), {controller: 'orders', action: 'cancel', id: order}

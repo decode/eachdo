@@ -20,7 +20,7 @@
         - if @house.is_order? date
           = t 'house_is_ordered'
         - else
-          = @house.date_price date
+          = @house.date_price date, 1
 
 = render 'form'
 

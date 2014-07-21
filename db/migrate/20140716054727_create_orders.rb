@@ -7,6 +7,7 @@ class CreateOrders < ActiveRecord::Migration
 
       t.date :from, null: false
       t.date :to, null: false
+      t.integer :amount, null:false, default: 1
       t.decimal :total_price
       t.decimal :deposit
       t.decimal :payment

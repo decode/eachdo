@@ -65,8 +65,7 @@ class HousesController < ApplicationController
 
   def open
     @house = House.find params[:id]
-    @house.publish
-    if @house.save
+    if @house.albums.length > 0 and @house.publish
       redirect_to :back, notice: 'success'
     else
       redirect_to :back, notice: 'failed'

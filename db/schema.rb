@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 20140716054727) do
     t.integer  "max_day"
     t.integer  "min_day"
     t.text     "other"
+    t.integer  "amount"
     t.string   "status"
     t.integer  "user_id"
     t.datetime "created_at"
@@ -122,6 +123,7 @@ ActiveRecord::Schema.define(version: 20140716054727) do
     t.integer  "price_id"
     t.date     "from",                       null: false
     t.date     "to",                         null: false
+    t.integer  "amount",      default: 1,    null: false
     t.decimal  "total_price"
     t.decimal  "deposit"
     t.decimal  "payment"

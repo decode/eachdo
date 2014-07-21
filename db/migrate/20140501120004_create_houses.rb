@@ -1,6 +1,7 @@
 class CreateHouses < ActiveRecord::Migration
   def change
     create_table :houses do |t|
+      # 房屋编号
       t.string :identifier
       # 房屋名称
       t.string :name
@@ -47,6 +48,8 @@ class CreateHouses < ActiveRecord::Migration
       t.integer :min_day
       # 其它
       t.text :other
+      # 房屋套数
+      t.integer :amount
 
       # 房屋状态
       # 保存为: 草稿 发布 未发布 无效 删除

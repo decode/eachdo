@@ -45,6 +45,7 @@
           |&#215;
 
       = f.input :house_type, collection: House::HOUSE_TYPE, include_blank: false
+      = f.input :amount
       = f.input :area
       = f.input :floor
       = f.input :floor_type
@@ -60,7 +61,11 @@
           = check_box_tag "house[facility][]", f, @house.facility.nil? ? false : @house.facility.include?(f)
           label.collection_check_boxes=f
 
-      = f.association :albums, collection: current_user.albums.where('house_id is null')
+      br
+      - albums = current_user.albums.where("house_id is null")
+      - if albums.length == 0
+        = link_to t('new_album'), new_album_path
+      = f.association :albums, collection: albums
 
       - if current_user.has_role? 'admin'
         = f.association :user

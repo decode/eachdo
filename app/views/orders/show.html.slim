@@ -12,7 +12,7 @@
         td{width='30%'}
           = t 'activerecord.attributes.order.status'
         td{width='70%'}
-          = @order.status
+          = @order.local_status
       tr
         td= t 'activerecord.attributes.house.house_type'
         td= @order.house.house_type
@@ -28,6 +28,9 @@
       tr
         td= t 'activerecord.attributes.order.to'
         td= @order.to
+      tr
+        td= t 'activerecord.attributes.order.amount'
+        td= @order.amount
       tr
         td= t 'activerecord.attributes.order.total_price'
         td= @order.total_price
@@ -59,5 +62,5 @@
       - (@order.from..@order.to).each do |date|
         li
           = date.to_s + ": "
-          = @order.house.date_price(date, @order.price)
+          = @order.house.date_price(date, @order.amount, @order.price)
 

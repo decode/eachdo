@@ -53,7 +53,7 @@ class House < ActiveRecord::Base
     return false
   end
 
-  def date_price(date, *price)
+  def date_price(date, amount, *price)
     if price.length > 0 and !price[0].nil?
       p = price[0]
     elsif prices.length > 0
@@ -62,34 +62,34 @@ class House < ActiveRecord::Base
       return 0
     end
 
-    return p.day if date > p.end or date < p.start
+    return p.day * amount if date > p.end or date < p.start
 
     case date.wday
     when 1
-      amount = p.mon || p.day
+      m = p.mon || p.day
     when 2
-      amount = p.tue || p.day
+      m = p.tue || p.day
     when 3
-      amount = p.wed || p.day
+      m = p.wed || p.day
     when 4
-      amount = p.thu || p.day
+      m = p.thu || p.day
     when 5
-      amount = p.fri || p.day
+      m = p.fri || p.day
     when 6
-      amount = p.sat || p.day
+      m = p.sat || p.day
     when 0
-      amount = p.sun || p.day
+      m = p.sun || p.day
     else
-      amount = p.day
+      m = p.day
     end
-    return amount
+    return m * amount 
   end
 
-  def total_price(from, to)
+  def total_price(from, to, amount)
     return 0 if from > to
     price = 0
     (from..to).each do |t|
-      price += date_price(t)
+      price += date_price(t, amount)
     end
     return price
   end

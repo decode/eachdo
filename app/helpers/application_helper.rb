@@ -12,4 +12,11 @@ module ApplicationHelper
     html.html_safe
   end
 
+  def local_boolean(b)
+    bool = %W(true false)
+    local = [I18n.t('boolean_true'), I18n.t('boolean_false')]
+    h = Hash[*bool.zip(local).flatten]
+    return h[b]
+  end
+
 end

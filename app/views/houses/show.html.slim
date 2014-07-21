@@ -7,7 +7,22 @@
 
 .row
   .small-8.columns
-    h3
+    .right
+      - if @house.user == current_user and @house.prices.length > 0
+        - if @house.status == 'draft' or @house.status == 'close'
+          = link_to t('house_open'), {controller: 'houses', action: 'open', id: @house}
+        - if @house.status == 'open'
+          = link_to t('house_close'), {controller: 'houses', action: 'close', id: @house}
+        - if ['reserve', 'open'].include?(@house.status)
+          ||
+          = link_to t('house_checkin'), {controller: 'houses', action: 'checkin', id: @house}
+        - if ['reserve', 'rent'].include?(@house.status)
+          ||
+          = link_to t('house_checkout'), {controller: 'houses', action: 'checkout', id: @house}
+        - if @house.albums.length == 0
+          ||
+          = link_to t('new_album'), new_album_path
+    h2
       = @house.name
     p
       b=t('activerecord.attributes.house.identifier')+ ': '
@@ -41,7 +56,7 @@
           = image_tag "http://api.map.baidu.com/staticimage?center=#{@house.longitude},#{@house.latitude}&width=400&height=400&zoom=14&markers=#{@house.longitude},#{@house.latitude}&markerStyles=l"
 
 
-    p
+    .panel
       = month_calendar do |date|
         - if date >= DateTime.now.to_date
           = date.mday
@@ -49,7 +64,7 @@
           - if @house.is_order? date
             = t 'house_is_ordered'
           - else
-            = @house.date_price date
+            = @house.date_price date, 1
 
     dl.tabs(data-tab)
       dd.active
@@ -85,32 +100,26 @@
 
 
   .small-4.columns
-    p
-      - if current_user and @house.prices.length > 0
-        = link_to t('house_open'), {controller: 'houses', action: 'open', id: @house}, class: 'button' if @house.status == 'draft' or @house.status == 'close'
-        = link_to t('house_close'), {controller: 'houses', action: 'close', id: @house}, class: 'button' if @house.status == 'open'
-        = link_to t('house_checkin'), {controller: 'houses', action: 'checkin', id: @house}, class: 'button' if ['reserve', 'open'].include?(@house.status)
-
-        = link_to t('house_checkout'), {controller: 'houses', action: 'checkout', id: @house}, class: 'button' if ['reserve', 'rent'].include?(@house.status)
-      br
+    .panel.callout
       b=t('now_price')
       = @house.prices.last.day if @house.prices.length > 0
-      = link_to t('new_price'), new_house_price_url(@house.id), class: 'button' 
-      br
+      - if @house.user == current_user
+        ||
+        = link_to t('new_price'), new_house_price_url(@house.id)
 
     p
       / 需要增加判断语句，非房主才能预定
       = link_to t('house_order'), new_house_order_url(@house), class: 'button'
 
-    hr
     - if @house.user
-      h5= t 'house_host'
+      .panel
+        h6= t 'house_host'
       a(class='th')
         = image_tag @house.user.avatar.thumb.url
       = @house.user.name
 
-      hr
-      h5= t 'other_houses'
+      .panel
+        h6= t 'other_houses'
       - @house.user.houses.each do |h|
         = h.name if h != @house
 
