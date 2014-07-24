@@ -104,6 +104,8 @@
   remove_image: '删除照片'
   edit_photo: '编辑照片'
   photos_count: '共%{count}张照片'
+  album_create_success: "相册创建成功"
+  album_update_success: "相册更新成功"
 
   new_house: "登记房源"
   edit_house: "修改房屋信息"
@@ -133,6 +135,7 @@
   house_is_ordered: "无房"
   other_houses: "其他房源"
   house_host: "房东信息"
+  house_no_albums: "没有可以关联的相册,需要新创建一个,或者保存当前信息以后再创建"
 
   list_orders: "订单信息"
   order_confirm: "确认订单"

@@ -35,7 +35,8 @@ class AlbumsController < ApplicationController
             @album.photos.create(image: image)
           end
         end
-        format.html { redirect_to edit_album_path(@album), notice: 'Album was successfully created.' }
+        #format.html { redirect_to edit_album_path(@album), notice: 'Album was successfully created.' }
+        format.html { redirect_to new_house_path, notice: t('album_create_success') }
         format.json { render action: 'show', status: :created, location: @album }
       else
         format.html { render action: 'new' }
@@ -54,7 +55,7 @@ class AlbumsController < ApplicationController
             @album.photos.create(image: image)
           end
         end
-        format.html { redirect_to edit_album_path(@album), notice: 'Album was successfully updated.' }
+        format.html { redirect_to edit_album_path(@album), notice: t('album_update_success') }
         #format.json { head :no_content }
         format.json { render action: 'edit', status: :created, location: @album }
       else

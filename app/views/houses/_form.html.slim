@@ -64,6 +64,7 @@
       br
       - albums = current_user.albums.where("house_id is null")
       - if albums.length == 0
+        = t 'house_no_albums'
         = link_to t('new_album'), new_album_path
       = f.association :albums, collection: albums
 

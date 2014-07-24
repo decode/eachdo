@@ -1,18 +1,27 @@
-nav.top-bar(data-options="is_hover:false" data-topbar)
+/nav.top-bar(data-options="is_hover:false" data-topbar)
+nav.top-bar(data-topbar)
   ul.title-area
     li.name
       h1 
         a href='/' Eachdo
-  div.top-bar-section
+  section.top-bar-section
+    ul.left
+      - if user_signed_in?
+        li
+          = link_to t('activerecord.models.house'), houses_path, class: 'button'
+        li.divider
+        li
+          = link_to t('album'), albums_path, class: 'button'
     ul.right
       li.has-form
-        form
-          div.row.collapse
-            div.small-7.large-7.columns
-              input type="text"
-            div.small-5.large-5.columns
-              a.button href="#"=t(:search)
-      
+        div.row.collapse
+          div.small-7.large-7.columns
+            input(id='city' class='cityinput' placeholder="City")
+          /div.small-5.large-5.columns
+            input
+          div.small-5.large-5.columns
+            a.button href="#"=t(:search)
+
       li.divider
 
       - if user_signed_in?
@@ -48,6 +57,9 @@ nav.top-bar(data-options="is_hover:false" data-topbar)
               = link_to t('weibo'), '/users/auth/weibo', class: 'weibo'
         li
           = link_to t('signup'), new_user_registration_path
+
+javascript:
+  var city = new Vcity.CitySelector({input:'city'});
 
 /
   div(class="off-canvas-wrap" data-offcanvas)
