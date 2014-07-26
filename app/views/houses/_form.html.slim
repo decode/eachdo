@@ -12,13 +12,13 @@
         .right
           = "#{t(:current_region)}: #{@house.district}" if @house.region
       .city-group
-        select.city-select.small-4.columns
+        select.city-select.small-4.columns name='house[province]'
           option --省份--
           = options_for_select(ChinaCity.list)
-        select.city-select.small-4.columns
+        select.city-select.small-4.columns name='house[city]'
           option --城市--
           = options_for_select(ChinaCity.list)
-        select.city-select.small-4.columns
+        select.city-select.small-4.columns name='house[district]'
           option --地区--
           = options_for_select(ChinaCity.list)
       = f.input :region, as: :hidden, value: @house.region
@@ -81,8 +81,10 @@ script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=SXqdoxe
 javascript:
   // 区域三级联动选择控件
   $(".city-select").change(function() {
-    var optionSelected = $('.city-select').find("option:selected");
-    var valueSelected  = optionSelected.val();
+    //var optionSelected = $('.city-select').find("option:selected");
+    //var valueSelected  = optionSelected.val();
+    var optionSelected = $("option:selected", this);
+    var valueSelected = this.value;
     $('input[name="house[region]"]').val(valueSelected);
   });
 

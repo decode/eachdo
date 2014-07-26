@@ -350,7 +350,7 @@ Vcity.CitySelector.prototype = {
             if(that.input.value == '城市名') that.input.value = '';
         });
         Vcity._m.on(this.input,'blur',function(){
-            if(that.input.value == '') that.input.value = '城市名';
+            //if(that.input.value == '') that.input.value = '城市名';
         });
         Vcity._m.on(this.input,'keyup',function(event){
             event = event || window.event;

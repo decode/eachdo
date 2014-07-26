@@ -1,3 +1,9 @@
+- if @districts.length > 0
+  .panel
+    = link_to " #{t('all')} ", "/district"
+    - @districts.each do |h|
+      = link_to " #{h} ", "/district/#{h}"
+
 .right
   = link_to t('new_house'), new_house_path, class: 'button'
 
@@ -20,7 +26,7 @@
             ||
           = t 'house_bed_count', count: house.bed
         li
-          = house.status
+          = house.local_status
     #house-price.small-3.columns
       h4
         = t 'house_day_price', price: house.prices.last.day if house.prices.length > 0

@@ -7,6 +7,9 @@ class CreateHouses < ActiveRecord::Migration
       t.string :name
       # 所在地区
       t.string :region
+      t.string :province
+      t.string :city
+      t.string :district
       # 详细地址
       t.string :address
       # 房屋类型

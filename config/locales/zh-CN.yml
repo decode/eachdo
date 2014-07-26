@@ -69,6 +69,7 @@
   delete_user_friendship: "确定解除和用户%{user}的好友关系?"
   decline_user_request: "确定拒绝用户%{user}的好友申请吗?"
   cancel_friend_request: "撤消好友申请?"
+  all: "全部"
 
   boolean_true: "是"
   boolean_false: "否"
@@ -136,6 +137,13 @@
   other_houses: "其他房源"
   house_host: "房东信息"
   house_no_albums: "没有可以关联的相册,需要新创建一个,或者保存当前信息以后再创建"
+  city: "城市"
+  city_suffix: "市"
+  house_status_open: "开放"
+  house_status_draft: "草稿"
+  house_status_reserve: "保留"
+  house_status_rent: "己租"
+  house_status_close: "关闭"
 
   list_orders: "订单信息"
   order_confirm: "确认订单"

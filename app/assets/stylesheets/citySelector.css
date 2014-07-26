@@ -1,4 +1,4 @@
-.citySelector{ font:10px/1.5 tahoma,arial,\5b8b\4f53; background: #fff; text-align:left; }
+/*.citySelector{ text-align:left; }*/
 .cityslide {width:250px; list-style:none; margin:0; padding:0; border: 1px solid #85BEE5; border-right-color: #3485C0; border-bottom-color: #3485C0;box-shadow: 2px 2px 3px rgba(0,0,0,0.3);  margin-top:-2px;}
 .cityslide li { list-style:none; overflow:hidden;  height:16px; padding:4px 5px;}
 .cityslide li.on{background:#9CD9FF; color:#fff;}
@@ -20,9 +20,4 @@ p.tip{ color:#666; line-height: 20px; padding: 5px; margin: 0; text-indent: 3px;
 .cityTab dl dd{ margin-left:2px; float:left; width: 290px;}
 .cityTab dl dd a{ padding-left:5px; width:66px; line-height: 22px; display: inline-block; color: #000; text-decoration: none;}
 .cityTab dl dd a:hover{text-decoration:underline; color: red}
-.cityinput{
-  border-width: 1px;
-  border-style: solid;
-  border-color: #666 #ccc #ccc #666;
-  width: 150px;
-}
+.cityinput{ width: 150px; }

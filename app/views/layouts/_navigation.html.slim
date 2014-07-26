@@ -14,13 +14,12 @@ nav.top-bar(data-topbar)
           = link_to t('album'), albums_path, class: 'button'
     ul.right
       li.has-form
-        div.row.collapse
-          div.small-7.large-7.columns
-            input(id='city' class='cityinput' placeholder="City")
-          /div.small-5.large-5.columns
-            input
-          div.small-5.large-5.columns
-            a.button href="#"=t(:search)
+        = form_tag '/city'
+          div.row.collapse
+            div.small-7.large-7.columns
+              input(id='city' name='city' class='cityinput' placeholder=session[:city]||t('city'))
+            div.small-5.large-5.columns
+              input.button value=t(:search) type='submit'
 
       li.divider
 

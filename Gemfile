@@ -16,6 +16,9 @@ gem 'simple_form'
 gem 'slim-rails'
 gem 'therubyracer', :platform=>:ruby
 gem 'foundation-rails'
+group :development do
+  gem 'rails_layout'
+end
 
 # Client side validation
 gem 'jquery-validation-rails'

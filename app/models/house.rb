@@ -6,6 +6,9 @@ class House < ActiveRecord::Base
   
   validates :name, :region, :address, :house_type, :area, :floor, :bed, presence: true
 
+  before_create :save_region
+  before_save :save_region
+
   HOUSE_TYPE = %W(民居 公寓 独幢别墅 旅馆 客栈 阁楼 四合院 海别小屋 集体宿舍 林间小屋 豪宅 城堡 树屋 船舱 房车 冰屋)
   FACILITY = %W(电视 空调 冰箱 洗衣机 24小时热水 饮水机 电脑 暖气 厨房 沐浴 浴缸 拖鞋 洗漱用品 毛巾浴巾 电梯)
 
@@ -15,8 +18,20 @@ class House < ActiveRecord::Base
     self.facility.nil? ? [] : self.facility.strip.split(" ")
   end
 
+  def save_region
+    if region
+      begin
+        self.district = ChinaCity.get region
+        c = ChinaCity.city region
+        self.city = ChinaCity.get c
+        p = ChinaCity.province region
+        self.province = ChinaCity.get p
+      rescue
+      end
+    end
+  end
+
   def district
-    #name = ChinaCity.get(region)
     if region
       begin
         name = ChinaCity.get(region)
@@ -92,6 +107,13 @@ class House < ActiveRecord::Base
       price += date_price(t, amount)
     end
     return price
+  end
+
+  def local_status
+    status_list = %W(draft open reserve rent close)
+    local = [I18n.t('house_status_draft'), I18n.t('house_status_open'), I18n.t('house_status_reserve'), I18n.t('house_status_rent'), I18n.t('house_status_close')]
+    h = Hash[*status_list.zip(local).flatten]
+    return h[status]
   end
 
   state_machine :status, :initial => :draft do

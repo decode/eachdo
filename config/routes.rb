@@ -37,5 +37,7 @@ Eachfund::Application.routes.draw do
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
   mount ChinaCity::Engine => '/china_city'
 
-  get ':controller/:action/:id'
+  post '/city', to: 'houses#list_city'
+  get '/district(/:region)', to: 'houses#list_district'
+  get ':controller/:action(/:id)'
 end

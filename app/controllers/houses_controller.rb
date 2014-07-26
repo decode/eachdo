@@ -5,7 +5,17 @@ class HousesController < ApplicationController
   # GET /houses
   # GET /houses.json
   def index
-    @houses = House.all
+    if session[:city]
+      houses = House.where city: session[:city]
+      @districts = houses.pluck(:district).uniq
+      if session[:district]
+        @houses = houses.where district: session[:district]
+      else
+        @houses = houses
+      end
+    else
+      @houses = House.where status: 'open'
+    end
   end
 
   # GET /houses/1
@@ -100,6 +110,24 @@ class HousesController < ApplicationController
     else
       redirect_to :back, notice: 'failed'
     end
+  end
+
+  def list_city
+    if params[:city]
+      city = params[:city]
+      session[:city] = city + t("city_suffix")
+      session[:district] = nil
+    end
+    redirect_to houses_path
+  end
+
+  def list_district
+    session[:district] = params[:region]
+    redirect_to houses_path
+  end
+
+  def search(keyword)
+    
   end
 
   private
