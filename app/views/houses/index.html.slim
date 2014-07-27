@@ -1,11 +1,8 @@
-- if @districts.length > 0
+- if @districts and @districts.length > 0
   .panel
     = link_to " #{t('all')} ", "/district"
     - @districts.each do |h|
       = link_to " #{h} ", "/district/#{h}"
-
-.right
-  = link_to t('new_house'), new_house_path, class: 'button'
 
 - @houses.each do |house|
   .row

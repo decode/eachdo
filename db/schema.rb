@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140716054727) do
+ActiveRecord::Schema.define(version: 20140727034012) do
 
   create_table "albums", force: true do |t|
     t.string   "title"
@@ -32,12 +32,6 @@ ActiveRecord::Schema.define(version: 20140716054727) do
     t.string   "access_token", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "conversations", force: true do |t|
-    t.string   "subject",    default: ""
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
   end
 
   create_table "friendships", force: true do |t|
@@ -100,7 +94,19 @@ ActiveRecord::Schema.define(version: 20140716054727) do
 
   add_index "information", ["user_id"], name: "index_information_on_user_id"
 
-  create_table "notifications", force: true do |t|
+  create_table "mailboxer_conversation_opt_outs", force: true do |t|
+    t.integer "unsubscriber_id"
+    t.string  "unsubscriber_type"
+    t.integer "conversation_id"
+  end
+
+  create_table "mailboxer_conversations", force: true do |t|
+    t.string   "subject",    default: ""
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  create_table "mailboxer_notifications", force: true do |t|
     t.string   "type"
     t.text     "body"
     t.string   "subject",              default: ""
@@ -118,7 +124,21 @@ ActiveRecord::Schema.define(version: 20140716054727) do
     t.datetime "expires"
   end
 
-  add_index "notifications", ["conversation_id"], name: "index_notifications_on_conversation_id"
+  add_index "mailboxer_notifications", ["conversation_id"], name: "index_mailboxer_notifications_on_conversation_id"
+
+  create_table "mailboxer_receipts", force: true do |t|
+    t.integer  "receiver_id"
+    t.string   "receiver_type"
+    t.integer  "notification_id",                            null: false
+    t.boolean  "is_read",                    default: false
+    t.boolean  "trashed",                    default: false
+    t.boolean  "deleted",                    default: false
+    t.string   "mailbox_type",    limit: 25
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+  end
+
+  add_index "mailboxer_receipts", ["notification_id"], name: "index_mailboxer_receipts_on_notification_id"
 
   create_table "orders", force: true do |t|
     t.integer  "house_id"
@@ -170,20 +190,6 @@ ActiveRecord::Schema.define(version: 20140716054727) do
   end
 
   add_index "prices", ["house_id"], name: "index_prices_on_house_id"
-
-  create_table "receipts", force: true do |t|
-    t.integer  "receiver_id"
-    t.string   "receiver_type"
-    t.integer  "notification_id",                            null: false
-    t.boolean  "is_read",                    default: false
-    t.boolean  "trashed",                    default: false
-    t.boolean  "deleted",                    default: false
-    t.string   "mailbox_type",    limit: 25
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
-  end
-
-  add_index "receipts", ["notification_id"], name: "index_receipts_on_notification_id"
 
   create_table "roles", force: true do |t|
     t.string   "name"

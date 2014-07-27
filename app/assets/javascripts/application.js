@@ -12,17 +12,15 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.fileupload
-//= require jquery.ui.datepicker
 //= require turbolinks
 //= require foundation
-//
+//= require jquery.fileupload
+//= require jquery.ui.datepicker
 //= require jquery.validate
 //= require jquery.validate.additional-methods
 //= require jquery.validate.localization/messages_zh
-//
 //= require 'china_city/jquery.china_city'
-//
 //= require_tree .
-
-$(function(){ $(document).foundation(); });
+$(function() {
+  $(document).foundation();
+});

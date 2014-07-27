@@ -108,6 +108,7 @@
   album_create_success: "相册创建成功"
   album_update_success: "相册更新成功"
 
+  list_house: "房源列表"
   new_house: "登记房源"
   edit_house: "修改房屋信息"
   current_region: "当前所在区域"
@@ -144,6 +145,8 @@
   house_status_reserve: "保留"
   house_status_rent: "己租"
   house_status_close: "关闭"
+  house_create_success: "房屋登记成功,但是还没有公开,请设定价格及补充照片之后,再点击公开房源"
+  house_update_success: "房屋信息更新成功"
 
   list_orders: "订单信息"
   order_confirm: "确认订单"

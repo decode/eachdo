@@ -3,8 +3,8 @@ html
   head
     meta charset="utf-8"
     meta name="viewport" content="width=device-width, initial-scale=1.0" 
-    meta name="description" content=("#{content_for?(:description) ? yield(:description) : 'Eachfund'}") 
     title= content_for?(:title) ? yield(:title) : 'Eachfund'
+    meta name="description" content=("#{content_for?(:description) ? yield(:description) : 'Eachfund'}") 
 
     = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "vendor/modernizr"
@@ -13,9 +13,81 @@ html
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
   body
-    header
-      = render 'layouts/navigation'
-    main role="main" 
-      = render 'layouts/messages'
-      br
-      = yield
+    page
+      .off-canvas-wrap data-offcanvas=''
+        .inner-wrap
+          nav.tab-bar
+            section.left-small
+              a class="left-off-canvas-toggle menu-icon" href="#"
+                span
+
+            section.middle.tab-bar-section
+              h1.title Eachdo
+
+            section.right-small
+              a class="right-off-canvas-toggle menu-icon" href="#"
+                span
+
+          aside.left-off-canvas-menu
+            ul.off-canvas-list
+              li
+                label=t 'city'
+              li
+                = form_tag '/city'
+                  input id='city' name='city' class='cityinput' placeholder=session[:city] || t('city')
+                  input value=t(:search) type='submit'
+              li
+                label=t 'activerecord.models.house'
+              li
+                = link_to t('list_house'), houses_path
+              li
+                = link_to t('new_house'), new_house_path
+              li
+                label=t 'album'
+              li
+                = link_to t('album'), albums_path
+
+          aside.right-off-canvas-menu
+            ul.off-canvas-list
+              - if user_signed_in?
+                li
+                  - if current_user.name and current_user.authentications.length > 0
+                    label=current_user.name + "[#{current_user.authentications.first.provider}]"
+                  - else 
+                    label=current_user.name.empty? ? current_user.email : current_user.name
+                li
+                  = link_to t('show_account'), user_path(current_user)
+                - if current_user.has_role? :admin
+                  li
+                    = link_to t('system_admin'), '/admin'
+                li
+                  = link_to t('logout'), destroy_user_session_path, :method=>'delete'
+                li
+                  label= t 'activerecord.models.message'
+                li
+                  = link_to conversations_path do
+                    - if current_user.mailbox.inbox.length > 0
+                      = image_tag('mail.png') + current_user.mailbox.inbox(:unread => true).count(:id, :distinct => true).to_s
+                    - else
+                      = image_tag('mail.png')
+              - else
+                li
+                  label =t('user')
+                li
+                  = link_to t('normal'), new_user_session_path
+                li
+                  = link_to t('weibo'), '/users/auth/weibo', class: 'weibo'
+                li
+                  = link_to t('signup'), new_user_registration_path
+          
+          section
+            header
+              /= render 'layouts/navigation'
+            main role="main" 
+              = render 'layouts/messages'
+              = yield
+
+          a.exit-off-canvas
+
+javascript:
+  var city = new Vcity.CitySelector({input:'city'});

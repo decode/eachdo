@@ -1,9 +1,8 @@
 /nav.top-bar(data-options="is_hover:false" data-topbar)
-nav.top-bar(data-topbar)
+nav.top-bar(data-topbar=true)
   ul.title-area
     li.name
-      h1 
-        a href='/' Eachdo
+      = link_to 'Home', root_path
   section.top-bar-section
     ul.left
       - if user_signed_in?
@@ -17,7 +16,7 @@ nav.top-bar(data-topbar)
         = form_tag '/city'
           div.row.collapse
             div.small-7.large-7.columns
-              input(id='city' name='city' class='cityinput' placeholder=session[:city]||t('city'))
+              input(id='city' name='city' class='cityinput' placeholder=(session[:city]||t('city')) )
             div.small-5.large-5.columns
               input.button value=t(:search) type='submit'
 
@@ -33,6 +32,7 @@ nav.top-bar(data-topbar)
 
         li.divider
 
+        
         li.has-dropdown
           - if current_user.name and current_user.authentications.length > 0
             a =current_user.name + "[#{current_user.authentications.first.provider}]"
@@ -60,35 +60,3 @@ nav.top-bar(data-topbar)
 javascript:
   var city = new Vcity.CitySelector({input:'city'});
 
-/
-  div(class="off-canvas-wrap" data-offcanvas)
-    div.inner-wrap
-      a.left-off-canvas-toggle href="#" Eachdo
-      aside.left-off-canvas-menu
-        ul
-          - if user_signed_in?
-            li
-              = link_to conversations_path do
-                - if current_user.mailbox.inbox.length > 0
-                  = image_tag('mail.png') + current_user.mailbox.inbox(:unread => true).count(:id, :distinct => true).to_s
-                - else
-                  = image_tag('mail.png')
-            li
-              = link_to t('show_account'), user_path(current_user)
-            - if current_user.has_role? :admin
-              li
-                = link_to t('system_admin'), '/admin'
-            li
-              = link_to t('logout'), destroy_user_session_path, :method=>'delete'
-          - else
-            li
-              = link_to t('normal'), new_user_session_path
-            li
-              = link_to t('weibo'), '/users/auth/weibo', class: 'weibo'
-            li
-              = link_to t('signup'), new_user_registration_path
-
-      p
-        test
-
-    a.exit-off-canvas
