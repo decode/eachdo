@@ -7,9 +7,9 @@
 .cityslide li.empty em{color: red; font-style:normal;}
 .cityname {float:left;}
 .cityspell {float:right;}
-.cityBox{ width: 320px; border: 1px solid #85BEE5; overflow: hidden; /*box-shadow: 2px 2px 3px rgba(0,0,0,0.3); */}
+.cityBox{ width: 360px; border: 1px solid #85BEE5; overflow: hidden; background-color: #FFF; /*box-shadow: 2px 2px 3px rgba(0,0,0,0.3); */}
 .cityBox ul{ margin: 0; padding: 0; overflow: hidden;}
-.cityBox ul li{ float: left; list-style: none; padding: 2px 4px; border: 1px solid #85BEE5; cursor:pointer; margin-left: 4px; display: inline; background: #E1EFFE;}
+.cityBox ul li{ float: left; list-style: none; padding: 2px 4px; border: 1px solid #85BEE5; cursor:pointer; margin-left: 4px; display: inline; background: #E1EFFE; font-size: 12px; }
 .cityBox ul li.on{ background: #fff; border-bottom-color:#fff; position: relative;}
 .hide{ display: none;}
 p.tip{ color:#666; line-height: 20px; padding: 5px; margin: 0; text-indent: 3px;}
@@ -17,7 +17,7 @@ p.tip{ color:#666; line-height: 20px; padding: 5px; margin: 0; text-indent: 3px;
 .cityTab{overflow: hidden;}
 .cityTab dl{ margin:0; padding: 0; overflow: hidden; }
 .cityTab dl dt{float: left; padding-left: 3px;color: #F30;text-indent: 5px; font-family: "Lucida console","consolas","courier new";line-height: 22px; font-size: 10px; width: 20px;}
-.cityTab dl dd{ margin-left:2px; float:left; width: 290px;}
-.cityTab dl dd a{ padding-left:5px; width:66px; line-height: 22px; display: inline-block; color: #000; text-decoration: none;}
+.cityTab dl dd{ margin-left:2px; float:left; width: 330px;}
+.cityTab dl dd a{ padding-left:5px; width:66px; line-height: 22px; display: inline-block; color: #000; text-decoration: none; font-size: 13px; }
 .cityTab dl dd a:hover{text-decoration:underline; color: red}
-.cityinput{ width: 150px; }
+.cityinput{ width: 120px; }

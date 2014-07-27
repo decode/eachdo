@@ -22,7 +22,8 @@ html
                 span
 
             section.middle.tab-bar-section
-              h1.title Eachdo
+              /h1.title Eachdo
+              = render 'layouts/navigation'
 
             section.right-small
               a class="right-off-canvas-toggle menu-icon" href="#"
@@ -34,7 +35,7 @@ html
                 label=t 'city'
               li
                 = form_tag '/city'
-                  input id='city' name='city' class='cityinput' placeholder=session[:city] || t('city')
+                  input id='citySelector' name='city' class='cityinput' placeholder=session[:city] || t('city')
                   input value=t(:search) type='submit'
               li
                 label=t 'activerecord.models.house'
@@ -90,4 +91,4 @@ html
           a.exit-off-canvas
 
 javascript:
-  var city = new Vcity.CitySelector({input:'city'});
+  var citySelector = new Vcity.CitySelector({input:'citySelector'});

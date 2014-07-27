@@ -1,17 +1,9 @@
-/nav.top-bar(data-options="is_hover:false" data-topbar)
-nav.top-bar(data-topbar=true)
+nav.top-bar(data-options="sticky_on:large" data-topbar)
   ul.title-area
     li.name
       = link_to 'Home', root_path
   section.top-bar-section
     ul.left
-      - if user_signed_in?
-        li
-          = link_to t('activerecord.models.house'), houses_path, class: 'button'
-        li.divider
-        li
-          = link_to t('album'), albums_path, class: 'button'
-    ul.right
       li.has-form
         = form_tag '/city'
           div.row.collapse
@@ -19,8 +11,14 @@ nav.top-bar(data-topbar=true)
               input(id='city' name='city' class='cityinput' placeholder=(session[:city]||t('city')) )
             div.small-5.large-5.columns
               input.button value=t(:search) type='submit'
-
-      li.divider
+    ul.right
+      li
+        = link_to t('activerecord.models.house'), houses_path
+      - if user_signed_in?
+        li
+          = link_to t('album'), albums_path
+        li
+          = link_to t('new_house'), new_house_url, class: 'button'
 
       - if user_signed_in?
         li
@@ -30,9 +28,6 @@ nav.top-bar(data-topbar=true)
             - else
               = image_tag('mail.png')
 
-        li.divider
-
-        
         li.has-dropdown
           - if current_user.name and current_user.authentications.length > 0
             a =current_user.name + "[#{current_user.authentications.first.provider}]"
