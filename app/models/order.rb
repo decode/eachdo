@@ -3,6 +3,8 @@ class Order < ActiveRecord::Base
   belongs_to :user
   belongs_to :price
 
+  has_one :feedback
+
   validates :from, :to, presence: true
 
   def local_status

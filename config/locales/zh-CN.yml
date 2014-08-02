@@ -159,7 +159,15 @@
   order_status_execution: "执行中"
   order_status_finish: "完成订单"
   order_status_cancel: "取消订单"
+  my_orders: "我的订单"
 
+  feedback_create_success: "评价成功"
+  feedback_update_success: "更新成功"
+  list_feedbacks: "历史评价"
+  new_feedback: "写评价"
+  has_feedback: "已评价"
+  feedback_count: "共有%{count}条评价"
+  feedback_rates: "好评率 %{rate}"
 
   activerecord:
     errors:
@@ -181,6 +189,7 @@
       house: "房源"
       price: "价格"
       order: "订单"
+      feedback: "评价"
     attributes:
       user:
         name: "用户名"
@@ -245,3 +254,11 @@
         phone: "电话号码"
         is_oneself: "本人入住"
         status: "订单状态"
+
+      feedback:
+        title: "标题"
+        comment: "评论"
+        rating: "分数"
+        judgement: "评价"
+        house: "所属房源"
+        order: "所属订单"

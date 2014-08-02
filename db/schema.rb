@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140727034012) do
+ActiveRecord::Schema.define(version: 20140730031446) do
 
   create_table "albums", force: true do |t|
     t.string   "title"
@@ -33,6 +33,22 @@ ActiveRecord::Schema.define(version: 20140727034012) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "feedbacks", force: true do |t|
+    t.integer  "house_id"
+    t.integer  "order_id"
+    t.integer  "user_id"
+    t.string   "title"
+    t.text     "comment"
+    t.decimal  "rating"
+    t.string   "judgement"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "feedbacks", ["house_id"], name: "index_feedbacks_on_house_id"
+  add_index "feedbacks", ["order_id"], name: "index_feedbacks_on_order_id"
+  add_index "feedbacks", ["user_id"], name: "index_feedbacks_on_user_id"
 
   create_table "friendships", force: true do |t|
     t.integer  "user_id"

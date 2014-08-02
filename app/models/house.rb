@@ -3,6 +3,7 @@ class House < ActiveRecord::Base
   has_many :albums
   has_many :prices
   has_many :orders
+  has_many :feedbacks
   
   validates :name, :region, :address, :house_type, :area, :floor, :bed, presence: true
 
@@ -107,6 +108,11 @@ class House < ActiveRecord::Base
       price += date_price(t, amount)
     end
     return price
+  end
+
+  def good_rates
+    good = feedbacks.where judgement: '好评'
+    return (good.length/feedbacks.length * 100).to_s + "%"
   end
 
   def local_status

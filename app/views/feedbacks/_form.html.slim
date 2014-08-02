@@ -1,0 +1,11 @@
+= simple_form_for(@feedback) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :title
+    = f.input :comment
+    = f.input :rating, collection: 1..5, selected: '5', include_blank: false 
+    = f.input :judgement, as: :select, collection: ["好评", "中评", "差评"], include_blank: false
+
+  .form-actions
+    = f.button :submit

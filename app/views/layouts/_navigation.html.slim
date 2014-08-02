@@ -4,6 +4,9 @@ nav.top-bar(data-options="sticky_on:large" data-topbar)
       = link_to 'Home', root_path
   section.top-bar-section
     ul.left
+      li.divider
+      li
+        = link_to t('activerecord.models.house'), houses_path
       li.has-form
         = form_tag '/city'
           div.row.collapse
@@ -12,13 +15,13 @@ nav.top-bar(data-options="sticky_on:large" data-topbar)
             div.small-5.large-5.columns
               input.button value=t(:search) type='submit'
     ul.right
-      li
-        = link_to t('activerecord.models.house'), houses_path
       - if user_signed_in?
+        li
+          = link_to t('new_house'), new_house_url, class: 'button'
         li
           = link_to t('album'), albums_path
         li
-          = link_to t('new_house'), new_house_url, class: 'button'
+          = link_to t('my_orders'), orders_path
 
       - if user_signed_in?
         li

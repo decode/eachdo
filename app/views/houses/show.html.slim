@@ -1,25 +1,26 @@
-.right
-  = link_to t('edit'), edit_house_path(@house)
-  ||
-  = link_to t('back'), houses_path
-
 .row
   .small-8.columns
     .right
-      - if @house.user == current_user and @house.prices.length > 0
-        - if @house.status == 'draft' or @house.status == 'close'
-          = link_to t('house_open'), {controller: 'houses', action: 'open', id: @house}
-        - if @house.status == 'open'
-          = link_to t('house_close'), {controller: 'houses', action: 'close', id: @house}
-        - if ['reserve', 'open'].include?(@house.status)
-          ||
-          = link_to t('house_checkin'), {controller: 'houses', action: 'checkin', id: @house}
-        - if ['reserve', 'rent'].include?(@house.status)
-          ||
-          = link_to t('house_checkout'), {controller: 'houses', action: 'checkout', id: @house}
-        - if @house.albums.length == 0
-          ||
-          = link_to t('new_album'), new_album_path
+      - if @house.user == current_user 
+        - if @house.prices.length > 0
+          - if @house.status == 'draft' or @house.status == 'close'
+            = link_to t('house_open'), {controller: 'houses', action: 'open', id: @house}
+          - if @house.status == 'open'
+            = link_to t('house_close'), {controller: 'houses', action: 'close', id: @house}
+          - if ['reserve', 'open'].include?(@house.status)
+            ||
+            = link_to t('house_checkin'), {controller: 'houses', action: 'checkin', id: @house}
+          - if ['reserve', 'rent'].include?(@house.status)
+            ||
+            = link_to t('house_checkout'), {controller: 'houses', action: 'checkout', id: @house}
+          - if @house.albums.length == 0
+            ||
+            = link_to t('new_album'), new_album_path
+
+        ||
+        = link_to t('edit'), edit_house_path(@house)
+        ||
+        = link_to t('back'), houses_path
     h2
       = @house.name
     p
@@ -95,6 +96,18 @@
           li
             b=t('activerecord.attributes.house.status')+ ': '
             = @house.status
+
+    .panel
+      = t 'feedback_count', count: @house.feedbacks.length
+      ||
+      = t 'feedback_rates', rate: @house.good_rates
+    - @house.feedbacks.each do |f|
+      = f.user.name + ": "
+      = f.title
+      = f.comment
+      .right
+        = f.created_at.strftime("%Y-%m-%d %H:%M:%S")
+
 
 
   .small-4.columns

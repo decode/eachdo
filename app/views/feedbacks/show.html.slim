@@ -1,0 +1,20 @@
+h3
+  = @feedback.house.name
+p
+  b= t 'activerecord.attributes.feedback.order'
+  = @feedback.order.id
+
+hr
+
+h4
+  = @feedback.title
+p
+  = @feedback.comment
+p
+  = @feedback.judgement
+p
+  b= t 'activerecord.attributes.feedback.rating'
+  = @feedback.rating
+
+.right
+  = link_to t('back'), :back
