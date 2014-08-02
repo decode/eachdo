@@ -1,11 +1,9 @@
-.right
-  = link_to t('back'), orders_path
-
-
 .row
   .small-12.large-12.columns
-    h1
+    h3
       = @house.name
+      .right
+        = link_to t('back'), :back
     ul
       li
         = @house.address

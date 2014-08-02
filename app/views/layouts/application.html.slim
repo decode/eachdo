@@ -10,9 +10,9 @@ html
     = javascript_include_tag "vendor/modernizr"
     = stylesheet_link_tag "citySelector"
     = javascript_include_tag "citySelector"
-    = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
   body
+    = javascript_include_tag "application", "data-turbolinks-track" => true
     page
       .off-canvas-wrap data-offcanvas=''
         .inner-wrap

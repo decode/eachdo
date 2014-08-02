@@ -159,7 +159,7 @@
   order_status_execution: "执行中"
   order_status_finish: "完成订单"
   order_status_cancel: "取消订单"
-  my_orders: "我的订单"
+  my_orders: "订单"
 
   feedback_create_success: "评价成功"
   feedback_update_success: "更新成功"

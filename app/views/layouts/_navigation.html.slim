@@ -13,45 +13,41 @@ nav.top-bar(data-options="sticky_on:large" data-topbar)
             div.small-7.large-7.columns
               input(id='city' name='city' class='cityinput' placeholder=(session[:city]||t('city')) )
             div.small-5.large-5.columns
-              input.button value=t(:search) type='submit'
+              input.button.small value=t(:search) type='submit'
     ul.right
       - if user_signed_in?
         li
           = link_to t('new_house'), new_house_url, class: 'button'
+
+        - if current_user.name and current_user.authentications.length > 0
+          - name_title = current_user.name + "[#{current_user.authentications.first.provider}]"
+        - else 
+          - name_title = current_user.name.empty? ? current_user.email : current_user.name
+        li
+          = link_to name_title, user_path(current_user)
+
         li
           = link_to t('album'), albums_path
         li
           = link_to t('my_orders'), orders_path
 
-      - if user_signed_in?
+
         li
           = link_to conversations_path do
             - if current_user.mailbox.inbox.length > 0
-              = image_tag('mail.png') + current_user.mailbox.inbox(:unread => true).count(:id, :distinct => true).to_s
+              = t('messages') + current_user.mailbox.inbox(:unread => true).count(:id, :distinct => true).to_s
             - else
-              = image_tag('mail.png')
-
-        li.has-dropdown
-          - if current_user.name and current_user.authentications.length > 0
-            a =current_user.name + "[#{current_user.authentications.first.provider}]"
-          - else 
-            a =current_user.name.empty? ? current_user.email : current_user.name
-          ul.dropdown
-            li
-              = link_to t('show_account'), user_path(current_user)
-            - if current_user.has_role? :admin
-              li
-                = link_to t('system_admin'), '/admin'
-            li
-              = link_to t('logout'), destroy_user_session_path, :method=>'delete'
+              = t 'messages'
+        - if current_user.has_role? :admin
+          li
+            = link_to t('system_admin'), '/admin'
+        li
+          = link_to t('logout'), destroy_user_session_path, :method=>'delete'
       - else
-        li.has-dropdown
-          a =t('login')
-          ul.dropdown
-            li
-              = link_to t('normal'), new_user_session_path
-            li
-              = link_to t('weibo'), '/users/auth/weibo', class: 'weibo'
+        li
+          = link_to t('normal'), new_user_session_path
+        li
+          = link_to t('weibo'), '/users/auth/weibo', class: 'weibo'
         li
           = link_to t('signup'), new_user_registration_path
 
