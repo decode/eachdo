@@ -2,10 +2,19 @@ class OrdersController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
+  def filter
+    session[:order_type] = params[:id]
+    redirect_to orders_path
+  end
+
   # GET /orders
   # GET /orders.json
   def index
-    @orders = current_user.orders
+    if session[:order_type] == 'order_from'
+      @orders = current_user.trades
+    else
+      @orders = current_user.orders
+    end
   end
 
   # GET /orders/1

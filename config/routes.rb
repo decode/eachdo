@@ -10,6 +10,9 @@ Rails.application.routes.draw do
 
   resources :orders do
     resources :feedbacks
+    member do
+      get :filter
+    end
   end
 
   resources :prices

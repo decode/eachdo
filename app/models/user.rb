@@ -27,9 +27,12 @@ class User < ActiveRecord::Base
     through: :friendships,
     source: :friend
 
-  has_many :albums
   has_one :information
+  has_many :albums
   has_many :houses
   has_many :orders
+
+  has_many :trades, source: :orders, through: :houses
+  has_many :feedbacks, source: :feedback, through: :orders
 
 end

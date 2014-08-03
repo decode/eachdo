@@ -160,6 +160,9 @@
   order_status_finish: "完成订单"
   order_status_cancel: "取消订单"
   my_orders: "订单"
+  order_type: "订单类型:"
+  order_from: "房源订单"
+  order_to: "入住订单"
 
   feedback_create_success: "评价成功"
   feedback_update_success: "更新成功"

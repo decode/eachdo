@@ -1,55 +1,11 @@
-.row
-  .small-12.large-12.columns
-    h3=t 'list_orders'
-    table
-      tr
-        th= t 'activerecord.attributes.house.name'
-        /th= t 'activerecord.attributes.house.user'
-        th= t 'activerecord.attributes.order.from'
-        th= t 'activerecord.attributes.order.to'
-        th= t 'activerecord.attributes.order.amount'
-        th= t 'activerecord.attributes.order.total_price'
-        /th= t 'activerecord.attributes.order.deposit'
-        /th= t 'activerecord.attributes.order.payment'
-        th= t 'activerecord.attributes.order.name'
-        th= t 'activerecord.attributes.order.phone'
-        /th= t 'activerecord.attributes.order.is_oneself'
-        th= t 'activerecord.attributes.order.status'
-        th
+dl.sub-nav
+  dt= t 'order_type' 
+  - css = session[:order_type]=='order_to' ? 'active':''
+  - css = 'active' unless session[:order_type]
+  dd class=css
+    = link_to t('order_to'), action: :filter, id: 'order_to'
+  - css = session[:order_type]=='order_from' ? 'active':''
+  dd class=css
+    = link_to t('order_from'), action: :filter, id: 'order_from'
 
-      - @orders.each do |order|
-        tr
-          td= order.house.name
-          /td= order.user.name
-          td= order.from
-          td= order.to
-          td= order.amount
-          td= order.total_price
-          /td= order.deposit
-          /td= order.payment
-          td= order.name
-          td= order.phone
-          /td= local_boolean(order.is_oneself.to_s)
-          td
-            = order.local_status
-            - if order.status == 'finish' and order.feedback.nil?
-              ||
-              = link_to t('activerecord.models.feedback'), new_order_feedback_path(order)
-            - if order.feedback
-              = link_to "(#{t('has_feedback')})", order.feedback
-          td
-            = link_to t('show'), order
-            ||
-            = link_to t('edit'), edit_order_path(order)
-            ||
-            = link_to t('delete'), order, method: :delete, data: confirm=t('confirm') 
-            br
-            - if current_user.has_role? 'admin'
-              - if order.status == 'wait'
-                = link_to t('order_confirm'), {controller: 'orders', action: 'confirm', id: order}
-              - if order.status == 'execution'
-                ||
-                = link_to t('order_pay'), {controller: 'orders', action: 'pay', id: order}
-              - if order.status != 'finish'
-                ||
-                = link_to t('order_cancel'), {controller: 'orders', action: 'cancel', id: order}
+= render 'order_list'

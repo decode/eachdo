@@ -14,6 +14,7 @@ nav.top-bar(data-options="sticky_on:large" data-topbar)
               input(id='city' name='city' class='cityinput' placeholder=(session[:city]||t('city')) )
             div.small-5.large-5.columns
               input.button.small value=t(:search) type='submit'
+              /= link_to t(:search), onclick: "$('form:first').submit()", class: 'alert button expand'
     ul.right
       - if user_signed_in?
         li
