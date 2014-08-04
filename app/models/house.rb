@@ -48,7 +48,7 @@ class House < ActiveRecord::Base
   end
 
   def can_order?(*range)
-    return false unless status == 'open'
+    return false if status == 'close' or status == 'draft'
     if range.length > 0
       from = range[0][:from]
       to = range[0][:to]
@@ -112,6 +112,7 @@ class House < ActiveRecord::Base
 
   def good_rates
     good = feedbacks.where judgement: '好评'
+    return "0%" if feedbacks.length == 0
     return (good.length/feedbacks.length * 100).to_s + "%"
   end
 

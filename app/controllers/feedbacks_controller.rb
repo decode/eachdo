@@ -2,10 +2,19 @@ class FeedbacksController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_feedback, only: [:show, :edit, :update, :destroy]
 
+  def filter
+    session[:feedback_type] = params[:id]
+    redirect_to feedbacks_path
+  end
+
   # GET /feedbacks
   # GET /feedbacks.json
   def index
-    @feedbacks = Feedback.all
+    if session[:feedback_type] == 'feedback_from'
+      @feedbacks = current_user.received_feedbacks
+    else
+      @feedbacks = current_user.feedbacks
+    end
   end
 
   # GET /feedbacks/1

@@ -6,7 +6,11 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root "home#index"
 
-  resources :feedbacks
+  resources :feedbacks do
+    member do
+      get :filter
+    end
+  end
 
   resources :orders do
     resources :feedbacks

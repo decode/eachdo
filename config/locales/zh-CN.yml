@@ -20,6 +20,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 'zh-CN':
+  root_path: "首页"
   title: 'Base'
   search: "搜索"
   login: '登录'
@@ -171,6 +172,10 @@
   has_feedback: "已评价"
   feedback_count: "共有%{count}条评价"
   feedback_rates: "好评率 %{rate}"
+  feedback_type: "评价类型:"
+  feedback_from: "收到的评价"
+  feedback_to: "给出的评价"
+  my_feedbacks: "评价"
 
   activerecord:
     errors:

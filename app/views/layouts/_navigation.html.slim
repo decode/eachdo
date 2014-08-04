@@ -31,8 +31,6 @@ nav.top-bar(data-options="sticky_on:large" data-topbar)
           = link_to t('album'), albums_path
         li
           = link_to t('my_orders'), orders_path
-
-
         li
           = link_to conversations_path do
             - if current_user.mailbox.inbox.length > 0
@@ -51,7 +49,3 @@ nav.top-bar(data-options="sticky_on:large" data-topbar)
           = link_to t('weibo'), '/users/auth/weibo', class: 'weibo'
         li
           = link_to t('signup'), new_user_registration_path
-
-javascript:
-  var city = new Vcity.CitySelector({input:'city'});
-

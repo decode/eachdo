@@ -1,0 +1,24 @@
+table
+  tr
+    th= t 'activerecord.attributes.feedback.house'
+    th= t 'activerecord.attributes.feedback.order'
+    th= t 'activerecord.attributes.feedback.title'
+    th= t 'activerecord.attributes.feedback.comment'
+    th= t 'activerecord.attributes.feedback.rating'
+    th= t 'activerecord.attributes.feedback.judgement'
+    th
+    th
+    th
+
+  - @feedbacks.each do |feedback|
+    tr
+      td= feedback.house.name
+      td= feedback.order.id
+      td= feedback.title
+      td= feedback.comment
+      td= feedback.rating
+      td= feedback.judgement
+      - if current_user.has_role? 'admin'
+        td= link_to t('show'), feedback
+        td= link_to t('edit'), edit_feedback_path(feedback)
+        td= link_to t('delete'), feedback, method: :delete, data: confirm=(t('confirm'))

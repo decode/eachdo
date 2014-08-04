@@ -33,6 +33,7 @@ class User < ActiveRecord::Base
   has_many :orders
 
   has_many :trades, source: :orders, through: :houses
-  has_many :feedbacks, source: :feedback, through: :orders
+  has_many :feedbacks
+  has_many :received_feedbacks, source: :feedback, through: :orders
 
 end

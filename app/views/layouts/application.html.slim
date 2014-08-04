@@ -10,10 +10,13 @@ html
     = javascript_include_tag "vendor/modernizr"
     = stylesheet_link_tag "citySelector"
     = javascript_include_tag "citySelector"
+    = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
   body
-    = javascript_include_tag "application", "data-turbolinks-track" => true
-    page
+    = javascript_include_tag "dates"
+    = javascript_include_tag "china_city/jquery.china_city"
+
+    #page
       .off-canvas-wrap data-offcanvas=''
         .inner-wrap
           nav.tab-bar
@@ -38,15 +41,21 @@ html
                   input id='citySelector' name='city' class='cityinput' placeholder=session[:city] || t('city')
                   input value=t(:search) type='submit'
               li
-                label=t 'activerecord.models.house'
+                = link_to t('root_path'), root_path
+              li
+                label
               li
                 = link_to t('list_house'), houses_path
               li
                 = link_to t('new_house'), new_house_path
               li
-                label=t 'album'
+                label
               li
                 = link_to t('album'), albums_path
+              li
+                = link_to t('my_orders'), orders_path
+              li
+                = link_to t('my_feedbacks'), feedbacks_path
 
           aside.right-off-canvas-menu
             ul.off-canvas-list
@@ -58,19 +67,17 @@ html
                     label=current_user.name.empty? ? current_user.email : current_user.name
                 li
                   = link_to t('show_account'), user_path(current_user)
+                li
+                  = link_to conversations_path do
+                    - if current_user.mailbox.inbox.length > 0
+                      = t('messages') + current_user.mailbox.inbox(:unread => true).count(:id, :distinct => true).to_s
+                    - else
+                      = t 'messages'
                 - if current_user.has_role? :admin
                   li
                     = link_to t('system_admin'), '/admin'
                 li
                   = link_to t('logout'), destroy_user_session_path, :method=>'delete'
-                li
-                  label= t 'activerecord.models.message'
-                li
-                  = link_to conversations_path do
-                    - if current_user.mailbox.inbox.length > 0
-                      = image_tag('mail.png') + current_user.mailbox.inbox(:unread => true).count(:id, :distinct => true).to_s
-                    - else
-                      = image_tag('mail.png')
               - else
                 li
                   label =t('user')
@@ -87,8 +94,25 @@ html
             main role="main" 
               = render 'layouts/messages'
               = yield
+          #footer
+            hr
+            = 'Copyright © 2014 EachDo, All Rights Reserved.'
 
           a.exit-off-canvas
 
 javascript:
-  var citySelector = new Vcity.CitySelector({input:'citySelector'});
+  $(document).ready(function () {
+    var city = new Vcity.CitySelector({input:'city'});
+    var citySelector = new Vcity.CitySelector({input:'citySelector'});
+
+    var footer = $("#footer");
+    var pos = footer.position();
+    var height = $(window).height();
+    height = height - pos.top;
+    height = height - footer.height();
+    if (height > 0) {
+      footer.css({
+        'margin-top': height + 'px',
+      });
+    }
+  });
