@@ -34,4 +34,7 @@
       = link_to t('house_detail'), house, class: 'button'
     hr
 
-
+.digg_pagination
+  .page_info
+    = page_entries_info @houses
+  = will_paginate @houses, :container => false

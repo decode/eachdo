@@ -7,6 +7,18 @@ class ConversationsController < ApplicationController
     redirect_to :conversations
   end
 
+  def index
+    case session[:filter]
+    when 'sent' then
+      mails = mailbox.sentbox
+    when 'trash' then
+      mails = mailbox.trash
+    else
+      mails = mailbox.inbox
+    end
+    @mails = mails.page params[:page]
+  end
+
   def show
     conversation.mark_as_read current_user
   end
@@ -40,7 +52,7 @@ class ConversationsController < ApplicationController
     if recipients.length > 0
       conversation = current_user.
         send_message(recipients, *conversation_params(:body, :subject)).conversation
-      redirect_to conversation
+      redirect_to conversation_path(conversation)
     else
       flash[:error]= t(:message_sent_failed)
       redirect_to :back
@@ -50,7 +62,7 @@ class ConversationsController < ApplicationController
 
   def reply
     current_user.reply_to_conversation(conversation, *message_params(:body, :subject))
-    redirect_to conversation
+    redirect_to conversation_path(conversation)
   end
 
   def trash

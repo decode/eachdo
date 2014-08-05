@@ -6,4 +6,8 @@ class Album < ActiveRecord::Base
   belongs_to :house
 
   validates :title, presence: true
+
+  def can_upload_photo?
+    return self.photos.length < 10
+  end
 end

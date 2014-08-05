@@ -28,14 +28,14 @@
     -else
       - content = conversation.subject + '- ' + conversation.messages.last.body[0..20]
     /- content = conversation.subject + '- ' + conversation.receipts_for(current_user).last.message.body
-    = link_to raw(content), conversation
+    = link_to raw(content), conversation_path(conversation)
 
   .small-3.columns
     = conversation.updated_at.to_formatted_s(:short) 
     .right
       - if conversation.is_completely_trashed?(current_user)
-        = link_to t(:untrash), [:untrash, conversation], method: :post
+        = link_to t(:untrash), untrash_conversation_path(conversation), method: :post
         ||
-        = link_to t(:permanently_delete), [:mark_as_deleted, conversation], method: :post
+        = link_to t(:permanently_delete), mark_as_deleted_conversation_path(conversation), method: :post
       - else
-        = link_to t(:delete), [:trash, conversation], method: :post
+        = link_to t(:delete), trash_conversation_path(conversation), method: :post

@@ -11,9 +11,9 @@ class FeedbacksController < ApplicationController
   # GET /feedbacks.json
   def index
     if session[:feedback_type] == 'feedback_from'
-      @feedbacks = current_user.received_feedbacks
+      @feedbacks = current_user.received_feedbacks.paginate page: params[:page]
     else
-      @feedbacks = current_user.feedbacks
+      @feedbacks = current_user.feedbacks.paginate page: params[:page]
     end
   end
 

@@ -5,7 +5,7 @@ class AlbumsController < ApplicationController
   # GET /albums
   # GET /albums.json
   def index
-    @albums = current_user.albums
+    @albums = current_user.albums.paginate page: params[:page]
   end
 
  # GET /albums/1
@@ -50,16 +50,19 @@ class AlbumsController < ApplicationController
   def update
     respond_to do |format|
       if @album.update(album_params)
-        if params[:images]
+        notice = t('album_update_success')
+        if params[:images] and @album.can_upload_photo?
           params[:images].each do |image|
             @album.photos.create(image: image)
           end
+        else
+          notice = notice + ". " + t('album_photo_full')
         end
-        format.html { redirect_to edit_album_path(@album), notice: t('album_update_success') }
+        format.html { redirect_to edit_album_path(@album), notice: notice }
         #format.json { head :no_content }
         format.json { render action: 'edit', status: :created, location: @album }
       else
-        format.html { render action: 'edit' }
+        format.html { redirect_to edit_album_path(@album), alert: t('album_update_failed') }
         format.json { render json: @album.errors, status: :unprocessable_entity }
       end
     end

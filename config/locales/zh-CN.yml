@@ -108,6 +108,8 @@
   photos_count: '共%{count}张照片'
   album_create_success: "相册创建成功"
   album_update_success: "相册更新成功"
+  album_update_failed: "相册更新失败"
+  album_photo_full: "相册容量已满, 注意每个相册只能上传10张照片"
 
   list_house: "房源列表"
   new_house: "登记房源"
@@ -176,6 +178,23 @@
   feedback_from: "收到的评价"
   feedback_to: "给出的评价"
   my_feedbacks: "评价"
+
+  will_paginate:
+    page_entries_info:
+      single_page:
+        zero:  "没有记录"
+        one:   "显示 1 %{model}"
+        other: "显示所有 %{count} %{model}"
+      single_page_html:
+        zero:  "没有记录"
+        one:   "显示 <b>1</b> %{model}"
+        other: "显示 <b>所有&nbsp;%{count}</b> %{model}"
+
+      multi_page: "显示 %{model} %{from} - %{to} 共 %{count} 条"
+      multi_page_html: "显示 %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> 共 <b>%{count}</b> 条"
+    previous_label: "&#8592; 上页"
+    next_label: "下页 &#8594;"
+    page_gap: "&hellip;"
 
   activerecord:
     errors:

@@ -25,13 +25,13 @@ h3
       - mailbox = current_user.mailbox
       .panel
         = t(:inbox) + ": "
-        = link_to mailbox.inbox.length.to_s, mailbox.inbox.first
+        = link_to mailbox.inbox.length.to_s, mailbox.inbox.length>0 ? conversation_path(mailbox.inbox.first) : conversations_path
         ||
         = t(:sentbox) + ": "
-        = link_to mailbox.sentbox.length.to_s, mailbox.sentbox.first
+        = link_to mailbox.sentbox.length.to_s, mailbox.sentbox.length>0 ? conversation_path(mailbox.sentbox.first) : conversations_path
         ||
         = t(:trash) + ": "
-        = link_to mailbox.trash.length.to_s, mailbox.trash.first
+        = link_to mailbox.trash.length.to_s, mailbox.trash.length>0 ? conversation_path(mailbox.trash.first) : conversations_path
       .panel
         = t(:album) + ": "
         = link_to current_user.albums.length.to_s, albums_path

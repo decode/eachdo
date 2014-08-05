@@ -11,9 +11,9 @@ class OrdersController < ApplicationController
   # GET /orders.json
   def index
     if session[:order_type] == 'order_from'
-      @orders = current_user.trades
+      @orders = current_user.trades.paginate page: params[:page]
     else
-      @orders = current_user.orders
+      @orders = current_user.orders.paginate page: params[:page]
     end
   end
 

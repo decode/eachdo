@@ -9,3 +9,8 @@ dl.sub-nav
     = link_to t('feedback_from'), action: :filter, id: 'feedback_from'
 
 = render 'feedback_list'
+
+.digg_pagination
+  .page_info
+    = page_entries_info @feedbacks
+  = will_paginate @feedbacks, :container => false

@@ -9,12 +9,12 @@ class HousesController < ApplicationController
       houses = House.where city: session[:city]
       @districts = houses.pluck(:district).uniq
       if session[:district]
-        @houses = houses.where district: session[:district]
+        @houses = houses.where(district: session[:district]).paginate page: params[:page]
       else
-        @houses = houses
+        @houses = houses.paginate page: params[:page]
       end
     else
-      @houses = House.where status: 'open'
+      @houses = House.where(status: 'open').paginate page: params[:page]
     end
   end
 

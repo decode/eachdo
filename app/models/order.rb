@@ -7,6 +7,8 @@ class Order < ActiveRecord::Base
 
   validates :from, :to, presence: true
 
+  self.per_page = 3 
+
   def local_status
     status_list = %W(wait execution finish cancel)
     local = [I18n.t('order_status_wait'), I18n.t('order_status_execution'), I18n.t('order_status_finish'), I18n.t('order_status_cancel')]

@@ -9,3 +9,8 @@ dl.sub-nav
     = link_to t('order_from'), action: :filter, id: 'order_from'
 
 = render 'order_list'
+
+.digg_pagination
+  .page_info
+    = page_entries_info @orders
+  = will_paginate @posts, :container => false
