@@ -9,6 +9,14 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    case session[:friend_type]
+    when 'pending_friend' then
+      @friends = @user.pending_friends.paginate page: params[:page]
+    when 'decline_friend' then
+      @friends = @user.requested_friends.paginate page: params[:page]
+    else
+      @friends = @user.friends.paginate page: params[:page]
+    end
   end
   
   def update

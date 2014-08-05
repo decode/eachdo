@@ -9,39 +9,31 @@ h3
       ||
       = link_to t("request_friendship"), { :controller => "friendships", :action => "request_friend", :id => @user}, data: {confirm: t('send_friend_request', user: @user.name) }
 
-.row
-  .small-4.columns
-    .panel
-      p
-        = t(:user_name) + ": #{@user.name}"
-      p
-        = t(:email) + ": #{@user.email if @user.email}"
-    .panel
-      P
-        = t(:role) + ": "
-        = @user.roles.collect { |r| r.name }.join(' ')
-  .small-8.columns
-    - if current_user == @user
-      - mailbox = current_user.mailbox
-      .panel
-        = t(:inbox) + ": "
-        = link_to mailbox.inbox.length.to_s, mailbox.inbox.length>0 ? conversation_path(mailbox.inbox.first) : conversations_path
-        ||
-        = t(:sentbox) + ": "
-        = link_to mailbox.sentbox.length.to_s, mailbox.sentbox.length>0 ? conversation_path(mailbox.sentbox.first) : conversations_path
-        ||
-        = t(:trash) + ": "
-        = link_to mailbox.trash.length.to_s, mailbox.trash.length>0 ? conversation_path(mailbox.trash.first) : conversations_path
-      .panel
-        = t(:album) + ": "
-        = link_to current_user.albums.length.to_s, albums_path
 
+.panel
+  p
+    = t(:user_name) + ": #{@user.name}"
+  p
+    = t(:email) + ": #{@user.email if @user.email}"
+  P
+    = t(:role) + ": "
+    = @user.roles.collect { |r| r.name }.join(' ')
+  - if current_user == @user
+    - mailbox = current_user.mailbox
+    = t(:inbox) + ": "
+    = link_to mailbox.inbox.length.to_s, mailbox.inbox.length>0 ? conversation_path(mailbox.inbox.first) : conversations_path
+    ||
+    = t(:sentbox) + ": "
+    = link_to mailbox.sentbox.length.to_s, mailbox.sentbox.length>0 ? conversation_path(mailbox.sentbox.first) : conversations_path
+    ||
+    = t(:trash) + ": "
+    = link_to mailbox.trash.length.to_s, mailbox.trash.length>0 ? conversation_path(mailbox.trash.first) : conversations_path
+    = t(:album) + ": "
+    = link_to current_user.albums.length.to_s, albums_path
 
 - if current_user == @user
   h3=t :friends
-  .row
-    .small-12.columns
-      = render :partial => "friendships/friends"
+  = render "friendships/friends"
 
 
   /

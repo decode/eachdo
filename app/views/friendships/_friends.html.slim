@@ -1,26 +1,63 @@
-.row
-  .small-4.columns
-    = "#{@user.friends.count} " + t(:friends)
-    hr
-    - @user.friends.each do |friend|
-      = link_to friend.name, user_path(friend)
-      .right
-        = link_to t(:breakup), { :controller => "friendships", :action => "delete", :id => friend }, data: {confirm: t('delete_user_friendship', :user=>friend.name) }
+.panel
+  dl.sub-nav
+    dt= t 'friend_type' 
+    - css = session[:friend_type]=='friend' ? 'active':''
+    - css = 'active' unless session[:order_type]
+    dd class=css
+      = link_to t('friend'), controller: :friendships, action: :filter, id: 'friend'
+    - css = session[:friend_type]=='pending_friend' ? 'active':''
+    dd class=css
+      = link_to t('pending_friend'), controller: :friendships, action: :filter, id: 'pending_friend'
+    - css = session[:friend_type]=='decline_friend' ? 'active':''
+    dd class=css
+      = link_to t('decline_friend'), controller: :friendships, action: :filter, id: 'decline_friend'
 
-  .small-4.columns
-    = "#{@user.pending_friends.count} " + t(:friends_pending)
-    hr
-    - @user.pending_friends.each do |pending_friend|
-      = link_to pending_friend.name
-      .right
-        = link_to t(:revoke), { :controller => "friendships", :action => "cancel", :id => pending_friend}, data: {confirm: t("cancel_friend_request") }
 
-  .small-4.columns
-    = "#{@user.requested_friends.count} " + t(:friends_request)
-    hr
-    - @user.requested_friends.each do |requester|
-      = link_to requester.name
-      .right
-        = link_to t(:accept), {:controller => "friendships", :action => "accept", :id => requester}
-        ||
-        = link_to t(:decline), { :controller => "friendships", :action => "decline", :id => requester }, data: {confirm: t("decline_user_request", :user=>requester.name) }
+- @friends.each do |friend|
+  = link_to friend.name, user_path(friend)
+  .right
+    - case session[:friend_type]
+    - when 'pending_friend' then
+      = link_to t(:revoke), { :controller => "friendships", :action => "cancel", :id => friend}, data: {confirm: t("cancel_friend_request") }
+
+    - when 'decline_friend' then
+      = link_to t(:accept), {:controller => "friendships", :action => "accept", :id => friend}
+      ||
+      = link_to t(:decline), { :controller => "friendships", :action => "decline", :id => friend}, data: {confirm: t("decline_user_request", :user=>friend.name) }
+
+    - else
+      = link_to t(:breakup), { :controller => "friendships", :action => "delete", :id => friend }, data: {confirm: t('delete_user_friendship', :user=>friend.name) }
+  hr
+
+
+.digg_pagination
+  .page_info
+    = page_entries_info @friends
+  = will_paginate @friends, :container => false
+/
+  .row
+    .small-4.columns
+      = "#{@user.friends.count} " + t(:friends)
+      hr
+      - @user.friends.each do |friend|
+        = link_to friend.name, user_path(friend)
+        .right
+          = link_to t(:breakup), { :controller => "friendships", :action => "delete", :id => friend }, data: {confirm: t('delete_user_friendship', :user=>friend.name) }
+
+    .small-4.columns
+      = "#{@user.pending_friends.count} " + t(:friends_pending)
+      hr
+      - @user.pending_friends.each do |pending_friend|
+        = link_to pending_friend.name
+        .right
+          = link_to t(:revoke), { :controller => "friendships", :action => "cancel", :id => pending_friend}, data: {confirm: t("cancel_friend_request") }
+
+    .small-4.columns
+      = "#{@user.requested_friends.count} " + t(:friends_request)
+      hr
+      - @user.requested_friends.each do |requester|
+        = link_to requester.name
+        .right
+          = link_to t(:accept), {:controller => "friendships", :action => "accept", :id => requester}
+          ||
+          = link_to t(:decline), { :controller => "friendships", :action => "decline", :id => requester }, data: {confirm: t("decline_user_request", :user=>requester.name) }
