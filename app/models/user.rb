@@ -36,4 +36,9 @@ class User < ActiveRecord::Base
   has_many :feedbacks
   has_many :received_feedbacks, source: :feedback, through: :orders
 
+  def good_rates
+    return "0%" if received_feedbacks.length == 0
+    good = received_feedbacks.where judgement: '好评'
+    return (good.length/feedbacks.length*100).to_s + "%"
+  end
 end

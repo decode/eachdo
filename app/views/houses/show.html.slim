@@ -128,6 +128,7 @@
       a(class='th')
         = image_tag @house.user.avatar.thumb.url
       = @house.user.name
+      = t :feedback_rates, rate: @house.user.good_rates
 
       .panel
         h6= t 'other_houses'

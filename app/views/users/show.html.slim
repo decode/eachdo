@@ -19,17 +19,34 @@ h3
     = t(:role) + ": "
     = @user.roles.collect { |r| r.name }.join(' ')
   - if current_user == @user
-    - mailbox = current_user.mailbox
-    = t(:inbox) + ": "
-    = link_to mailbox.inbox.length.to_s, mailbox.inbox.length>0 ? conversation_path(mailbox.inbox.first) : conversations_path
-    ||
-    = t(:sentbox) + ": "
-    = link_to mailbox.sentbox.length.to_s, mailbox.sentbox.length>0 ? conversation_path(mailbox.sentbox.first) : conversations_path
-    ||
-    = t(:trash) + ": "
-    = link_to mailbox.trash.length.to_s, mailbox.trash.length>0 ? conversation_path(mailbox.trash.first) : conversations_path
-    = t(:album) + ": "
-    = link_to current_user.albums.length.to_s, albums_path
+    hr
+    ul.inline-list
+      - mailbox = current_user.mailbox
+      li
+        = link_to mailbox.inbox.length>0 ? conversation_path(mailbox.inbox.first) : conversations_path
+          = t(:inbox) + ": " + mailbox.inbox.length.to_s
+      li
+        = link_to mailbox.sentbox.length>0 ? conversation_path(mailbox.sentbox.first) : conversations_path
+          = t(:sentbox) + ": " + mailbox.sentbox.length.to_s
+      li
+        = link_to mailbox.trash.length>0 ? conversation_path(mailbox.trash.first) : conversations_path
+          = t(:trash) + ": " + mailbox.trash.length.to_s
+    hr
+    ul.inline-list 
+      li
+        = link_to albums_path do
+          = t(:album) + ": " + current_user.albums.length.to_s
+      li
+        = link_to houses_path
+          = t(:house) + ": " + current_user.houses.length.to_s
+      li
+        = link_to orders_path
+          = t(:order) + ": " + current_user.orders.length.to_s
+      li
+        = link_to feedbacks_path
+          = t(:feedback) + ": " + current_user.feedbacks.length.to_s
+    p
+      = t :feedback_rates, rate: @user.good_rates
 
 - if current_user == @user
   h3=t :friends

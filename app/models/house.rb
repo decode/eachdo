@@ -111,8 +111,8 @@ class House < ActiveRecord::Base
   end
 
   def good_rates
-    good = feedbacks.where judgement: '好评'
     return "0%" if feedbacks.length == 0
+    good = feedbacks.where judgement: '好评'
     return (good.length/feedbacks.length * 100).to_s + "%"
   end
 

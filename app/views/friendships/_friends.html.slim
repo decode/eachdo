@@ -2,7 +2,7 @@
   dl.sub-nav
     dt= t 'friend_type' 
     - css = session[:friend_type]=='friend' ? 'active':''
-    - css = 'active' unless session[:order_type]
+    - css = 'active' unless session[:friend_type]
     dd class=css
       = link_to t('friend'), controller: :friendships, action: :filter, id: 'friend'
     - css = session[:friend_type]=='pending_friend' ? 'active':''

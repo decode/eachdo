@@ -1,9 +1,12 @@
 nav.top-bar(data-options="sticky_on:large" data-topbar)
-  ul.title-area
-    li.name
-      = link_to 'Home', root_path
+  /
+    ul.title-area
+      li.name
+        = link_to 'Home', root_path
   section.top-bar-section
     ul.left
+      li
+        = link_to 'Home', root_path
       li.divider
       li
         = link_to t('activerecord.models.house'), houses_path

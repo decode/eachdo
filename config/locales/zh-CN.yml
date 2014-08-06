@@ -124,6 +124,7 @@
   album_update_failed: "相册更新失败"
   album_photo_full: "相册容量已满, 注意每个相册只能上传10张照片"
 
+  house: "房源"
   list_house: "房源列表"
   new_house: "登记房源"
   edit_house: "修改房屋信息"
@@ -164,6 +165,7 @@
   house_create_success: "房屋登记成功,但是还没有公开,请设定价格及补充照片之后,再点击公开房源"
   house_update_success: "房屋信息更新成功"
 
+  order: "订单"
   list_orders: "订单信息"
   order_confirm: "确认订单"
   order_pay: "订单支付"
@@ -180,6 +182,7 @@
   order_from: "房源订单"
   order_to: "入住订单"
 
+  feedback: "评价"
   feedback_create_success: "评价成功"
   feedback_update_success: "更新成功"
   list_feedbacks: "历史评价"
