@@ -9,6 +9,9 @@ class Ability
       can :manage, :all
     elsif user.has_role? :user
       can :read, :all
+      can :manage, [House, Photo, Album]
+    elsif user.has_role? :guest
+      can :read, :all
     else
       can [:read, :manage, :request_friend, :accept, :decline, :cancel, :delete], Friendship
     end

@@ -1,6 +1,7 @@
 class HousesController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show]
   before_action :set_house, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /houses
   # GET /houses.json

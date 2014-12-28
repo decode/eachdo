@@ -36,7 +36,8 @@ gem 'rolify'
 gem 'omniauth-weibo-oauth2'
 gem 'weibo2'
 gem 'oauth'
-gem 'oauth_china'
+gem 'oauth_china' #Send message to sns platform
+
 # For user custom message
 gem 'mailboxer'
 

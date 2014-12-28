@@ -18,9 +18,8 @@ class HomeController < ApplicationController
         #response = client.users.show(:uid=>authentication.uid)
         
         begin
-          response = client.statuses.update('client test')
-          #puts response.parsed[:created_at]
-          set_flash_message(:notice, 'Post success!')
+          #response = client.statuses.update('client test')
+          #set_flash_message(:notice, 'Post success!')
         rescue Exception => e
           #set_flash_message(:alert, e)
         end

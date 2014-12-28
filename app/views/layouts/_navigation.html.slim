@@ -47,8 +47,10 @@ nav.top-bar(data-options="sticky_on:large" data-topbar)
           = link_to t('logout'), destroy_user_session_path, :method=>'delete'
       - else
         li
-          = link_to t('normal'), new_user_session_path
+          = link_to t('login'), new_user_session_path
         li
-          = link_to t('weibo'), '/users/auth/weibo', class: 'weibo'
+          = link_to t('login_weibo'), user_omniauth_authorize_path(:weibo)
+        li
+          = link_to t('login_qq'), user_omniauth_authorize_path(:tqq)
         li
           = link_to t('signup'), new_user_registration_path

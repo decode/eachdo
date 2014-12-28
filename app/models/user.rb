@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable, #:confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable, omniauth_providers: [:weibo]
+         :omniauthable, omniauth_providers: [:weibo, :tqq]
 
   mount_uploader :avatar, AvatarUploader
 

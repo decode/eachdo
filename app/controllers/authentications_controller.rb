@@ -1,5 +1,10 @@
 class AuthenticationsController < Devise::OmniauthCallbacksController
+
   def weibo
+    omniauth_process
+  end
+
+  def tqq
     omniauth_process
   end
 
@@ -24,7 +29,7 @@ class AuthenticationsController < Devise::OmniauthCallbacksController
       #redirect_to new_user_registration_url
 
       # generate temporary user infomation
-      user = User.create!(name: "#{omniauth.info.name}", email: "#{omniauth.uid}@weibo.sina", password: "#{omniauth.access_token}")
+      user = User.create!(name: "#{omniauth.info.name}", email: "#{omniauth.uid}@#{omniauth.provider}.com", password: "#{omniauth.uid}")
       authentication = Authentication.create_from_hash(user.id, omniauth)
       sign_in(:user, authentication.user)
       redirect_to root_path

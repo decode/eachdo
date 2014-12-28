@@ -24,8 +24,9 @@
   title: 'Base'
   search: "搜索"
   login: '登录'
-  normal: '普通登录'
-  weibo: '微博登录'
+  login_normal: '普通登录'
+  login_weibo: '微博登录'
+  login_qq: 'QQ登录'
   logout: '注销'
   signup: '注册'
   forgot_password: '忘记密码?'
@@ -211,6 +212,11 @@
     previous_label: "&#8592; 上页"
     next_label: "下页 &#8594;"
     page_gap: "&hellip;"
+
+  # Cancancan
+  unauthorized:
+    manage:
+      all: "您没有权限进行此项操作，请联系系统管理员"
 
   activerecord:
     errors:
