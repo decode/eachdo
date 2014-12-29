@@ -34,6 +34,8 @@ gem 'rolify'
 
 # For sns login
 gem 'omniauth-weibo-oauth2'
+gem "omniauth-wechat-oauth2"
+
 gem 'weibo2'
 gem 'oauth'
 gem 'oauth_china' #Send message to sns platform
