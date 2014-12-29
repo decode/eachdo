@@ -27,5 +27,9 @@ module Eachfund
 
     # For simple_calendar gem
     config.beginning_of_week = :sunday
+
+    # Forem: when post topic, cause error:
+    #   Missing host to link to! Please provide the :host parameter, set default_url_options[:host], or set :only_path to true
+    config.action_mailer.default_url_options = { host: 'example.com' }
   end
 end

@@ -41,4 +41,8 @@ class User < ActiveRecord::Base
     good = received_feedbacks.where judgement: '好评'
     return (good.length/feedbacks.length*100).to_s + "%"
   end
+
+  def forem_name
+    name
+  end
 end

@@ -1,0 +1,120 @@
+doctype html
+html
+  head
+    meta charset="utf-8"
+    meta name="viewport" content="width=device-width, initial-scale=1.0" 
+    title= content_for?(:title) ? yield(:title) : 'Eachfund'
+    meta name="description" content=("#{content_for?(:description) ? yield(:description) : 'Eachfund'}") 
+
+    = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "vendor/modernizr"
+    = stylesheet_link_tag "forem"
+    = javascript_include_tag "forem"
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = csrf_meta_tags
+
+  body
+    #page
+      .off-canvas-wrap data-offcanvas=''
+        .inner-wrap
+          nav.tab-bar
+            section.left-small
+              a class="left-off-canvas-toggle menu-icon" href="#"
+                span
+
+            section.middle.tab-bar-section
+              nav.top-bar(data-options="sticky_on:large" data-topbar)
+                section.top-bar-section
+                  ul.left
+                    li
+                      = link_to 'Home', main_app.root_path
+                  ul.right
+                    - if user_signed_in?
+                      - if current_user.name and current_user.authentications.length > 0
+                        - name_title = current_user.name + "[#{current_user.authentications.first.provider}]"
+                      - else 
+                        - name_title = current_user.name.empty? ? current_user.email : current_user.name
+                      li
+                        = link_to name_title, main_app.user_path(current_user)
+
+                      - if current_user.has_role? :admin
+                        li
+                          = link_to t('system_admin'), '/admin'
+                      li
+                        = link_to t('logout'), main_app.destroy_user_session_path, :method=>'delete'
+                    - else
+                      li
+                        = link_to t('login'), main_app.new_user_session_path
+                      li
+                        = link_to t('login_weibo'), main_app.user_omniauth_authorize_path(:weibo)
+                      li
+                        = link_to t('login_qq'), main_app.user_omniauth_authorize_path(:tqq)
+                      li
+                        = link_to t('signup'), main_app.new_user_registration_path
+
+            section.right-small
+              a class="right-off-canvas-toggle menu-icon" href="#"
+                span
+
+          aside.left-off-canvas-menu
+            ul.off-canvas-list
+              li
+                = link_to t('root_path'), root_path
+
+          aside.right-off-canvas-menu
+            ul.off-canvas-list
+              - if user_signed_in?
+                li
+                  - if current_user.name and current_user.authentications.length > 0
+                    label=current_user.name + "[#{current_user.authentications.first.provider}]"
+                  - else 
+                    label=current_user.name.empty? ? current_user.email : current_user.name
+                li
+                  = link_to t('show_account'), main_app.user_path(current_user)
+                li
+                  = link_to main_app.conversations_path do
+                    - if current_user.mailbox.inbox.length > 0
+                      = t('messages') + current_user.mailbox.inbox(:unread => true).count(:id, :distinct => true).to_s
+                    - else
+                      = t 'messages'
+                - if current_user.has_role? :admin
+                  li
+                    = link_to t('system_admin'), '/admin'
+                li
+                  = link_to t('logout'), main_app.destroy_user_session_path, :method=>'delete'
+              - else
+                li
+                  label =t('user')
+                li
+                  = link_to t('normal'), main_app.new_user_session_path
+                li
+                  = link_to t('weibo'), '/users/auth/weibo', class: 'weibo'
+                li
+                  = link_to t('signup'), main_app.new_user_registration_path
+          
+          section
+            header
+              /= render 'layouts/navigation'
+            main role="main" 
+              = render 'layouts/messages'
+              = yield
+          #footer
+            hr
+            = 'Copyright © 2014 EachDo, All Rights Reserved.'
+
+          a.exit-off-canvas
+
+
+javascript:
+  $(document).ready(function () {
+    var footer = $("#footer");
+    var pos = footer.position();
+    var height = $(window).height();
+    height = height - pos.top;
+    height = height - footer.height();
+    if (height > 0) {
+      footer.css({
+        'margin-top': height + 'px',
+      });
+    }
+  });
