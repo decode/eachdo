@@ -11,8 +11,10 @@
  * file per style scope.
  *
  *= require jquery.fileupload-ui
- *= require jquery.ui.datepicker
+ *= require jquery-ui
  *= require 'forem/base'
  *= require_tree .
  *= require_self
+ //= require foundation_and_overrides
+
  */

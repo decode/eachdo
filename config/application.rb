@@ -31,5 +31,8 @@ module Eachfund
     # Forem: when post topic, cause error:
     #   Missing host to link to! Please provide the :host parameter, set default_url_options[:host], or set :only_path to true
     config.action_mailer.default_url_options = { host: 'example.com' }
+
+    # Do not swallow errors in after_commit/after_rollback callbacks.
+    config.active_record.raise_in_transactional_callbacks = true
   end
 end

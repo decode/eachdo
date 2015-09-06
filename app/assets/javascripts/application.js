@@ -15,7 +15,7 @@
 //= require turbolinks
 //= require foundation
 //= require jquery.fileupload
-//= require jquery.ui.datepicker
+//= require jquery-ui
 //= require jquery.validate
 //= require jquery.validate.additional-methods
 //= require jquery.validate.localization/messages_zh
@@ -26,3 +26,5 @@
 $(function() {
   $(document).foundation();
 });
+
+$(function(){ $(document).foundation(); });
