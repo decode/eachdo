@@ -11,9 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141229073040) do
+ActiveRecord::Schema.define(version: 20150908155957) do
 
-  create_table "albums", force: true do |t|
+  create_table "albums", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
     t.integer  "user_id"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20141229073040) do
   add_index "albums", ["house_id"], name: "index_albums_on_house_id"
   add_index "albums", ["user_id"], name: "index_albums_on_user_id"
 
-  create_table "authentications", force: true do |t|
+  create_table "authentications", force: :cascade do |t|
     t.integer  "user_id",      null: false
     t.string   "provider",     null: false
     t.string   "uid",          null: false
@@ -34,7 +34,21 @@ ActiveRecord::Schema.define(version: 20141229073040) do
     t.datetime "updated_at"
   end
 
-  create_table "feedbacks", force: true do |t|
+  create_table "courses", force: :cascade do |t|
+    t.string   "cid"
+    t.string   "name"
+    t.string   "term"
+    t.string   "status"
+    t.text     "description"
+    t.integer  "user_id"
+    t.integer  "school_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "courses", ["cid"], name: "index_courses_on_cid", unique: true
+
+  create_table "feedbacks", force: :cascade do |t|
     t.integer  "house_id"
     t.integer  "order_id"
     t.integer  "user_id"
@@ -50,7 +64,7 @@ ActiveRecord::Schema.define(version: 20141229073040) do
   add_index "feedbacks", ["order_id"], name: "index_feedbacks_on_order_id"
   add_index "feedbacks", ["user_id"], name: "index_feedbacks_on_user_id"
 
-  create_table "forem_categories", force: true do |t|
+  create_table "forem_categories", force: :cascade do |t|
     t.string   "name",                   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -60,7 +74,7 @@ ActiveRecord::Schema.define(version: 20141229073040) do
 
   add_index "forem_categories", ["slug"], name: "index_forem_categories_on_slug", unique: true
 
-  create_table "forem_forums", force: true do |t|
+  create_table "forem_forums", force: :cascade do |t|
     t.string  "name"
     t.text    "description"
     t.integer "category_id"
@@ -71,27 +85,27 @@ ActiveRecord::Schema.define(version: 20141229073040) do
 
   add_index "forem_forums", ["slug"], name: "index_forem_forums_on_slug", unique: true
 
-  create_table "forem_groups", force: true do |t|
+  create_table "forem_groups", force: :cascade do |t|
     t.string "name"
   end
 
   add_index "forem_groups", ["name"], name: "index_forem_groups_on_name"
 
-  create_table "forem_memberships", force: true do |t|
+  create_table "forem_memberships", force: :cascade do |t|
     t.integer "group_id"
     t.integer "member_id"
   end
 
   add_index "forem_memberships", ["group_id"], name: "index_forem_memberships_on_group_id"
 
-  create_table "forem_moderator_groups", force: true do |t|
+  create_table "forem_moderator_groups", force: :cascade do |t|
     t.integer "forum_id"
     t.integer "group_id"
   end
 
   add_index "forem_moderator_groups", ["forum_id"], name: "index_forem_moderator_groups_on_forum_id"
 
-  create_table "forem_posts", force: true do |t|
+  create_table "forem_posts", force: :cascade do |t|
     t.integer  "topic_id"
     t.text     "text"
     t.integer  "user_id"
@@ -107,12 +121,12 @@ ActiveRecord::Schema.define(version: 20141229073040) do
   add_index "forem_posts", ["topic_id"], name: "index_forem_posts_on_topic_id"
   add_index "forem_posts", ["user_id"], name: "index_forem_posts_on_user_id"
 
-  create_table "forem_subscriptions", force: true do |t|
+  create_table "forem_subscriptions", force: :cascade do |t|
     t.integer "subscriber_id"
     t.integer "topic_id"
   end
 
-  create_table "forem_topics", force: true do |t|
+  create_table "forem_topics", force: :cascade do |t|
     t.integer  "forum_id"
     t.integer  "user_id"
     t.string   "subject"
@@ -132,7 +146,7 @@ ActiveRecord::Schema.define(version: 20141229073040) do
   add_index "forem_topics", ["state"], name: "index_forem_topics_on_state"
   add_index "forem_topics", ["user_id"], name: "index_forem_topics_on_user_id"
 
-  create_table "forem_views", force: true do |t|
+  create_table "forem_views", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "viewable_id"
     t.datetime "created_at"
@@ -147,7 +161,7 @@ ActiveRecord::Schema.define(version: 20141229073040) do
   add_index "forem_views", ["user_id"], name: "index_forem_views_on_user_id"
   add_index "forem_views", ["viewable_id"], name: "index_forem_views_on_viewable_id"
 
-  create_table "friendships", force: true do |t|
+  create_table "friendships", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "friend_id"
     t.string   "status"
@@ -156,7 +170,7 @@ ActiveRecord::Schema.define(version: 20141229073040) do
     t.datetime "updated_at"
   end
 
-  create_table "houses", force: true do |t|
+  create_table "houses", force: :cascade do |t|
     t.string   "identifier"
     t.string   "name"
     t.string   "region"
@@ -196,7 +210,7 @@ ActiveRecord::Schema.define(version: 20141229073040) do
 
   add_index "houses", ["user_id"], name: "index_houses_on_user_id"
 
-  create_table "information", force: true do |t|
+  create_table "information", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "login_count"
     t.string   "rank"
@@ -207,19 +221,19 @@ ActiveRecord::Schema.define(version: 20141229073040) do
 
   add_index "information", ["user_id"], name: "index_information_on_user_id"
 
-  create_table "mailboxer_conversation_opt_outs", force: true do |t|
+  create_table "mailboxer_conversation_opt_outs", force: :cascade do |t|
     t.integer "unsubscriber_id"
     t.string  "unsubscriber_type"
     t.integer "conversation_id"
   end
 
-  create_table "mailboxer_conversations", force: true do |t|
+  create_table "mailboxer_conversations", force: :cascade do |t|
     t.string   "subject",    default: ""
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
   end
 
-  create_table "mailboxer_notifications", force: true do |t|
+  create_table "mailboxer_notifications", force: :cascade do |t|
     t.string   "type"
     t.text     "body"
     t.string   "subject",              default: ""
@@ -239,7 +253,7 @@ ActiveRecord::Schema.define(version: 20141229073040) do
 
   add_index "mailboxer_notifications", ["conversation_id"], name: "index_mailboxer_notifications_on_conversation_id"
 
-  create_table "mailboxer_receipts", force: true do |t|
+  create_table "mailboxer_receipts", force: :cascade do |t|
     t.integer  "receiver_id"
     t.string   "receiver_type"
     t.integer  "notification_id",                            null: false
@@ -253,7 +267,7 @@ ActiveRecord::Schema.define(version: 20141229073040) do
 
   add_index "mailboxer_receipts", ["notification_id"], name: "index_mailboxer_receipts_on_notification_id"
 
-  create_table "orders", force: true do |t|
+  create_table "orders", force: :cascade do |t|
     t.integer  "house_id"
     t.integer  "user_id"
     t.integer  "price_id"
@@ -275,7 +289,7 @@ ActiveRecord::Schema.define(version: 20141229073040) do
   add_index "orders", ["price_id"], name: "index_orders_on_price_id"
   add_index "orders", ["user_id"], name: "index_orders_on_user_id"
 
-  create_table "photos", force: true do |t|
+  create_table "photos", force: :cascade do |t|
     t.integer  "album_id"
     t.string   "title"
     t.string   "image"
@@ -286,7 +300,7 @@ ActiveRecord::Schema.define(version: 20141229073040) do
 
   add_index "photos", ["album_id"], name: "index_photos_on_album_id"
 
-  create_table "prices", force: true do |t|
+  create_table "prices", force: :cascade do |t|
     t.integer  "house_id"
     t.decimal  "day"
     t.date     "start"
@@ -304,7 +318,7 @@ ActiveRecord::Schema.define(version: 20141229073040) do
 
   add_index "prices", ["house_id"], name: "index_prices_on_house_id"
 
-  create_table "roles", force: true do |t|
+  create_table "roles", force: :cascade do |t|
     t.string   "name"
     t.integer  "resource_id"
     t.string   "resource_type"
@@ -315,9 +329,68 @@ ActiveRecord::Schema.define(version: 20141229073040) do
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], name: "index_roles_on_name"
 
-  create_table "users", force: true do |t|
+  create_table "schools", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "province"
+    t.string   "city"
+    t.string   "zipcode"
+    t.string   "address"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "schools", ["name"], name: "index_schools_on_name", unique: true
+
+  create_table "task_scores", force: :cascade do |t|
+    t.float    "score"
+    t.text     "content"
+    t.integer  "user_id"
+    t.integer  "task_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "task_scores", ["task_id"], name: "index_task_scores_on_task_id"
+  add_index "task_scores", ["user_id"], name: "index_task_scores_on_user_id"
+
+  create_table "tasks", force: :cascade do |t|
+    t.string   "title"
+    t.string   "status"
+    t.integer  "position"
+    t.text     "description"
+    t.integer  "course_id"
+    t.integer  "user_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "tasks", ["course_id"], name: "index_tasks_on_course_id"
+  add_index "tasks", ["user_id"], name: "index_tasks_on_user_id"
+
+  create_table "teams", force: :cascade do |t|
+    t.string   "tid"
+    t.string   "name"
+    t.string   "grade"
+    t.text     "description"
+    t.integer  "school_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "user_courses", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "course_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_courses", ["course_id"], name: "index_user_courses_on_course_id"
+  add_index "user_courses", ["user_id"], name: "index_user_courses_on_user_id"
+
+  create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",               null: false
-    t.string   "encrypted_password",     default: ""
+    t.string   "encrypted_password",     default: "",               null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -333,25 +406,18 @@ ActiveRecord::Schema.define(version: 20141229073040) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.string   "invitation_token"
-    t.datetime "invitation_created_at"
-    t.datetime "invitation_sent_at"
-    t.datetime "invitation_accepted_at"
-    t.integer  "invitation_limit"
-    t.integer  "invited_by_id"
-    t.string   "invited_by_type"
     t.string   "avatar"
     t.boolean  "forem_admin",            default: false
     t.string   "forem_state",            default: "pending_review"
     t.boolean  "forem_auto_subscribe",   default: false
+    t.integer  "team_id"
+    t.integer  "school_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true
-  add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id"
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
-  create_table "users_roles", id: false, force: true do |t|
+  create_table "users_roles", id: false, force: :cascade do |t|
     t.integer "user_id"
     t.integer "role_id"
   end

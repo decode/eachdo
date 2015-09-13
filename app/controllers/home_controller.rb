@@ -1,7 +1,15 @@
 class HomeController < ApplicationController
+  before_filter :authenticate_user!
   def index
-    @users = User.all
-    oauth_retrive
+    #oauth_retrive
+
+    if current_user.team.nil?
+      if current_user.school.nil?
+        redirect_to schools_url, notice: "请选择所在学校"
+      elsif !current_user.has_role?(:admin)
+        redirect_to school_teams_url(current_user.school), notice: "请选择所在班级"
+      end
+    end
   end
 
   private

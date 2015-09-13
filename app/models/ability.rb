@@ -7,13 +7,29 @@ class Ability
     user ||= User.new # guest user (not logged in)
     if user.has_role? :admin
       can :manage, :all
-    elsif user.has_role? :user
+    end
+    if user.has_role? :user
       can :read, :all
       can :manage, [House, Photo, Album]
-    elsif user.has_role? :guest
+    end
+    if user.has_role? :student
       can :read, :all
-    else
+      can :write, [TaskScore]
+      can :join, [School, Team, Course]
+      can :filter, Course
+      can :give_score, Task
+    end
+    if user.has_role? :teacher
+      can :read, :all
+      can :join, [School]
+      can :manage, [Task, TaskScore]
+    end
+    if user.has_role? :guest
+      can :read, :all
+    end
+    unless user.roles.count > 0
       can [:read, :manage, :request_friend, :accept, :decline, :cancel, :delete], Friendship
+      can [:read], [School, Course, Team]
     end
     #
     # The first argument to `can` is the action you are giving the user

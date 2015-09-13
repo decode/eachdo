@@ -1,0 +1,22 @@
+= simple_form_for(@task_score, html:{id: 'score_form'}) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :score, required: true
+    = f.input :content
+    /
+      = f.association :user
+      = f.association :task
+
+  .form-actions
+    = f.button :submit, "评分"
+    = link_to t('back'), :back, class: "btn waves-effect waves-light blue"
+
+:javascript
+  $("score_form").validate({
+    rules: {
+      'task_score[score]': {
+        range: [0, 100]
+      }
+    }
+  });

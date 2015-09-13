@@ -1,0 +1,17 @@
+= simple_form_for(@task, html: {id: 'task_form'}) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :title, required: true
+    = f.input :status, collection: ["open", "close"], include_blank: false
+    = f.input :position
+    = f.input :description
+    = f.association :course, include_blank: false
+    = f.association :user, include_blank: false
+
+  .form-actions
+    = f.button :submit
+    = link_to t('back'), tasks_path, class: "btn waves-effect waves-light blue"
+
+:javascript
+  $("#task_form").validate();

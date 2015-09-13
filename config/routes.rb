@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
 
+  resources :teams
+  resources :schools do
+    resources :teams
+    resources :courses
+  end
+  resources :task_scores
+  resources :tasks
   # This line mounts Forem's routes at /forums by default.
   # This means, any requests to the /forums URL of your application will go to Forem::ForumsController#index.
   # If you would like to change where this extension is mounted, simply change the :at option to something different.
@@ -41,10 +48,18 @@ Rails.application.routes.draw do
     resources :photos
   end
 
+  resources :courses do
+    resources :tasks
+    member do
+      get :filter
+    end
+  end
 
   devise_for :users, :controllers => {:registrations => "registrations", :omniauth_callbacks => "authentications"}
-  resources :users
-  resources :messages
+  resources :users do
+    resources :courses
+  end
+  resources :message5
   resources :friendships 
   resources :conversations, only: [:index, :show, :new, :create] do
     member do

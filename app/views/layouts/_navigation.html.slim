@@ -1,45 +1,24 @@
-nav.top-bar(data-options="sticky_on:large" data-topbar)
-  /
-    ul.title-area
-      li.name
-        = link_to 'Home', root_path
-  section.top-bar-section
-    ul.left
-      li
-        = link_to 'Home', root_path
-      li.divider
-      li
-        = link_to t('activerecord.models.house'), houses_path
-      li.has-form
-        = form_tag '/city'
-          div.row.collapse
-            div.small-7.large-7.columns
-              input(id='city' name='city' class='cityinput' placeholder=(session[:city]||t('city')) )
-            div.small-5.large-5.columns
-              input.button.small value=t(:search) type='submit'
-              /= link_to t(:search), onclick: "$('form:first').submit()", class: 'alert button expand'
-    ul.right
+nav
+  .nav-wrapper
+    <a href="/" class="brand-logo">Classroom</a>
+    <a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
+    
+    ul.right.hide-on-med-and-down
       - if user_signed_in?
-        li
-          = link_to t('new_house'), new_house_url, class: 'button'
-
         - if current_user.name and current_user.authentications.length > 0
           - name_title = current_user.name + "[#{current_user.authentications.first.provider}]"
         - else 
           - name_title = current_user.name.empty? ? current_user.email : current_user.name
         li
           = link_to name_title, user_path(current_user)
-
+        - active = current_page?(controller: 'teams') ? "active" : ""
+        li{class=active}
+          = link_to t('class'), teams_path
         li
-          = link_to t('album'), albums_path
+          = link_to t('course_all'), {controller: :courses, action: :filter, id: 'all'}
         li
-          = link_to t('my_orders'), orders_path
-        li
-          = link_to conversations_path do
-            - if current_user.mailbox.inbox.length > 0
-              = t('messages') + current_user.mailbox.inbox(:unread => true).count(:id, :distinct => true).to_s
-            - else
-              = t 'messages'
+          - active = current_page?('/courses/selected/filter') ? "active": ""
+          = link_to t('course_selected'), {controller: :courses, action: :filter, id: 'selected'}
         - if current_user.has_role? :admin
           li
             = link_to t('system_admin'), '/admin'
@@ -48,9 +27,40 @@ nav.top-bar(data-options="sticky_on:large" data-topbar)
       - else
         li
           = link_to t('login'), new_user_session_path
+        /
+          li
+            = link_to t('login_weibo'), user_omniauth_authorize_path(:weibo)
+          li
+            = link_to t('login_qq'), user_omniauth_authorize_path(:tqq)
         li
-          = link_to t('login_weibo'), user_omniauth_authorize_path(:weibo)
+          = link_to t('signup'), new_user_registration_path
+
+    ul.side-nav{id="mobile-menu"}
+      - if user_signed_in?
+        - if current_user.name and current_user.authentications.length > 0
+          - name_title = current_user.name + "[#{current_user.authentications.first.provider}]"
+        - else 
+          - name_title = current_user.name.empty? ? current_user.email : current_user.name
         li
-          = link_to t('login_qq'), user_omniauth_authorize_path(:tqq)
+          = link_to name_title, user_path(current_user)
+        li
+          = link_to t('class'), teams_path
+        li
+          = link_to t('course_all'), controller: :courses, action: :filter, id: 'all'
+        li
+          = link_to t('course_selected'), controller: :courses, action: :filter, id: 'selected'
+        - if current_user.has_role? :admin
+          li
+            = link_to t('system_admin'), '/admin'
+        li
+          = link_to t('logout'), destroy_user_session_path, :method=>'delete'
+      - else
+        li
+          = link_to t('login'), new_user_session_path
+        /
+          li
+            = link_to t('login_weibo'), user_omniauth_authorize_path(:weibo)
+          li
+            = link_to t('login_qq'), user_omniauth_authorize_path(:tqq)
         li
           = link_to t('signup'), new_user_registration_path

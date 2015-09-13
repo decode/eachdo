@@ -1,0 +1,61 @@
+%h4 
+  - if session[:course_type] == 'selected'
+    = t('course_selected')
+  - elsif session[:course_type] == 'teached'
+    = "主讲课程"
+  - else
+    = t('course_all')
+
+  - if current_user.has_role? :admin
+    .secondary-content
+      = link_to "新课程", new_user_course_url(current_user)
+
+%table.responsive-table
+  %thead
+    %tr
+      %th= t 'activerecord.attributes.course.cid'
+      %th= t 'activerecord.attributes.course.name'
+      %th= t 'activerecord.attributes.course.term'
+      %th= t 'course_teacher'
+      %th= t 'course_student'
+      %th
+
+  %tbody
+    - @courses.each do |course|
+      %tr
+        %td= course.cid
+        %td= link_to course.name, course
+        %td= course.term
+        %td= course.teacher.name if course.teacher
+        %td= course.students.count if course.students
+        %td
+          - if course.teacher == current_user
+            = "主讲"
+          - elsif course.students.include?(current_user)
+            = "已选"
+          - elsif current_user.has_role?(:student) && course.status == 'open'
+            = link_to t('join'), {action: :join, id: course.id}, class: 'btn waves-effect waves-light'
+
+/
+  %ul.collapsible(data-collapsible="expendable")
+    - @courses.each do |course|
+      %li
+        .collapsible-header
+          = course.name
+          = link_to "(#{course.cid}) ", course
+          = "主讲教师:"
+          = link_to course.teacher.name, course.teacher if course.teacher
+          .right
+            - if course.teacher == current_user
+              = "主讲"
+            - elsif course.students.include?(current_user)
+              = "已选"
+            - elsif current_user.has_role?(:student)
+              = link_to t('join'), action: :join, id: course.id
+        .collapsible-body
+          %p
+            = "开课学校:#{course.school.name}  " if course.school
+            = "选课人数:#{course.students.count}"
+            %br
+            =course.description
+

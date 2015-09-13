@@ -1,0 +1,16 @@
+= simple_form_for(@team, html:{id: 'team_form'}) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.association :school, include_blank: false
+    = f.input :tid, required: true
+    = f.input :name, required: true
+    = f.input :grade
+    = f.input :description
+
+  .form-actions
+    = f.button :submit
+    = link_to t(:back), teams_path, class: 'btn waves-effect waves-light blue'
+
+:javascript
+  $("#team_form").validate();

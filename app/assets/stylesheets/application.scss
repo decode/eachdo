@@ -15,6 +15,9 @@
  *= require 'forem/base'
  *= require_tree .
  *= require_self
- //= require foundation_and_overrides
 
  */
+
+@import "materialize/components/color";
+$primary-color: color("light-blue", "darken-4") !default;
+@import "materialize";

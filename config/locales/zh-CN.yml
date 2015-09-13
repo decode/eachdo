@@ -196,6 +196,25 @@
   feedback_to: "给出的评价"
   my_feedbacks: "评价"
 
+  class: "班级"
+  course: "课程"
+  course_all: "所有课程"
+  course_selected: "已选课程"
+  course_teacher: "教师"
+  course_student: "学生数"
+  course_create_success: "课程创建成功"
+  course_update_success: "课程创建成功"
+
+  give_score: "评分"
+
+  no_task_specified: "未制定评分的任务"
+  task_score_create_success: "评分成功"
+  task_score_update_success: "修改成功"
+  task_closed: "评分功能已关闭"
+
+
+  join: "加入"
+
   will_paginate:
     page_entries_info:
       single_page:
@@ -239,10 +258,16 @@
       price: "价格"
       order: "订单"
       feedback: "评价"
+      team: "班级"
+      course: "课程"
+      task: "任务"
+      school: "学校"
+      task_score: "评分"
     attributes:
       user:
         name: "用户名"
         password: "密码"
+        login: "用户名/邮箱"
         email: "邮箱"
         sign_in_count: "登录次数"
         current_sign_in_at: "当前登录时间"
@@ -311,3 +336,27 @@
         judgement: "评价"
         house: "所属房源"
         order: "所属订单"
+
+      team:
+        tid: "班号"
+        name: "名称"
+        description: "简介"
+
+      course:
+        cid: "课号"
+        name: "课程名"
+        term: "学期"
+        description: "简介"
+
+      task:
+        title: "标题"
+        status: "状态"
+        position: "位置"
+        description: "简介"
+        course: "关联课程"
+        user: "报告人"
+
+      task_score:
+        score: "评分"
+        content: "评论或建议"
+

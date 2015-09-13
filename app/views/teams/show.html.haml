@@ -1,0 +1,24 @@
+.card
+  .card-content
+    %span.card-title.blue-text
+      = "#{@team.name}(#{@team.tid})"
+
+    %p
+      %span.label 学校
+      = @team.school.name if @team.school
+    %p
+      %span.label 名称
+      = @team.name
+    %p
+      %span.label 年级
+      = @team.grade
+    %p
+      %span.label 简介
+      = @team.description
+    %p
+      %span.label 班级成员
+      = @team.members.collect {|u| u.name}
+
+  .card-action
+    - if current_user.has_role? :admin
+      = link_to t('edit'), edit_team_path(@team)

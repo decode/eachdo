@@ -1,0 +1,19 @@
+= simple_form_for(@course, html: {id: 'course_form'}) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :cid, required: true
+    = f.input :name, required: true
+    = f.input :term
+    = f.input :status, collection: ['open', 'closed'], include_blank: false
+    = f.association :teacher, include_blank: false
+    = f.association :school, include_blank: false
+    = f.input :description
+
+  .form-actions
+    = f.button :submit
+
+    = link_to t('back'), courses_path, class: 'btn waves-effect waves-light blue'
+
+:javascript
+  $("#course_form").validate();

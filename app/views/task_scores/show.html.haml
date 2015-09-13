@@ -1,0 +1,16 @@
+.card
+  .card-content
+    %span.card-title.blue-text
+      = "对任务 #{@task_score.task.title} 的评分"
+    %p
+      %b 得分:
+      = @task_score.score
+    %p
+      %b 评论或建议:
+      = @task_score.content
+    %p
+      %b 评价人:
+      = @task_score.user.name
+  .card-action
+    = link_to t(:edit), edit_task_score_path(@task_score)
+    = link_to t(:back), task_scores_path

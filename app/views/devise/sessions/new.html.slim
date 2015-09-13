@@ -1,10 +1,19 @@
-h2 =t('login')
-= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), html: {id: 'signin'}) do |f|
-  = f.input :email, autofocus: true, required: true, type: 'email'
-  = f.input :password, required: true
-  = f.input :remember_me, :as => :boolean if devise_mapping.rememberable?
-  = f.button :submit, t("devise.sessions.new.sign_in"), :class => 'btn-primary'
-= render "devise/shared/links"
+.row
+  .col.s12.l6
+    h3 =t('login')
+    /
+      .right
+        = render "devise/shared/links"
+
+    = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), html: {id: 'signin'}) do |f|
+      = f.input :login, autofocus: true, required: true
+      = f.input :password, required: true
+      = f.input :remember_me, as: :boolean, boolean_style: :inline if devise_mapping.rememberable?
+      = f.button :submit, t("devise.sessions.new.sign_in")
+      /a(onclick='document.getElementById("signin").submit()', class="btn waves-effect waves-light")=t("devise.sessions.new.sign_in")
+
 
 javascript:
   $("#signin").validate();
+
+

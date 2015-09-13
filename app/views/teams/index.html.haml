@@ -1,0 +1,39 @@
+%h4
+  班级列表
+  - if current_user.has_role? :admin
+    .secondary-content
+      = link_to t(:create), new_team_url
+
+%table.responsive-table
+  %thead
+    %tr
+      %th 班号
+      %th 名称
+      %th 年级
+      %th 学生
+      %th
+
+  %tbody
+    - @teams.each do |team|
+      %tr
+        %td= team.tid
+        %td= link_to team.name, team
+        %td= team.grade
+        %td= team.members.count
+        %td
+          - if current_user and current_user.team.nil?
+            = link_to t('join'), {:action => 'join', :id => team.id}, class: 'btn waves-effect waves-light'
+
+/
+  %ul.collection.with-header
+    %li.collection-header 
+      %h3 班级列表
+    - @teams.each do |team|
+      %li.collection-item
+        = link_to team.name, team
+        = "(#{team.tid}) "
+        = "年级#{team.grade} "
+        = "人数:#{team.members.count}"
+        - if current_user and current_user.team.nil?
+          = link_to t('join'), action: 'join', id: team.id, class: 'secondary-content'
+      

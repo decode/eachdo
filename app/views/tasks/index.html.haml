@@ -1,0 +1,8 @@
+%h4
+  任务列表
+  .secondary-content
+    - if current_user.has_role? :admin
+      = link_to t(:create), new_task_path
+      
+= render 'task_list'
+

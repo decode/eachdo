@@ -1,0 +1,26 @@
+%h4
+  学校列表
+  .secondary-content
+    - if current_user.has_role? :admin
+      = link_to t("create"), new_school_path
+
+%table.responsive-table
+  %thead
+    %tr
+      %th 校名
+      %th 位置
+      %th 成员
+      %th
+
+  %tbody
+    - @schools.each do |school|
+      %tr
+        %td= school.name
+        %td= school.province + school.city
+        %td= school.users.count
+        %td
+          - if current_user.school.nil?
+            = link_to '选择', {action: :join, id: school}, class: 'btn waves-effect waves-light'
+          - if current_user.school == school
+            = "已加入"
+

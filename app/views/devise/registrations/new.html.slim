@@ -1,4 +1,4 @@
-h2=t('signup')
+h3=t('signup')
 = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: {id: 'registration' }) do |f|
   = f.error_notification
   = display_base_errors resource
@@ -7,7 +7,7 @@ h2=t('signup')
   = f.input :password, required: true
   = f.input :password_confirmation, required: true
   = f.button :submit, t('devise.registrations.new.sign_up'), :class => 'btn-primary'
-= render "devise/shared/links"
+/= render "devise/shared/links"
 
 javascript:
   $("#registration").validate();

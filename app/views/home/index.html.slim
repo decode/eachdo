@@ -1,1 +1,61 @@
-h3 Home
+- if user_signed_in?
+  .card
+    .card-content
+      span.card-title.black-text
+        = "班级"
+        - if current_user.team
+          = current_user.team.name
+      p
+        = current_user.team.description
+      p
+        = "总人数:"
+        = current_user.team.members.count
+    .card-action
+      = link_to t('show'), current_user.team 
+
+  - if current_user.has_role? :teacher
+    .card
+      .card-content
+        span.card-title.black-text
+          = "主讲课程"
+        - if current_user.courses.count > 0
+          ul
+            - current_user.courses.each do |c|
+              li= link_to c.name, c
+      .card-action
+        = link_to t('show'), controller: 'courses', action: 'filter', id: 'teached'
+
+  - if current_user.has_role? :student
+    .card
+      .card-content
+        span.card-title.black-text
+          = "选修课程"
+        p
+          - if current_user.study_courses.count > 0
+            - current_user.study_courses.each do |c|
+              = link_to c.name, c
+      .card-action
+        = link_to t('show'), controller: 'courses', action: 'filter', id: 'selected'
+
+/
+  .row
+    .col.l6.m6.s12
+      .card
+        .card-content
+          span.card-title.black-text
+            = "已做任务"
+          - if current_user.tasks.count > 0
+            ul
+              - current_user.tasks.each do |t|
+                li= link_to t.title, t
+        
+    .col.l6.m6.s12
+      .card
+        .card-content
+          span.card-title.black-text
+            = "已评任务"
+          p
+            - if current_user.scored_tasks.count > 0
+              ul
+                - current_user.scored_tasks.each do |t|
+                  li= link_to "#{t.course.name}: #{t.title}", t

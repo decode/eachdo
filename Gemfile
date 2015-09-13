@@ -17,6 +17,7 @@ gem 'simple_form'
 gem 'slim-rails'
 gem 'therubyracer', :platform=>:ruby
 gem 'foundation-rails'
+gem 'materialize-sass'
 
 # Client side validation
 gem 'jquery-validation-rails'

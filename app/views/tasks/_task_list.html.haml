@@ -1,0 +1,39 @@
+%table.responsive-table
+  %thead
+    %tr
+      %th 名称
+      %th 课程
+      %th 报告人
+      %th 总分
+      %th 我的评分
+      %th
+
+  %tbody
+    - @tasks.each do |task|
+      %tr
+        %td
+          = link_to task.title, task
+          - if task.close?
+            = '关闭评分'
+        %td= task.course.name if task.course
+        %td= task.user.name if task.user
+        - total = 0
+        - task.task_scores.collect {|s| total += s.score }
+        %td= total
+        %td
+          - if task.user != current_user && task.course.students.include?(current_user)
+            - if current_user.scored_tasks.include?(task)
+              - task_score = current_user.task_scores.where(task_id: task.id).first
+              = task_score.score if task_score
+              - unless task.close?
+                |
+                = link_to t(:edit), edit_task_score_path(task_score)
+            - else
+              - unless task.close?
+                = link_to t('give_score'), {controller: :tasks, action: :give_score, id: task}, class: "waves-effect waves-light btn"
+        %td
+          - if current_user.has_role? :admin
+            - if task.close?
+              = link_to "开启", {controller: :tasks, action: :open, id: task}, class: "waves-effect waves-light btn"
+            - else
+              = link_to "关闭", {controller: :tasks, action: :close, id: task}, class: "waves-effect waves-light btn red" 

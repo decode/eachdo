@@ -1,0 +1,16 @@
+%h4
+  = @course.name
+  - if @course.teacher == current_user or current_user.has_role? :admin
+    .secondary-content
+      = link_to "新任务", new_course_task_url(@course)
+%p
+  %span.label 课程号:
+  = @course.cid
+
+%p
+  %span.label 选课学生:
+  = @course.students.collect {|student| student.name}
+
+- @tasks = @course.tasks
+= render 'tasks/task_list'
+

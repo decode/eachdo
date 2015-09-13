@@ -13,7 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require foundation
 //= require jquery.fileupload
 //= require jquery-ui
 //= require jquery.validate
@@ -21,10 +20,10 @@
 //= require jquery.validate.localization/messages_zh
 //= require 'china_city/jquery.china_city'
 //= require forem
+//= require materialize-sprockets
 //= require_tree .
 
-$(function() {
-  $(document).foundation();
-});
+$( document ).ready(function(){
+  $(".button-collapse").sideNav();
+})
 
-$(function(){ $(document).foundation(); });

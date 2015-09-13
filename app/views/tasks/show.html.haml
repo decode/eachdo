@@ -1,0 +1,32 @@
+.card
+  .card-content
+    %span.card-title.black-text
+      = @task.course.name
+      .secondary-content
+        = link_to t(:back), :back
+    %p
+      %span.label 标题
+      = @task.title
+    %p
+      %span.label 状态
+      = @task.status
+    %p
+      %span.label 简介
+      = @task.description
+    %p
+      %span.label 报告人
+      = @task.user.name if @task.user
+    - if @task.close? or @task.course.teacher == current_user or current_user.has_role? :admin
+      %p
+        %span.label 得分
+        = @task.task_scores.collect {|t| t.score} if @task.task_scores
+
+  .card-action
+    - if @task.course.teacher == current_user or current_user.has_role? :admin
+      = link_to t(:edit), edit_task_path(@task)
+
+
+- if @task.task_scores.count > 0 
+  - if @task.course.teacher == current_user or current_user.has_role? :admin
+    - @task_scores = @task.task_scores
+    = render 'task_scores/task_score_list'

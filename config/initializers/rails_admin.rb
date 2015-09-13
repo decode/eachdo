@@ -19,7 +19,7 @@ RailsAdmin.config do |config|
   # 临时解决方法，cancancan无法使用，在app/models/ability.rb的Ability.initialize(user)方法中，user无法传入始终为空
   config.authorize_with do |controller|
      unless current_user.try(:has_role?, :admin)
-       flash[:alter] = 'Not authorized'
+       flash[:alter] = '没有权限进行操作'
        redirect_to main_app.root_path
      end
   end
