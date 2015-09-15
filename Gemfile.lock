@@ -32,6 +32,7 @@ GIT
       workflow (= 1.0.0)
 
 GEM
+  remote: https://rubygems.org/
   remote: https://ruby.taobao.org/
   specs:
     actionmailer (4.2.4)
