@@ -71,6 +71,8 @@ gem 'will_paginate', '~> 3.0'
 gem 'forem', :github => "radar/forem", :branch => "rails4"
 gem 'forem-foundation', :github => "decode/forem-foundation"
 
+gem 'mysql2', "~> 0.3.13"
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'#, :platforms=>[:mri_19, :mri_20, :rbx]
@@ -81,10 +83,20 @@ group :development do
   gem 'rails_layout'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  gem 'capistrano',         require: false
+  gem 'capistrano-rvm',     require: false
+  gem 'capistrano-rails',   require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano3-puma',   require: false
 end
+
+gem 'puma'
+
 group :development, :test do
   gem 'factory_girl_rails'
 end
+
 group :test do
   #gem 'capybara'
   #gem 'minitest-spec-rails'

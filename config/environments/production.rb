@@ -76,4 +76,10 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+
+  SERVICES = YAML.load_file(Rails.root.join("config", "service.yml")).fetch(Rails.env)
+  Weibo2::Config.api_key = SERVICES['weibo']['api_key']
+  Weibo2::Config.api_secret = SERVICES['weibo']['api_secret']
+  Weibo2::Config.redirect_uri = SERVICES['weibo']['redirect_uri']
 end
