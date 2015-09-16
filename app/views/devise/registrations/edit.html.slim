@@ -1,6 +1,6 @@
 .row
   .small-12.columns
-    h3
+    h4
       | #{t('edit')}
       .right
         = link_to t("back"), :back
@@ -10,30 +10,33 @@
   = display_base_errors resource
   .row
     .small-8.columns
-      = f.input :name, required: true
+      /
+        = f.input :name, required: true
       = f.input :email, required: true
-      = f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false
+      = f.input :password, autocomplete: "off", hint: "如果不想更改则不填", required: false
       = f.input :password_confirmation, required: false
-      = f.input :current_password, hint: "we need your current password to confirm your changes", required: true
+      = f.input :current_password, hint: "需要输入当前密码来确认修改", required: true
 
-    .small-4.columns
-      = image_tag @user.avatar.url, size: "200x200"
-      = f.label :avatar do
-        = f.file_field :avatar
-        = f.hidden_field :avatar_cache
+    /
+      .small-4.columns
+        = image_tag @user.avatar.url, size: "200x200"
+        = f.label :avatar do
+          = f.file_field :avatar
+          = f.hidden_field :avatar_cache
 
-      label
-        = f.check_box :remove_avatar
-        = t 'remove_avatar'
+        label
+          = f.check_box :remove_avatar
+          = t 'remove_avatar'
   .row
     .small-12.columns
-      = f.button :submit, t('update'), :class => 'btn-primary'
+      = f.button :submit, t('update')
 
-hr
-h3=t("cancel_account")
-p
-  = t 'cancel_my_account'
-  = link_to t("cancel_account"), registration_path(resource_name), :data => { :confirm => t('confirm') }, :method => :delete
+/
+  hr
+  h3=t("cancel_account")
+  p
+    = t 'cancel_my_account'
+    = link_to t("cancel_account"), registration_path(resource_name), :data => { :confirm => t('confirm') }, :method => :delete
 
 
 script src="http://malsup.github.com/jquery.form.js"

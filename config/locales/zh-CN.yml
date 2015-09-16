@@ -263,6 +263,7 @@
       task: "任务"
       school: "学校"
       task_score: "评分"
+      user_course: "用户选课"
     attributes:
       user:
         name: "用户名"
@@ -355,6 +356,10 @@
         name: "课程名"
         term: "学期"
         description: "简介"
+
+      user_course:
+        user: "用户"
+        course: "课程"
 
       task:
         title: "标题"

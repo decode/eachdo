@@ -43,12 +43,12 @@ class User < ActiveRecord::Base
   has_many :received_feedbacks, source: :feedback, through: :orders
 
   has_many :courses
-  has_many :user_courses
-  has_many :study_courses, :through => :user_courses, :source => :course 
+  has_many :user_courses, :dependent => :delete_all
+  has_many :study_courses, :through => :user_courses, :source => :course, :dependent => :delete_all
   has_many :tasks
 
-  has_many :task_scores
-  has_many :scored_tasks, through: :task_scores, source: :task
+  has_many :task_scores, :dependent => :delete_all
+  has_many :scored_tasks, through: :task_scores, source: :task, :dependent => :delete_all
 
   belongs_to :team
   belongs_to :school

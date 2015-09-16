@@ -90,11 +90,16 @@ class CoursesController < ApplicationController
   def join
     course = Course.find params[:id]
     if course && course.status == 'open'
-      course.students.append current_user 
-      redirect_to courses_url, notice: "选课成功"
+      if course.students.include? current_user
+        message = "您已选修该课程"
+      else
+        course.students.append current_user 
+        message = "选课成功"
+      end
     else
-      redirect_to courses_url, error: "课程未开放,无法加入"
+      message = "课程未开放,无法加入"
     end
+    redirect_to courses_url, notice: message
   end
 
   def open

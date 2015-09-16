@@ -33,7 +33,7 @@
             = "主讲"
           - elsif course.students.include?(current_user)
             = "已选"
-          - elsif current_user.has_role?(:student) && course.status == 'open'
+          - elsif current_user.has_role?(:student) && course.status == 'open' && !current_user.user_courses.include?(course)
             = link_to t('join'), {action: :join, id: course.id}, class: 'btn waves-effect waves-light'
 
 /

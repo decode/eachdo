@@ -10,4 +10,16 @@ h3=t('signup')
 /= render "devise/shared/links"
 
 javascript:
-  $("#registration").validate();
+  $("#registration").validate({
+    rules: {
+      'user[name]': {
+        rangelength: [4, 20] 
+      },
+      'user[password]': {
+        rangelength: [6, 10] 
+      },
+      'user[password_confirmation]': {
+        rangelength: [6, 10] 
+      }
+    }
+  });
