@@ -29,7 +29,7 @@
                 |
                 = link_to t(:edit), edit_task_score_path(task_score)
             - else
-              - unless task.close?
+              - unless task.close? or current_user.scored_tasks.include?(task)
                 = link_to t('give_score'), {controller: :tasks, action: :give_score, id: task}, class: "waves-effect waves-light btn"
         %td
           - if current_user.has_role? :admin

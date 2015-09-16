@@ -27,6 +27,6 @@
 
 
 - if @task.task_scores.count > 0 
-  - if @task.course.teacher == current_user or current_user.has_role? :admin
-    - @task_scores = @task.task_scores
-    = render 'task_scores/task_score_list'
+  -# if @task.course.teacher == current_user or current_user.has_role? :admin
+  - @task_scores = @task.task_scores
+  = render 'task_scores/task_score_list'

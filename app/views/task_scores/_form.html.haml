@@ -13,10 +13,13 @@
     = link_to t('back'), :back, class: "btn waves-effect waves-light blue"
 
 :javascript
-  $("score_form").validate({
+  $("#score_form").validate({
     rules: {
       'task_score[score]': {
         range: [0, 100]
+      },
+      'task_score[content]': {
+        maxlength: 140
       }
     }
   });

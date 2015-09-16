@@ -39,4 +39,21 @@ RailsAdmin.config do |config|
     # history_index
     # history_show
   end
+
+  config.model 'User' do
+    list do
+      field :id
+      field :name
+      field :realname
+      field :email
+      field :school
+      field :team
+      field :roles
+      field :sign_in_count
+      field :last_sign_in_at
+      field :last_sign_in_ip
+      field :current_sign_in_at
+      field :current_sign_in_ip
+    end
+  end
 end

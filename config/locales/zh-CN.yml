@@ -211,6 +211,7 @@
   task_score_create_success: "评分成功"
   task_score_update_success: "修改成功"
   task_closed: "评分功能已关闭"
+  task_has_scored: "已评价过该项"
 
 
   join: "加入"
@@ -275,6 +276,7 @@
         last_sign_in_at: "最后登录时间"
         current_sign_in_ip: "当前登录IP"
         last_sign_in_ip: "上次登录IP"
+        realname: "姓名"
       
       album:
         title: "标题"

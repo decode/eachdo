@@ -12,6 +12,7 @@
     .small-8.columns
       /
         = f.input :name, required: true
+      = f.input :realname, required: true
       = f.input :email, required: true
       = f.input :password, autocomplete: "off", hint: "如果不想更改则不填", required: false
       = f.input :password_confirmation, required: false

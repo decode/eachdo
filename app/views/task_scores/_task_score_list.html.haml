@@ -1,24 +1,35 @@
-%table.responsive-table
-  %thead
-    %tr
-      %th 课程
-      %th 任务名
-      %th 评价人
-      %th 得分
-      %th 内容
-      %th
-
-  %tbody
-    - @task_scores.each do |task_score|
+- if current_user.has_role?(:teacher)
+  %table.responsive-table
+    %thead
       %tr
-        %td= link_to task_score.task.course.name, task_score.task.course
-        %td= link_to task_score.task.title, task_score.task
-        %td= task_score.user.name
-        %td= task_score.score
-        %td= task_score.content
-        %td
-          - if task_score.task.close?
-            = "评分时间结束"
-          - else
-            = link_to t('edit'), edit_task_score_path(task_score), class: 'btn waves-effect waves-light'
+        %th 课程
+        %th 任务名
+        %th 得分
+        %th 评价人 
+        %th 内容
+        %th
+
+    %tbody
+      - @task_scores.each do |task_score|
+        %tr
+          %td= link_to task_score.task.course.name, task_score.task.course
+          %td= link_to task_score.task.title, task_score.task
+          %td= task_score.score
+          %td= task_score.user.name 
+          %td= task_score.content[0..30] + " ..."
+          %td
+            - if task_score.task.close?
+              = "评分时间结束"
+            - else
+              = link_to t('edit'), edit_task_score_path(task_score), class: 'btn waves-effect waves-light'
+- else
+  %ul.collection
+    - @task_scores.each do |task_score|
+      %li.collection-item
+        = "得分: #{task_score.score}"
+        = "评价建议: #{task_score.content}"
+        - if task_score.task.close?
+          = "评分时间结束"
+        - else
+          = link_to t('edit'), edit_task_score_path(task_score), class: 'btn waves-effect waves-light'
 

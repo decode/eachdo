@@ -18,6 +18,10 @@ class TaskScoresController < ApplicationController
     if session[:task]
       @task_score = TaskScore.new
       @task = Task.find session[:task]
+      if current_user.scored_tasks.include?(@task)
+        message = t(:task_has_scored) 
+        redirect_to courses_url, error: message
+      end
     else
       redirect_to task_scores_url, error: t(:no_task_specified)
     end
