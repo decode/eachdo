@@ -18,7 +18,7 @@
         %td= task.course.name if task.course
         %td= task.user.name if task.user
         - total = 0
-        - task.task_scores.collect {|s| total += s.score }
+        - task.task_scores.collect {|s| total += s.score if s}
         %td= total
         %td
           - if task.user != current_user && task.course.students.include?(current_user)
