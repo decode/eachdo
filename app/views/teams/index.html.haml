@@ -21,7 +21,7 @@
         %td= team.grade
         %td= team.members.count
         %td
-          - if current_user and current_user.team.nil?
+          - if current_user and current_user.team.nil? and current_user.has_role?(:student)
             = link_to t('join'), {:action => 'join', :id => team.id}, class: 'btn waves-effect waves-light'
 
 /

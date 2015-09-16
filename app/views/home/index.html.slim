@@ -5,11 +5,11 @@
         = "班级"
         - if current_user.team
           = current_user.team.name
-      p
-        = current_user.team.description
-      p
-        = "总人数:"
-        = current_user.team.members.count
+          p
+            = current_user.team.description
+          p
+            = "总人数:"
+            = current_user.team.members.count
     .card-action
       = link_to t('show'), current_user.team 
 

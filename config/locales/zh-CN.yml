@@ -337,6 +337,14 @@
         house: "所属房源"
         order: "所属订单"
 
+      school:
+        name: "校名"
+        description: "简介"
+        province: "省份"
+        city: "城市"
+        zipcode: "邮编"
+        address: "地址"
+
       team:
         tid: "班号"
         name: "名称"
