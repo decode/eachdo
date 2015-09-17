@@ -1,6 +1,6 @@
 .row
   .col.s12.l6
-    h3 =t('login')
+    h4 =t('login')
     /
       .right
         = render "devise/shared/links"
@@ -10,6 +10,7 @@
       = f.input :password, required: true
       = f.input :remember_me, as: :boolean, boolean_style: :inline if devise_mapping.rememberable?
       = f.button :submit, t("devise.sessions.new.sign_in")
+      = link_to "没有账号? 注册", new_user_registration_path, class: 'btn waves-effect waves-light blue'
       /a(onclick='document.getElementById("signin").submit()', class="btn waves-effect waves-light")=t("devise.sessions.new.sign_in")
 
 

@@ -1,8 +1,8 @@
 nav
+  <a href="/" class="brand-logo">Classroom</a>
+  <a href="#" data-activates="mobile-menu" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+  /<a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
   .nav-wrapper
-    <a href="/" class="brand-logo">Classroom</a>
-    <a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
-    
     ul.right.hide-on-med-and-down
       - if user_signed_in?
         - if current_user.name and current_user.authentications.length > 0
@@ -64,3 +64,4 @@ nav
             = link_to t('login_qq'), user_omniauth_authorize_path(:tqq)
         li
           = link_to t('signup'), new_user_registration_path
+
