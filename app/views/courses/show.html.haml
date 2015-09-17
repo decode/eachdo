@@ -9,7 +9,7 @@
 
 %p
   %span.label 选课学生:
-  = @course.students.collect {|student| student.name}
+  = @course.students.collect {|student| student.show_name}
 
 - @tasks = @course.tasks
 = render 'tasks/task_list'

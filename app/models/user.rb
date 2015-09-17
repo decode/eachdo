@@ -75,6 +75,14 @@ class User < ActiveRecord::Base
     self.save
   end
 
+  def show_name
+    unless realname.nil?
+      return realname
+    else
+      return name
+    end
+  end
+
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)

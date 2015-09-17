@@ -2,8 +2,8 @@
   = f.error_notification
 
   .form-inputs
-    = f.input :score, required: true
-    = f.input :content
+    = f.input :score, required: true, hint: '评分范围:0~100分'
+    = f.input :content, hint: '你可以对他/她说点什么...(140字以内)'
     /
       = f.association :user
       = f.association :task

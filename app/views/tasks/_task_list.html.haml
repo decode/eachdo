@@ -16,7 +16,9 @@
           - if task.close?
             = '关闭评分'
         %td= task.course.name if task.course
-        %td= task.user.name if task.user
+        %td
+          - if task.user
+            = task.user.show_name
         - total = 0
         - task.task_scores.collect {|s| total += s.score if s.score }
         %td= total

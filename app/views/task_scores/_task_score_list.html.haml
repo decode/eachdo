@@ -15,7 +15,8 @@
           %td= link_to task_score.task.course.name, task_score.task.course
           %td= link_to task_score.task.title, task_score.task
           %td= task_score.score
-          %td= task_score.user.name 
+          %td
+            = task_score.user.show_name 
           %td= task_score.content[0..30] + " ..."
           %td
             - if task_score.task.close?

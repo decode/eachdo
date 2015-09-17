@@ -107,6 +107,7 @@
   user_information: '用户信息'
   basic_information: "基本信息"
   user_name: '用户名'
+  real_name: '姓名'
   email: '电子邮箱'
   role: '用户权限'
   new_album: '新建相册'

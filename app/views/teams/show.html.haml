@@ -17,7 +17,7 @@
       = @team.description
     %p
       %span.label 班级成员
-      = @team.members.collect {|u| u.name}
+      = @team.members.collect {|u| u.show_name}
 
   .card-action
     - if current_user.has_role? :admin
